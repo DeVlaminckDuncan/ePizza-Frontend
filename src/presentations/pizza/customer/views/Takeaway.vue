@@ -1,9 +1,31 @@
 <template>
-	<h1>Takeaway</h1>
+	<main class="px-6 py-8 flex justify-center">
+		<div class="main">
+			<h1 class="text-dark font-semibold text-2xl">Choose a restaurant</h1>
+
+			<form class="w-full mt-8">
+				<DropdownList :label="'Choose a restaurant'" />
+
+				<button class="text-white font-semibold text-lg bg-alpha-red px-12 py-2 mt-3 rounded-lg w-full shadow-md">Continue</button>
+			</form>
+		</div>
+	</main>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-export default defineComponent({});
+import DropdownList from '@/presentations/shared/components/DropdownList.vue';
+
+export default defineComponent({
+	components: {
+		DropdownList: DropdownList,
+	},
+});
 </script>
+
+<style lang="scss">
+.main {
+	width: 312px;
+}
+</style>
