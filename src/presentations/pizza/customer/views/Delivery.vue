@@ -20,7 +20,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-import InputField from '../components/InputField.vue';
+import InputField from '@/presentations/shared/components/InputField.vue';
 
 export default defineComponent({
 	components: {
