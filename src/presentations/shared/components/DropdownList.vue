@@ -2,9 +2,7 @@
 	<div class="relative mb-6">
 		<select class="select block border border-dark border-opacity-25 rounded shadow-md px-3 py-2 focus:outline-none w-full" required>
 			<option class="label absolute text-dark text-opacity-75 bg-white px-3 py-1 pointer-events-none" disabled selected>{{ label }}</option>
-			<option value="Restaurant 1">Restaurant 1</option>
-			<option value="Restaurant 2">Restaurant 2</option>
-			<option value="Restaurant 3">Restaurant 3</option>
+			<option v-for="option of options" :key="option" :value="option">{{ option }}</option>
 		</select>
 	</div>
 </template>
@@ -15,6 +13,7 @@ import { defineComponent } from 'vue';
 export default defineComponent({
 	props: {
 		label: String,
+		options: Array,
 	},
 });
 </script>
@@ -29,11 +28,10 @@ export default defineComponent({
 }
 
 .select {
-	background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png) no-repeat right white;
-	background-size: 12px 12px;
-	@apply bg-opacity-50;
-	-webkit-appearance: none;
+	min-width: 8rem;
+	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAh0lEQVQ4T93TMQrCUAzG8V9x8QziiYSuXdzFC7h4AcELOPQAdXYovZCHEATlgQV5GFTe1ozJlz/kS1IpjKqw3wQBVyy++JI0y1GTe7DCBbMAckeNIQKk/BanALBB+16LtnDELoMcsM/BESDlz2heDR3WePwKSLo5eoxz3z6NNcFD+vu3ij14Aqz/DxGbKB7CAAAAAElFTkSuQmCC) no-repeat right white;
 	background-position-x: 95%;
+	-webkit-appearance: none;
 
 	&:focus,
 	&:valid {
