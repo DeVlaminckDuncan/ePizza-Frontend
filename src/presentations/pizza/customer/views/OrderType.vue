@@ -1,7 +1,7 @@
 <template>
 	<main class="px-6 py-8 flex justify-center">
 		<div class="main">
-			<h1 class="text-dark font-semibold text-2xl">Choose the order type</h1>
+			<h1 class="font-semibold text-2xl">Choose the order type</h1>
 			<div class="flex justify-center mt-8">
 				<router-link to="/delivery" class="button-lg text-white font-semibold text-xl bg-alpha-yellow px-12 py-3 rounded-lg shadow-md">Delivery</router-link>
 			</div>

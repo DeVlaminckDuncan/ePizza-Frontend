@@ -1,7 +1,7 @@
 <template>
 	<main class="px-6 py-8 flex justify-center">
 		<div class="main">
-			<h1 class="text-dark font-semibold text-2xl">Choose a restaurant</h1>
+			<h1 class="font-semibold text-2xl">Choose a restaurant</h1>
 
 			<form class="w-full mt-8">
 				<DropdownList class="mb-6" :label="'Choose a restaurant'" :options="['Restaurant1', 'Restaurant2', 'Restaurant3']" />

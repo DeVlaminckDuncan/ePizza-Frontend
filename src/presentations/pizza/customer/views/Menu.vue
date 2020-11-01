@@ -2,7 +2,7 @@
 	<main class="px-6 py-8 flex justify-center">
 		<div class="main">
 			<div class="flex justify-between items-center px-3 mb-8">
-				<h1 class="text-dark font-semibold text-2xl">Menu list</h1>
+				<h1 class="font-semibold text-2xl">Menu list</h1>
 				<DropdownList :label="'Filter'" :options="['Filter1', 'Filter2', 'Filter3']" />
 			</div>
 
