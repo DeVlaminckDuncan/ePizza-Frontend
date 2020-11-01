@@ -4,7 +4,7 @@
 			<h1 class="text-dark font-semibold text-2xl">Choose a restaurant</h1>
 
 			<form class="w-full mt-8">
-				<DropdownList :label="'Choose a restaurant'" :options="['Restaurant1', 'Restaurant2', 'Restaurant3']" />
+				<DropdownList class="mb-6" :label="'Choose a restaurant'" :options="['Restaurant1', 'Restaurant2', 'Restaurant3']" />
 
 				<button class="text-white font-semibold text-lg bg-alpha-red px-12 py-2 mt-3 rounded-lg w-full shadow-md">Continue</button>
 			</form>
@@ -26,6 +26,6 @@ export default defineComponent({
 
 <style lang="scss">
 .main {
-	width: 312px;
+	width: 348px;
 }
 </style>

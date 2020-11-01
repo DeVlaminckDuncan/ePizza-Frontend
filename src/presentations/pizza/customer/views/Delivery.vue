@@ -31,6 +31,6 @@ export default defineComponent({
 
 <style lang="scss">
 .main {
-	width: 312px;
+	width: 348px;
 }
 </style>
