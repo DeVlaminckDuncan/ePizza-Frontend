@@ -3,7 +3,7 @@
 		<div class="main">
 			<h1 class="font-semibold text-2xl">Pizza margherita</h1>
 
-			<div class="flex flex-wrap pt-8">
+			<div class="flex flex-wrap items-center pt-8">
 				<div class="w-1/2 pr-3">
 					<img class="pizza-image rounded-lg" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Pizza_Margherita_stu_spivack.jpg/320px-Pizza_Margherita_stu_spivack.jpg" alt="Pizza margherita" />
 				</div>
