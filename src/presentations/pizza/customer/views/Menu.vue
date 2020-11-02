@@ -6,7 +6,7 @@
 				<DropdownList :label="'Filter'" :options="['Filter1', 'Filter2', 'Filter3']" />
 			</div>
 
-			<div class="flex flex-wrap border border-dark border-opacity-5 rounded-lg shadow-md p-3">
+			<div class="flex flex-wrap items-center border border-dark border-opacity-5 rounded-lg shadow-md p-3">
 				<div class="w-1/2 pr-3">
 					<img class="pizza-image rounded-lg" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Pizza_Margherita_stu_spivack.jpg/320px-Pizza_Margherita_stu_spivack.jpg" alt="Pizza margherita" />
 				</div>
