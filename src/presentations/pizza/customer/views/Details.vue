@@ -4,20 +4,28 @@
 			<h1 class="font-semibold text-2xl">Pizza margherita</h1>
 
 			<div class="flex flex-wrap items-center pt-8">
-				<div class="w-1/2 pr-3">
+				<div class="w-1/2">
 					<img class="pizza-image rounded-lg" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Pizza_Margherita_stu_spivack.jpg/320px-Pizza_Margherita_stu_spivack.jpg" alt="Pizza margherita" />
 				</div>
 
-				<div class="flex justify-end flex-col w-1/2 pl-3">
-					<div class="relative">
-						<select class="select block border border-dark border-opacity-10 rounded shadow-md px-3 py-1 focus:outline-none w-full" required>
-							<option value="Small">Small</option>
-							<option value="Medium" selected>Medium</option>
-							<option value="Large">Large</option>
-						</select>
-					</div>
-					<button @click="editToppings" class="text-white font-semibold text-lg bg-alpha-yellow px-2 py-1 mt-6 rounded-lg w-full shadow-md">Edit toppings</button>
-					<button @click="addToCart" class="text-white font-semibold text-lg bg-alpha-red px-2 py-1 mt-6 rounded-lg w-full shadow-md">Add to cart</button>
+				<div class="flex items-end flex-col w-1/2">
+					<DropdownList
+						class="select-md"
+						:options="[
+							{
+								text: 'Small',
+							},
+							{
+								text: 'Medium',
+								selected: true,
+							},
+							{
+								text: 'Large',
+							},
+						]"
+					/>
+					<ButtonMedium class="my-6" :text="'Edit toppings'" :color="'yellow'" />
+					<ButtonMedium :text="'Add to cart'" :color="'red'" />
 				</div>
 
 				<div class="w-1/2 text-left pt-5">
@@ -32,7 +40,7 @@
 
 			<div class="flex justify-between items-center mt-8">
 				<p class="text-2xl font-semibold">Ratings</p>
-				<button @click="ratePizza" class="text-white font-semibold text-lg bg-alpha-orange px-3 py-1 rounded-lg shadow-md">Rate this pizza</button>
+				<ButtonMedium :text="'Rate this pizza'" :color="'orange'" />
 			</div>
 
 			<div class="flex flex-wrap border border-dark border-opacity-5 rounded-lg shadow-md p-3 mt-8">
@@ -76,7 +84,15 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
+import DropdownList from '@/presentations/shared/components/DropdownList.vue';
+import ButtonMedium from '../components/ButtonMedium.vue';
+
 export default defineComponent({
+	components: {
+		DropdownList: DropdownList,
+		ButtonMedium: ButtonMedium,
+	},
+
 	setup() {
 		const editToppings = () => {};
 

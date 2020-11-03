@@ -8,6 +8,11 @@
 		width: 348px;
 	}
 
+	.button-md,
+	.select-md {
+		width: 140px;
+	}
+
 	.price {
 		font-size: 22px;
 	}
