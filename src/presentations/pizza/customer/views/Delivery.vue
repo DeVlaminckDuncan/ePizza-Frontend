@@ -11,7 +11,7 @@
 
 				<InputField :label="'City'" />
 
-				<button class="text-white font-semibold text-lg bg-alpha-red px-12 py-2 mt-3 rounded-lg w-full shadow-md">Continue</button>
+				<ButtonWide :text="'Continue'" :color="'red'" />
 			</form>
 		</div>
 	</main>
@@ -21,10 +21,12 @@
 import { defineComponent } from 'vue';
 
 import InputField from '@/presentations/shared/components/InputField.vue';
+import ButtonWide from '../components/ButtonWide.vue';
 
 export default defineComponent({
 	components: {
 		InputField: InputField,
+		ButtonWide: ButtonWide,
 	},
 });
 </script>

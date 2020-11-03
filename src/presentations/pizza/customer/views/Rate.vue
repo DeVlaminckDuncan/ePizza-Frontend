@@ -13,7 +13,7 @@
 
 				<Rating class="flex justify-center my-6" v-model="newReview.rating" />
 
-				<button class="text-white font-semibold text-lg bg-alpha-red px-12 py-2 rounded-lg w-full shadow-md">Submit</button>
+				<ButtonWide :text="'Submit'" :color="'red'" />
 			</form>
 		</div>
 	</main>
@@ -24,11 +24,13 @@ import { defineComponent, reactive } from 'vue';
 
 import InputField from '@/presentations/shared/components/InputField.vue';
 import Rating from '../components/Rating.vue';
+import ButtonWide from '../components/ButtonWide.vue';
 
 export default defineComponent({
 	components: {
 		InputField: InputField,
 		Rating: Rating,
+		ButtonWide: ButtonWide,
 	},
 
 	setup() {

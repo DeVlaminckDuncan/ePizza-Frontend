@@ -10,15 +10,15 @@
 				</div>
 
 				<div class="flex justify-end items-center w-1/2 pl-3">
-					<button @click="decreaseAmount" class="w-4 h-4 flex justify-center items-center text-white text-sm font-semibold  bg-alpha-red rounded shadow-md">-</button>
+					<ButtonExtraSmall :text="'-'" :color="'red'" />
 					<span class="font-semibold px-2">1</span>
-					<button @click="increaseAmount" class="w-4 h-4 flex justify-center items-center text-white text-sm font-semibold  bg-alpha-red rounded shadow-md">+</button>
+					<ButtonExtraSmall :text="'+'" :color="'red'" />
 				</div>
 
 				<div class="flex items-center w-full pt-3">
 					<div class="flex w-3/4">
-						<button @click="editPizza" class="text-white font-semibold text-lg bg-alpha-yellow w-24 h-8 rounded-lg shadow-md">Edit</button>
-						<button @click="removePizza" class="text-white font-semibold text-lg bg-alpha-orange w-24 h-8 ml-3 rounded-lg shadow-md">Remove</button>
+						<ButtonSmall :text="'Edit'" :color="'yellow'" />
+						<ButtonSmall class="ml-3" :text="'Remove'" :color="'orange'" />
 					</div>
 
 					<div class="w-1/4 font-semibold text-xl flex justify-end">
@@ -32,7 +32,7 @@
 				<span class="price">€ 8.00</span>
 			</div>
 
-			<button @click="checkout" class="button-lg text-white font-semibold text-2xl bg-alpha-red h-16 rounded-lg shadow-md">Checkout</button>
+			<ButtonBig :text="'Checkout'" :color="'red'" />
 		</div>
 	</main>
 </template>
@@ -40,7 +40,17 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
+import ButtonBig from '../components/ButtonBig.vue';
+import ButtonSmall from '../components/ButtonSmall.vue';
+import ButtonExtraSmall from '../components/ButtonExtraSmall.vue';
+
 export default defineComponent({
+	components: {
+		ButtonBig: ButtonBig,
+		ButtonSmall: ButtonSmall,
+		ButtonExtraSmall: ButtonExtraSmall,
+	},
+
 	setup() {
 		const decreaseAmount = () => {};
 

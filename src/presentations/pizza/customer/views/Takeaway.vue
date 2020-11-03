@@ -6,7 +6,7 @@
 			<form class="w-full mt-8">
 				<DropdownList class="mb-6" :label="'Choose a restaurant'" :options="['Restaurant1', 'Restaurant2', 'Restaurant3']" />
 
-				<button class="text-white font-semibold text-lg bg-alpha-red px-12 py-2 mt-3 rounded-lg w-full shadow-md">Continue</button>
+				<ButtonWide :text="'Continue'" :color="'red'" />
 			</form>
 		</div>
 	</main>
@@ -16,10 +16,12 @@
 import { defineComponent } from 'vue';
 
 import DropdownList from '@/presentations/shared/components/DropdownList.vue';
+import ButtonWide from '../components/ButtonWide.vue';
 
 export default defineComponent({
 	components: {
 		DropdownList: DropdownList,
+		ButtonWide: ButtonWide,
 	},
 });
 </script>
