@@ -28,9 +28,3 @@ export default defineComponent({
 	},
 });
 </script>
-
-<style lang="scss">
-.main {
-	width: 348px;
-}
-</style>

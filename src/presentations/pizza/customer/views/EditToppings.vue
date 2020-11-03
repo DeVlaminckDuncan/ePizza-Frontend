@@ -19,7 +19,7 @@
 
 			<div class="flex flex-wrap justify-between items-center w-full text-lg mt-12">
 				<div class="flex">
-					<button @click="increaseTopping" class="w-4 h-4 flex justify-center items-center text-white text-sm font-semibold  bg-alpha-red rounded shadow-md">-</button>
+					<button @click="decreaseTopping" class="w-4 h-4 flex justify-center items-center text-white text-sm font-semibold  bg-alpha-red rounded shadow-md">-</button>
 				</div>
 
 				Mozzarella
@@ -66,13 +66,3 @@ export default defineComponent({
 	},
 });
 </script>
-
-<style lang="scss">
-.main {
-	width: 348px;
-}
-
-.price {
-	font-size: 22px;
-}
-</style>
