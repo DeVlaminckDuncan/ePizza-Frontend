@@ -14,25 +14,3 @@ export default defineComponent({
 	},
 });
 </script>
-
-<style lang="scss">
-.label {
-	left: 4px;
-	top: 6px;
-	transition: 0.2s ease all;
-	-moz-transition: 0.2s ease all;
-	-webkit-transition: 0.2s ease all;
-}
-
-.input:focus,
-.input:valid {
-	// @apply border-alpha-green;
-
-	& ~ .label {
-		padding: 2px 12px;
-		top: -16px;
-		font-size: 14px;
-		// @apply text-alpha-green;
-	}
-}
-</style>

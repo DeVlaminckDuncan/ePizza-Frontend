@@ -6,7 +6,7 @@
 			<div class="flex flex-wrap items-center border border-dark border-opacity-5 rounded-lg shadow-md p-3 mt-8">
 				<div class="flex flex-col w-1/2 text-left pr-3">
 					<span class="text-xl">Pizza margherita</span>
-					<span class="opacity-75">Medium</span>
+					<span class="opacity-80">Medium</span>
 				</div>
 
 				<div class="flex justify-end items-center w-1/2 pl-3">
@@ -62,17 +62,3 @@ export default defineComponent({
 	},
 });
 </script>
-
-<style lang="scss">
-.main {
-	width: 348px;
-}
-
-.price {
-	font-size: 22px;
-}
-
-.button-lg {
-	width: 348px;
-}
-</style>

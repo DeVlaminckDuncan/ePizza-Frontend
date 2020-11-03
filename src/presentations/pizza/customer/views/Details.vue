@@ -92,13 +92,3 @@ export default defineComponent({
 	},
 });
 </script>
-
-<style lang="scss">
-.main {
-	width: 348px;
-}
-
-.price {
-	font-size: 22px;
-}
-</style>

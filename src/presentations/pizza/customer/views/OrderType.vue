@@ -17,13 +17,3 @@ import { defineComponent } from 'vue';
 
 export default defineComponent({});
 </script>
-
-<style lang="scss">
-.main {
-	width: 348px;
-}
-
-.button-lg {
-	width: 312px;
-}
-</style>
