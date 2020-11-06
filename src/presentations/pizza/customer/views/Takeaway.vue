@@ -4,7 +4,21 @@
 			<h1 class="font-semibold text-2xl">Choose a restaurant</h1>
 
 			<form class="w-full mt-8">
-				<DropdownList class="mb-6" :label="'Choose a restaurant'" :options="['Restaurant1', 'Restaurant2', 'Restaurant3']" />
+				<DropdownList
+					class="mb-6"
+					:label="'Choose a restaurant'"
+					:options="[
+						{
+							text: 'Restaurant1',
+						},
+						{
+							text: 'Restaurant2',
+						},
+						{
+							text: 'Restaurant3',
+						},
+					]"
+				/>
 
 				<ButtonWide :text="'Continue'" :color="'red'" />
 			</form>
