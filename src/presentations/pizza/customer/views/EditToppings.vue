@@ -13,7 +13,7 @@
 
 					<span class="price text-right font-semibold my-6">€ 8.00</span>
 
-					<ButtonMedium :text="'Add to cart'" :color="'red'" />
+					<ButtonMedium class="bg-alpha-red" :text="'Add to cart'" :color="'red'" />
 				</div>
 			</div>
 
@@ -25,7 +25,7 @@
 				Mozzarella
 
 				<div class="flex">
-					<ButtonExtraSmall :text="'+'" :color="'green'" />
+					<ButtonExtraSmall class="bg-alpha-green" :text="'+'" :color="'green'" />
 					<ButtonExtraSmall class="opacity-50 mx-1" :text="'+'" :color="'green'" />
 					<ButtonExtraSmall class="opacity-50" :text="'+'" :color="'green'" />
 				</div>
