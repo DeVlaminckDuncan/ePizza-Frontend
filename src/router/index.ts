@@ -52,13 +52,13 @@ const routes: Array<RouteRecordRaw> = [
 
 	// Admin routes
 	{
-		path: '/orders',
+		path: '/admin/orders',
 		name: 'Orders',
 		component: () => import(/* webpackChunkName: "orders" */ '../presentations/pizza/admin/views/Orders.vue'),
 	},
 
 	{
-		path: '/ratings',
+		path: '/admin/ratings',
 		name: 'Ratings',
 		component: () => import(/* webpackChunkName: "ratings" */ '../presentations/pizza/admin/views/Ratings.vue'),
 	},
