@@ -1,17 +1,14 @@
 <template>
 	<main class="px-6 py-8 flex justify-center">
 		<div class="main">
-			<h1 class="font-semibold text-2xl">Enter your address</h1>
+			<h1 class="font-semibold text-2xl">Log in to your account</h1>
 
 			<form class="w-full mt-8">
-				<div class="flex">
-					<InputField :label="'Street'" class="w-3/4 mr-3" />
-					<InputField :label="'No'" class="w-1/4" />
-				</div>
+				<InputField :label="'Username'" />
 
-				<InputField :label="'City'" />
+				<InputField :label="'Password'" :type="'password'" />
 
-				<ButtonWide :text="'Continue'" :color="'red'" />
+				<ButtonWide :text="'Log in'" :color="'red'" />
 			</form>
 		</div>
 	</main>
