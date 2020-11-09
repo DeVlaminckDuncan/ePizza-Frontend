@@ -30,7 +30,7 @@
 import { defineComponent } from 'vue';
 
 import DropdownList from '@/presentations/shared/components/DropdownList.vue';
-import ButtonWide from '../components/ButtonWide.vue';
+import ButtonWide from '@/presentations/shared/components/ButtonWide.vue';
 
 export default defineComponent({
 	components: {

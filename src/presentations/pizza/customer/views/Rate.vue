@@ -24,7 +24,7 @@ import { defineComponent, reactive } from 'vue';
 
 import InputField from '@/presentations/shared/components/InputField.vue';
 import Rating from '../components/Rating.vue';
-import ButtonWide from '../components/ButtonWide.vue';
+import ButtonWide from '@/presentations/shared/components/ButtonWide.vue';
 
 export default defineComponent({
 	components: {

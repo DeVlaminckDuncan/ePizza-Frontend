@@ -52,6 +52,12 @@ const routes: Array<RouteRecordRaw> = [
 
 	// Admin routes
 	{
+		path: '/admin/login',
+		name: 'Login',
+		component: () => import(/* webpackChunkName: "login" */ '../presentations/pizza/admin/views/Login.vue'),
+	},
+
+	{
 		path: '/admin/orders',
 		name: 'Orders',
 		component: () => import(/* webpackChunkName: "orders" */ '../presentations/pizza/admin/views/Orders.vue'),
