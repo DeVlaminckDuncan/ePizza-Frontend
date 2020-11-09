@@ -74,6 +74,12 @@ const routes: Array<RouteRecordRaw> = [
 		name: 'Menu',
 		component: () => import(/* webpackChunkName: "menu" */ '../presentations/pizza/admin/views/Menu.vue'),
 	},
+
+	{
+		path: '/admin/edit/:id',
+		name: 'Edit',
+		component: () => import(/* webpackChunkName: "edit" */ '../presentations/pizza/admin/views/Edit.vue'),
+	},
 ];
 
 const router = createRouter({
