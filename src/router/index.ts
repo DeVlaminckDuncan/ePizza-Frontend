@@ -68,6 +68,12 @@ const routes: Array<RouteRecordRaw> = [
 		name: 'Ratings',
 		component: () => import(/* webpackChunkName: "ratings" */ '../presentations/pizza/admin/views/Ratings.vue'),
 	},
+
+	{
+		path: '/admin/menu',
+		name: 'Menu',
+		component: () => import(/* webpackChunkName: "menu" */ '../presentations/pizza/admin/views/Menu.vue'),
+	},
 ];
 
 const router = createRouter({
