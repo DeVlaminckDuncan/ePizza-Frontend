@@ -47,7 +47,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-import ButtonMedium from '../components/ButtonMedium.vue';
+import ButtonMedium from '@/presentations/shared/components/ButtonMedium.vue';
 import ButtonExtraSmall from '../components/ButtonExtraSmall.vue';
 
 export default defineComponent({

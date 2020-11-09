@@ -60,7 +60,7 @@
 import { defineComponent } from 'vue';
 
 import DropdownList from '@/presentations/shared/components/DropdownList.vue';
-import ButtonMedium from '../components/ButtonMedium.vue';
+import ButtonMedium from '@/presentations/shared/components/ButtonMedium.vue';
 
 export default defineComponent({
 	components: {
