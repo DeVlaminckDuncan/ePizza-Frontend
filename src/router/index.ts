@@ -71,7 +71,7 @@ const routes: Array<RouteRecordRaw> = [
 
 	{
 		path: '/admin/menu',
-		name: 'Menu',
+		name: 'AdminMenu',
 		component: () => import(/* webpackChunkName: "menu" */ '../presentations/pizza/admin/views/Menu.vue'),
 	},
 
