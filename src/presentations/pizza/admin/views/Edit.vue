@@ -1,11 +1,13 @@
 <template>
 	<main class="px-6 py-8 flex justify-center">
 		<div class="main">
-			<h1 class="font-semibold text-2xl">Edit pizza margherita</h1>
+			<h1 class="font-semibold text-2xl mb-3">Edit pizza margherita</h1>
 
-			<div class="flex flex-wrap items-center mt-8 mb-12">
+			<ButtonWide @click="saveChanges" :text="'Save changes'" :color="'red'" />
+
+			<div class="flex flex-wrap items-center mt-12 mb-12">
 				<div class="w-1/2">
-					<img ref="imageRef" class="pizza-image rounded-lg" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Pizza_Margherita_stu_spivack.jpg/320px-Pizza_Margherita_stu_spivack.jpg" alt="Pizza margherita" />
+					<img ref="imageRef" class="pizza-image rounded-lg" :src="pizza.imageUrl" alt="Pizza margherita" />
 				</div>
 
 				<div class="w-1/2">
@@ -14,9 +16,9 @@
 				</div>
 			</div>
 
-			<InputField :label="'Pizza name'" :value="'Margherita'" />
+			<InputField :label="'Pizza name'" :value="pizza.name" />
 
-			<InputField :label="'Price in €'" :type="'number'" :value="'8'" />
+			<InputField :label="'Price in €'" :type="'number'" :value="pizza.price.toString()" />
 
 			<div class="flex justify-between items-center mt-12 mb-8">
 				<span class="text-2xl font-semibold">Toppings</span>
@@ -24,9 +26,9 @@
 				<button class="w-6 h-6 flex items-center justify-center rounded-full shadow-md bg-alpha-yellow text-white text-xl">+</button>
 			</div>
 
-			<div class="flex flex-wrap items-center border border-dark border-opacity-5 rounded-lg shadow-md p-3">
+			<div v-for="topping of pizza.toppings" :key="topping" class="flex flex-wrap items-center border border-dark border-opacity-5 rounded-lg shadow-md p-3 mb-6">
 				<div class="w-full flex justify-between items-center">
-					<span>Mozzarella</span>
+					<span>{{ topping }}</span>
 
 					<button>
 						<svg fill="#999" width="24" height="24" viewBox="0 0 24 24">
@@ -45,16 +47,25 @@ import { defineComponent, reactive, ref } from 'vue';
 
 import InputField from '@/presentations/shared/components/InputField.vue';
 import ButtonMedium from '@/presentations/shared/components/ButtonMedium.vue';
+import ButtonWide from '@/presentations/shared/components/ButtonWide.vue';
 
 export default defineComponent({
 	components: {
 		InputField: InputField,
 		ButtonMedium: ButtonMedium,
+		ButtonWide: ButtonWide,
 	},
 
 	setup() {
 		const imageRef = ref();
 		const uploadImageRef = ref();
+
+		const pizza = reactive({
+			name: 'Margherita',
+			price: 8,
+			toppings: ['Mozzarella', 'Oregano'],
+			imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Pizza_Margherita_stu_spivack.jpg/320px-Pizza_Margherita_stu_spivack.jpg',
+		});
 
 		const uploadImage = () => {
 			uploadImageRef.value.click();
@@ -70,11 +81,15 @@ export default defineComponent({
 			reader.readAsDataURL(e.target.files[0]);
 		};
 
+		const saveChanges = () => {};
+
 		return {
+			pizza: pizza,
 			uploadImage: uploadImage,
 			imageInputChange: imageInputChange,
 			imageRef: imageRef,
 			uploadImageRef: uploadImageRef,
+			saveChanges: saveChanges,
 		};
 	},
 });
