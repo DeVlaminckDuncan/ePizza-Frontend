@@ -27,9 +27,9 @@ const routes: Array<RouteRecordRaw> = [
 	},
 
 	{
-		path: '/editToppings/:id',
-		name: 'EditToppings',
-		component: () => import(/* webpackChunkName: "editToppings" */ '../presentations/pizza/customer/views/EditToppings.vue'),
+		path: '/edit/:id',
+		name: 'Edit',
+		component: () => import(/* webpackChunkName: "edit" */ '../presentations/pizza/customer/views/Edit.vue'),
 	},
 
 	{
@@ -77,7 +77,7 @@ const routes: Array<RouteRecordRaw> = [
 
 	{
 		path: '/admin/edit/:id',
-		name: 'Edit',
+		name: 'AdminEdit',
 		component: () => import(/* webpackChunkName: "edit" */ '../presentations/pizza/admin/views/Edit.vue'),
 	},
 ];

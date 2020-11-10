@@ -29,8 +29,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-import DropdownList from '@/presentations/shared/components/DropdownList.vue';
-import ButtonWide from '@/presentations/shared/components/ButtonWide.vue';
+import DropdownList from '@/presentations/pizza/shared/components/DropdownList.vue';
+import ButtonWide from '@/presentations/pizza/shared/components/ButtonWide.vue';
 
 export default defineComponent({
 	components: {

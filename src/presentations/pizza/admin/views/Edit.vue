@@ -45,9 +45,9 @@
 <script lang="ts">
 import { defineComponent, reactive, ref } from 'vue';
 
-import InputField from '@/presentations/shared/components/InputField.vue';
-import ButtonMedium from '@/presentations/shared/components/ButtonMedium.vue';
-import ButtonWide from '@/presentations/shared/components/ButtonWide.vue';
+import InputField from '@/presentations/pizza/shared/components/InputField.vue';
+import ButtonMedium from '@/presentations/pizza/shared/components/ButtonMedium.vue';
+import ButtonWide from '@/presentations/pizza/shared/components/ButtonWide.vue';
 
 export default defineComponent({
 	components: {

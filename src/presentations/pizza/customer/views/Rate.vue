@@ -22,9 +22,9 @@
 <script lang="ts">
 import { defineComponent, reactive } from 'vue';
 
-import InputField from '@/presentations/shared/components/InputField.vue';
+import InputField from '@/presentations/pizza/shared/components/InputField.vue';
 import Rating from '../components/Rating.vue';
-import ButtonWide from '@/presentations/shared/components/ButtonWide.vue';
+import ButtonWide from '@/presentations/pizza/shared/components/ButtonWide.vue';
 
 export default defineComponent({
 	components: {

@@ -42,7 +42,7 @@
 							},
 						]"
 					/>
-					<router-link :to="`/edittoppings/${pizza.pizzaUrl}`" class="button-md flex justify-center items-center bg-alpha-yellow text-white font-semibold text-lg h-8 my-6 rounded-lg shadow-md">Edit toppings</router-link>
+					<router-link :to="`/edit/${pizza.pizzaUrl}`" class="button-md flex justify-center items-center bg-alpha-yellow text-white font-semibold text-lg h-8 my-6 rounded-lg shadow-md">Edit toppings</router-link>
 					<ButtonMedium @click="addToCart(pizza.pizzaId)" :text="'Add to cart'" :color="'red'" />
 				</div>
 
@@ -62,27 +62,9 @@
 import { defineComponent, reactive } from 'vue';
 
 import { get } from '@/utils/api';
-import DropdownList from '@/presentations/shared/components/DropdownList.vue';
-import ButtonMedium from '@/presentations/shared/components/ButtonMedium.vue';
-
-type Review = {
-	reviewId: string;
-	title: string;
-	description: string;
-	rating: number;
-	date: Date;
-};
-
-type Pizza = {
-	pizzaId: string;
-	name: string;
-	price: number;
-	imgUrl: string;
-	pizzaToppings: Array<string>;
-	orderReviews: Array<Review>;
-
-	pizzaUrl: string;
-};
+import Pizza from '@/models/Pizza';
+import DropdownList from '@/presentations/pizza/shared/components/DropdownList.vue';
+import ButtonMedium from '@/presentations/pizza/shared/components/ButtonMedium.vue';
 
 type PizzasState = {
 	pizzas: Array<Pizza>;
@@ -103,7 +85,8 @@ export default defineComponent({
 			const data = await get('pizzas');
 			state.pizzas = data;
 			state.pizzas.forEach((pizza) => {
-				pizza.pizzaUrl = pizza.name.toLowerCase().replaceAll(' ', '-');
+				// pizza.pizzaUrl = pizza.name.toLowerCase().replaceAll(' ', '-');
+				pizza.pizzaUrl = pizza.pizzaId;
 			});
 		};
 
