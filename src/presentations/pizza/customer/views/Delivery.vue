@@ -20,8 +20,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-import InputField from '@/presentations/shared/components/InputField.vue';
-import ButtonWide from '@/presentations/shared/components/ButtonWide.vue';
+import InputField from '@/presentations/pizza/shared/components/InputField.vue';
+import ButtonWide from '@/presentations/pizza/shared/components/ButtonWide.vue';
 
 export default defineComponent({
 	components: {
