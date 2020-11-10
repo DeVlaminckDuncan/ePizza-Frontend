@@ -21,7 +21,9 @@
 
 			<div v-for="pizza of state.pizzas" :key="pizza.pizzaId" class="flex flex-wrap items-center border border-dark border-opacity-5 rounded-lg shadow-md p-3 mb-6">
 				<div class="w-1/2">
-					<img class="pizza-image rounded-lg" :src="pizza.imgUrl" :alt="`Pizza ${pizza.name.toLowerCase()}`" />
+					<router-link :to="`/details/${pizza.pizzaUrl}`">
+						<img class="pizza-image rounded-lg" :src="pizza.imgUrl" :alt="`Pizza ${pizza.name.toLowerCase()}`" />
+					</router-link>
 				</div>
 
 				<div class="flex items-end flex-col w-1/2">
@@ -40,12 +42,14 @@
 							},
 						]"
 					/>
-					<router-link :to="`/edittoppings/${pizza.name.toLowerCase().replaceAll(' ', '-')}`" class="button-md flex justify-center items-center bg-alpha-yellow text-white font-semibold text-lg h-8 my-6 rounded-lg shadow-md">Edit toppings</router-link>
+					<router-link :to="`/edittoppings/${pizza.pizzaUrl}`" class="button-md flex justify-center items-center bg-alpha-yellow text-white font-semibold text-lg h-8 my-6 rounded-lg shadow-md">Edit toppings</router-link>
 					<ButtonMedium @click="addToCart(pizza.pizzaId)" :text="'Add to cart'" :color="'red'" />
 				</div>
 
 				<div class="w-full flex justify-between pt-5">
-					<span class="text-xl">{{ pizza.name }}</span>
+					<router-link :to="`/details/${pizza.pizzaUrl}`">
+						<span class="text-xl">{{ pizza.name }}</span>
+					</router-link>
 
 					<span class="price font-semibold">€ {{ pizza.price.toFixed(2) }}</span>
 				</div>
@@ -76,6 +80,8 @@ type Pizza = {
 	imgUrl: string;
 	pizzaToppings: Array<string>;
 	orderReviews: Array<Review>;
+
+	pizzaUrl: string;
 };
 
 type PizzasState = {
@@ -96,6 +102,9 @@ export default defineComponent({
 		const getPizzas = async () => {
 			const data = await get('pizzas');
 			state.pizzas = data;
+			state.pizzas.forEach((pizza) => {
+				pizza.pizzaUrl = pizza.name.toLowerCase().replaceAll(' ', '-');
+			});
 		};
 
 		getPizzas();
