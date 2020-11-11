@@ -5,20 +5,21 @@
 
 			<form class="w-full mt-8">
 				<div class="flex">
-					<InputField :label="'Street'" class="w-3/4 mr-3" />
-					<InputField :label="'No'" class="w-1/4" />
+					<InputField v-model="location.street" :label="'Street'" class="w-3/4 mr-3" />
+					<InputField v-model="location.streetNo" :label="'No'" class="w-1/4" />
 				</div>
 
-				<InputField :label="'City'" />
+				<InputField v-model="location.city" :label="'City'" />
 
-				<ButtonWide :text="'Continue'" :color="'red'" />
+				<ButtonWide @click="continueToMenu" :text="'Continue'" :color="'red'" />
 			</form>
 		</div>
 	</main>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, reactive } from 'vue';
+import route from '@/router';
 
 import InputField from '@/presentations/pizza/shared/components/InputField.vue';
 import ButtonWide from '@/presentations/pizza/shared/components/ButtonWide.vue';
@@ -27,6 +28,26 @@ export default defineComponent({
 	components: {
 		InputField: InputField,
 		ButtonWide: ButtonWide,
+	},
+
+	setup() {
+		const location = reactive({
+			street: '',
+			streetNo: '',
+			city: '',
+		});
+
+		const continueToMenu = (event: Event) => {
+			event.preventDefault();
+			console.log(location);
+			// TODO: save data in localStorage
+			route.push({ name: 'Menu' });
+		};
+
+		return {
+			location,
+			continueToMenu,
+		};
 	},
 });
 </script>
