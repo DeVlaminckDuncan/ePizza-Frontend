@@ -1,6 +1,6 @@
 <template>
 	<div class="flex justify-center">
-		<div class="nav flex justify-between items-center w-full px-6 py-4 shadow-md bg-alpha-red text-xl text-white">
+		<div class="nav flex justify-between items-center px-6 py-4 shadow-md bg-alpha-red text-xl text-white">
 			<div class="pr-6">
 				<router-link v-if="backIcon && previousPage" :to="previousPage">
 					<svg fill="#fff" height="24" viewBox="0 0 24 24" width="24">
@@ -41,11 +41,3 @@ export default defineComponent({
 	},
 });
 </script>
-
-<style lang="scss" scoped>
-.nav {
-	@screen sm {
-		width: 480px;
-	}
-}
-</style>
