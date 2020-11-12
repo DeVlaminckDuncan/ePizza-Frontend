@@ -3,6 +3,8 @@
 </template>
 
 <style lang="scss">
+$bp-sm: '480px';
+
 #app {
 	font-family: Lato, Helvetica, Arial, sans-serif;
 	-webkit-font-smoothing: antialiased;
@@ -17,7 +19,7 @@
 	@apply w-full;
 
 	@screen sm {
-		width: 480px;
+		width: #{$bp-sm};
 	}
 }
 
@@ -27,7 +29,7 @@
 	}
 
 	&-lg {
-		max-width: 480px;
+		max-width: #{$bp-sm};
 	}
 }
 
