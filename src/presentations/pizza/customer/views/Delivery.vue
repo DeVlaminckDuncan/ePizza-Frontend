@@ -1,5 +1,5 @@
 <template>
-	<NavigationBar :text="'Delivery'" :previousPage="'/'" :backIcon="true" :cartIcon="true" />
+	<NavigationBar :text="'Delivery'" :previousPage="'/'" :backIcon="true" />
 
 	<main class="px-6 py-8 flex justify-center">
 		<div class="main">
@@ -35,11 +35,11 @@ export default defineComponent({
 	},
 
 	setup() {
-		const location = reactive({
+		const location = {
 			street: '',
 			streetNo: '',
 			city: '',
-		});
+		};
 
 		const continueToMenu = (event: Event) => {
 			event.preventDefault();
