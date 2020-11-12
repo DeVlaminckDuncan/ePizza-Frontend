@@ -52,7 +52,8 @@ const routes: Array<RouteRecordRaw> = [
 
 	// Admin routes
 	{
-		path: '/admin/login',
+		path: '/admin',
+		alias: '/admin/login',
 		name: 'Login',
 		component: () => import(/* webpackChunkName: "login" */ '../presentations/pizza/admin/views/Login.vue'),
 	},
@@ -73,6 +74,12 @@ const routes: Array<RouteRecordRaw> = [
 		path: '/admin/menu',
 		name: 'AdminMenu',
 		component: () => import(/* webpackChunkName: "menu" */ '../presentations/pizza/admin/views/Menu.vue'),
+	},
+
+	{
+		path: '/admin/add',
+		name: 'Add',
+		component: () => import(/* webpackChunkName: "add" */ '../presentations/pizza/admin/views/Add.vue'),
 	},
 
 	{
