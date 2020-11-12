@@ -1,4 +1,6 @@
 <template>
+	<NavigationBar :text="'Cart'" :previousPage="'/menu'" :backIcon="true" />
+
 	<main class="px-6 py-8 flex justify-center">
 		<div class="main">
 			<h1 class="font-semibold text-2xl">Your cart</h1>
@@ -43,12 +45,14 @@ import { defineComponent } from 'vue';
 import ButtonBig from '../components/ButtonBig.vue';
 import ButtonSmall from '../components/ButtonSmall.vue';
 import ButtonExtraSmall from '../components/ButtonExtraSmall.vue';
+import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
 
 export default defineComponent({
 	components: {
-		ButtonBig: ButtonBig,
-		ButtonSmall: ButtonSmall,
-		ButtonExtraSmall: ButtonExtraSmall,
+		ButtonBig,
+		ButtonSmall,
+		ButtonExtraSmall,
+		NavigationBar,
 	},
 
 	setup() {

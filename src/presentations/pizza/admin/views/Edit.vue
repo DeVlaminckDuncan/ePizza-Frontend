@@ -1,4 +1,6 @@
 <template>
+	<NavigationBar :text="'Edit pizza'" :previousPage="'/admin/menu'" :backIcon="true" />
+
 	<main class="px-6 py-8 flex justify-center">
 		<div class="main">
 			<h1 class="font-semibold text-2xl mb-3">Edit pizza margherita</h1>
@@ -48,12 +50,14 @@ import { defineComponent, reactive, ref } from 'vue';
 import InputField from '@/presentations/pizza/shared/components/InputField.vue';
 import ButtonMedium from '@/presentations/pizza/shared/components/ButtonMedium.vue';
 import ButtonWide from '@/presentations/pizza/shared/components/ButtonWide.vue';
+import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
 
 export default defineComponent({
 	components: {
-		InputField: InputField,
-		ButtonMedium: ButtonMedium,
-		ButtonWide: ButtonWide,
+		InputField,
+		ButtonMedium,
+		ButtonWide,
+		NavigationBar,
 	},
 
 	setup() {
@@ -84,12 +88,12 @@ export default defineComponent({
 		const saveChanges = () => {};
 
 		return {
-			pizza: pizza,
-			uploadImage: uploadImage,
-			imageInputChange: imageInputChange,
-			imageRef: imageRef,
-			uploadImageRef: uploadImageRef,
-			saveChanges: saveChanges,
+			pizza,
+			uploadImage,
+			imageInputChange,
+			imageRef,
+			uploadImageRef,
+			saveChanges,
 		};
 	},
 });

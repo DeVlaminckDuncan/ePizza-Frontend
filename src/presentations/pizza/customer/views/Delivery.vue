@@ -1,4 +1,6 @@
 <template>
+	<NavigationBar :text="'Delivery'" :previousPage="'/'" :backIcon="true" :cartIcon="true" />
+
 	<main class="px-6 py-8 flex justify-center">
 		<div class="main">
 			<h1 class="font-semibold text-2xl">Enter your address</h1>
@@ -23,11 +25,13 @@ import route from '@/router';
 
 import InputField from '@/presentations/pizza/shared/components/InputField.vue';
 import ButtonWide from '@/presentations/pizza/shared/components/ButtonWide.vue';
+import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
 
 export default defineComponent({
 	components: {
-		InputField: InputField,
-		ButtonWide: ButtonWide,
+		InputField,
+		ButtonWide,
+		NavigationBar,
 	},
 
 	setup() {

@@ -1,4 +1,6 @@
 <template>
+	<NavigationBar :text="'Ratings'" :menuIcon="true" />
+
 	<main class="px-6 py-8 flex justify-center">
 		<div class="main">
 			<h1 class="font-semibold text-2xl">This week's ratings</h1>
@@ -65,17 +67,19 @@
 import { defineComponent } from 'vue';
 
 import DatePicker from '../components/DatePicker.vue';
+import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
 
 export default defineComponent({
 	components: {
-		DatePicker: DatePicker,
+		DatePicker,
+		NavigationBar,
 	},
 
 	setup() {
 		const changePeriod = () => {};
 
 		return {
-			changePeriod: changePeriod,
+			changePeriod,
 		};
 	},
 });

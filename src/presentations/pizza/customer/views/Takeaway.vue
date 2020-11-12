@@ -1,4 +1,6 @@
 <template>
+	<NavigationBar :text="'Takeaway'" :previousPage="'/'" :backIcon="true" />
+
 	<main class="px-6 py-8 flex justify-center">
 		<div class="main">
 			<h1 class="font-semibold text-2xl">Choose a restaurant</h1>
@@ -33,11 +35,13 @@ import route from '@/router';
 
 import DropdownList from '@/presentations/pizza/shared/components/DropdownList.vue';
 import ButtonWide from '@/presentations/pizza/shared/components/ButtonWide.vue';
+import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
 
 export default defineComponent({
 	components: {
-		DropdownList: DropdownList,
-		ButtonWide: ButtonWide,
+		DropdownList,
+		ButtonWide,
+		NavigationBar,
 	},
 
 	setup() {

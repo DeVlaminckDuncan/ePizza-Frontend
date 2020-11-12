@@ -1,4 +1,7 @@
 <template>
+	<NavigationBar :text="'Menu'" :previousPage="'/'" :backIcon="true" :cartIcon="true" />
+	<!-- TODO: Previous page will be either delivery or takeaway - based on what the customer chose -->
+
 	<main class="px-6 py-8 flex justify-center">
 		<div class="main">
 			<div class="flex justify-between items-center px-3 mb-8">
@@ -70,6 +73,7 @@ import { get } from '@/utils/api';
 import Pizza from '@/models/Pizza';
 import DropdownList from '@/presentations/pizza/shared/components/DropdownList.vue';
 import ButtonMedium from '@/presentations/pizza/shared/components/ButtonMedium.vue';
+import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
 
 type PizzasState = {
 	pizzas: Array<Pizza>;
@@ -77,8 +81,9 @@ type PizzasState = {
 
 export default defineComponent({
 	components: {
-		DropdownList: DropdownList,
-		ButtonMedium: ButtonMedium,
+		DropdownList,
+		ButtonMedium,
+		NavigationBar,
 	},
 
 	setup() {

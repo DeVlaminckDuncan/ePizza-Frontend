@@ -1,4 +1,6 @@
 <template>
+	<NavigationBar :text="'Details'" :previousPage="'/menu'" :backIcon="true" :cartIcon="true" />
+
 	<main class="px-6 py-8 flex justify-center">
 		<div class="main">
 			<h1 class="font-semibold text-2xl">{{ state.pizza.name }}</h1>
@@ -94,6 +96,7 @@ import { get } from '@/utils/api';
 import Pizza from '@/models/Pizza';
 import DropdownList from '@/presentations/pizza/shared/components/DropdownList.vue';
 import ButtonMedium from '@/presentations/pizza/shared/components/ButtonMedium.vue';
+import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
 
 type PizzaState = {
 	pizza: Pizza;
@@ -101,8 +104,9 @@ type PizzaState = {
 
 export default defineComponent({
 	components: {
-		DropdownList: DropdownList,
-		ButtonMedium: ButtonMedium,
+		DropdownList,
+		ButtonMedium,
+		NavigationBar,
 	},
 
 	setup() {

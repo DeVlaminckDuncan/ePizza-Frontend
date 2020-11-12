@@ -1,4 +1,6 @@
 <template>
+	<NavigationBar :text="'Order type'" :previousPage="'/delivery'" :backIcon="true" :cartIcon="true" />
+
 	<main class="px-6 py-8 flex justify-center">
 		<div class="main">
 			<h1 class="font-semibold text-2xl">Rate the pizza margherita</h1>
@@ -25,12 +27,14 @@ import { defineComponent, reactive } from 'vue';
 import InputField from '@/presentations/pizza/shared/components/InputField.vue';
 import Rating from '../components/Rating.vue';
 import ButtonWide from '@/presentations/pizza/shared/components/ButtonWide.vue';
+import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
 
 export default defineComponent({
 	components: {
-		InputField: InputField,
-		Rating: Rating,
-		ButtonWide: ButtonWide,
+		InputField,
+		Rating,
+		ButtonWide,
+		NavigationBar,
 	},
 
 	setup() {
