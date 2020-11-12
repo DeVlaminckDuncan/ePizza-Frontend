@@ -25,13 +25,13 @@
 						]"
 					/>
 					<router-link :to="`/edit/${state.pizza.pizzaUrl}`" class="button-md flex justify-center items-center bg-alpha-yellow text-white font-semibold text-lg h-8 my-6 rounded-lg shadow-md">Edit toppings</router-link>
-					<ButtonMedium @click="addToCart(state.pizza.pizzaId)" :text="'Add to cart'" :color="'red'" />
+					<ButtonMedium @click="addToCart" :text="'Add to cart'" :color="'red'" />
 				</div>
 
 				<div class="w-full flex justify-between pt-5">
 					<div class="text-left">
 						<p class="text-lg">{{ state.pizza.name }}</p>
-						<p>{{ state.pizza.pizzaToppings }}.</p>
+						<p>{{ state.pizza.toppings.join(', ') }}.</p>
 					</div>
 
 					<div class="price font-semibold">€ {{ state.pizza.price.toFixed(2) }}</div>
@@ -43,8 +43,8 @@
 				<router-link :to="`/rate/${state.pizza.pizzaUrl}`" class="button-md flex justify-center items-center bg-alpha-orange text-white font-semibold text-lg h-8 my-6 rounded-lg shadow-md">Rate this pizza</router-link>
 			</div>
 
-			<div v-if="state.pizza.orderReviews != null">
-				<div v-for="review of state.pizza.orderReviews" :key="review.reviewId" class="flex flex-wrap border border-dark border-opacity-5 rounded-lg shadow-md p-3 mt-8">
+			<div v-if="state.pizza.reviews != null">
+				<div v-for="review of state.pizza.reviews" :key="review.id" class="flex flex-wrap border border-dark border-opacity-5 rounded-lg shadow-md p-3 mt-8">
 					<div class="flex flex-wrap w-full justify-between">
 						<div class="w-1/2 text-lg text-left">
 							{{ review.title }}
@@ -108,28 +108,32 @@ export default defineComponent({
 	setup() {
 		const state: PizzaState = reactive({
 			pizza: {
-				pizzaId: ref(route.currentRoute.value.params.id).value as string,
+				id: ref(route.currentRoute.value.params.id).value as string,
 				name: '',
 				price: 0,
 				imgUrl: '',
-				pizzaToppings: [],
-				orderReviews: [],
+				toppings: [],
+				reviews: [],
 
 				pizzaUrl: '',
 			},
 		});
 
 		const getPizza = async () => {
-			const data = await get(`pizzas/${state.pizza.pizzaId}`);
-			state.pizza = data;
+			const data = await get(`pizzas/${state.pizza.id}`);
+			state.pizza.name = data.name;
+			state.pizza.price = data.price;
+			state.pizza.imgUrl = data.imgUrl;
+			state.pizza.toppings = data.topppings;
+			state.pizza.reviews = data.orderReviews;
 			// pizza.pizzaUrl = pizza.name.toLowerCase().replaceAll(' ', '-');
-			state.pizza.pizzaUrl = state.pizza.pizzaId;
+			state.pizza.pizzaUrl = state.pizza.id;
 		};
 
 		getPizza();
 
-		const addToCart = (pizzaId: string) => {
-			console.log('adding pizza to cart:', pizzaId);
+		const addToCart = () => {
+			console.log('adding pizza to cart');
 		};
 
 		return {
