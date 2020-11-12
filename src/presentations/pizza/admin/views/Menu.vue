@@ -1,10 +1,12 @@
 <template>
+	<NavigationBar :text="'Menu'" :menuIcon="true" />
+
 	<main class="px-6 py-8 flex justify-center">
 		<div class="main">
 			<div class="flex justify-between mb-8">
 				<h1 class="font-semibold text-2xl">Menu list</h1>
 
-				<button class="w-6 h-6 flex items-center justify-center rounded-full shadow-md bg-alpha-yellow text-white text-xl">+</button>
+				<router-link :to="'/admin/add'" class="w-6 h-6 flex items-center justify-center rounded-full shadow-md bg-alpha-yellow text-white text-xl">+</router-link>
 			</div>
 
 			<div class="flex flex-wrap items-center border border-dark border-opacity-5 rounded-lg shadow-md p-3">
@@ -38,15 +40,21 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
+import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
+
 export default defineComponent({
+	components: {
+		NavigationBar,
+	},
+
 	setup() {
 		const addPizza = () => {};
 
 		const removePizza = () => {};
 
 		return {
-			addPizza: addPizza,
-			removePizza: removePizza,
+			addPizza,
+			removePizza,
 		};
 	},
 });

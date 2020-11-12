@@ -1,4 +1,7 @@
 <template>
+	<NavigationBar :text="'Edit toppings'" :previousPage="'/menu'" :backIcon="true" :cartIcon="true" />
+	<!-- TODO: Previous page will be either menu, details or cart -->
+
 	<main class="px-6 py-8 flex justify-center">
 		<div class="main">
 			<h1 class="font-semibold text-2xl">Edit your toppings</h1>
@@ -31,8 +34,6 @@
 				</div>
 			</div>
 
-			
-
 			<p class="text-2xl text-left font-semibold mt-12">Add more toppings</p>
 
 			<div class="flex flex-wrap justify-between items-center w-full text-lg mt-4">
@@ -54,6 +55,7 @@ import { get } from '@/utils/api';
 import Pizza from '@/models/Pizza';
 import ButtonMedium from '@/presentations/pizza/shared/components/ButtonMedium.vue';
 import ButtonExtraSmall from '../components/ButtonExtraSmall.vue';
+import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
 
 type Topping = {
 	name: string;
@@ -67,8 +69,9 @@ type PizzaState = {
 
 export default defineComponent({
 	components: {
-		ButtonMedium: ButtonMedium,
-		ButtonExtraSmall: ButtonExtraSmall,
+		ButtonMedium,
+		ButtonExtraSmall,
+		NavigationBar,
 	},
 
 	setup() {

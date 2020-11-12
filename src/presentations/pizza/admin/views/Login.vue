@@ -1,4 +1,6 @@
 <template>
+	<NavigationBar :text="'Login'" :previousPage="'/'" :backIcon="true" />
+
 	<main class="px-6 py-8 flex justify-center">
 		<div class="main">
 			<h1 class="font-semibold text-2xl">Log in to your account</h1>
@@ -19,11 +21,13 @@ import { defineComponent } from 'vue';
 
 import InputField from '@/presentations/pizza/shared/components/InputField.vue';
 import ButtonWide from '@/presentations/pizza/shared/components/ButtonWide.vue';
+import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
 
 export default defineComponent({
 	components: {
-		InputField: InputField,
-		ButtonWide: ButtonWide,
+		InputField,
+		ButtonWide,
+		NavigationBar,
 	},
 });
 </script>

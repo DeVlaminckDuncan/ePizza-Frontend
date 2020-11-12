@@ -1,4 +1,6 @@
 <template>
+	<NavigationBar :text="'Order type'" />
+
 	<main class="px-6 py-8 flex justify-center">
 		<div class="main">
 			<h1 class="font-semibold text-2xl">Choose the order type</h1>
@@ -15,5 +17,11 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-export default defineComponent({});
+import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
+
+export default defineComponent({
+	components: {
+		NavigationBar,
+	},
+});
 </script>

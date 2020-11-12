@@ -28,6 +28,10 @@ module.exports = {
 				green: '#32d95e',
 			},
 		},
+		screens: {
+			sm: '481px',
+			xl: '1279px',
+		},
 	},
 	corePlugins: {},
 	plugins: [],
