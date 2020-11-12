@@ -1,12 +1,12 @@
 import Review from './Review';
 
 export default interface Pizza {
-	pizzaId: string;
+	id: string;
 	name: string;
 	price: number;
 	imgUrl: string;
-	pizzaToppings: Array<string>;
-	orderReviews: Array<Review>;
+	toppings: Array<string>;
+	reviews: Array<Review>;
 
 	pizzaUrl: string;
 }

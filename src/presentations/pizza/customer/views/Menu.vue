@@ -20,7 +20,7 @@
 			</div>
 
 			<div v-if="state.pizzas.length">
-				<div v-for="pizza of state.pizzas" :key="pizza.pizzaId" class="flex flex-wrap items-center border border-dark border-opacity-5 rounded-lg shadow-md p-3 mb-6">
+				<div v-for="pizza of state.pizzas" :key="pizza.id" class="flex flex-wrap items-center border border-dark border-opacity-5 rounded-lg shadow-md p-3 mb-6">
 					<div class="w-1/2">
 						<router-link :to="`/details/${pizza.pizzaUrl}`">
 							<img class="pizza-image rounded-lg" :src="pizza.imgUrl" :alt="`Pizza ${pizza.name.toLowerCase()}`" />
@@ -44,7 +44,7 @@
 							]"
 						/>
 						<router-link :to="`/edit/${pizza.pizzaUrl}`" class="button-md flex justify-center items-center bg-alpha-yellow text-white font-semibold text-lg h-8 my-6 rounded-lg shadow-md">Edit toppings</router-link>
-						<ButtonMedium @click="addToCart(pizza.pizzaId)" :text="'Add to cart'" :color="'red'" />
+						<ButtonMedium @click="addToCart(pizza.id)" :text="'Add to cart'" :color="'red'" />
 					</div>
 
 					<div class="w-full flex justify-between pt-5">
@@ -91,14 +91,14 @@ export default defineComponent({
 			state.pizzas = data;
 			state.pizzas.forEach((pizza) => {
 				// pizza.pizzaUrl = pizza.name.toLowerCase().replaceAll(' ', '-');
-				pizza.pizzaUrl = pizza.pizzaId;
+				pizza.pizzaUrl = pizza.id;
 			});
 		};
 
 		getPizzas();
 
-		const addToCart = (pizzaId: string) => {
-			console.log('adding pizza to cart:', pizzaId);
+		const addToCart = (id: string) => {
+			console.log('adding pizza to cart:', id);
 		};
 
 		return {
