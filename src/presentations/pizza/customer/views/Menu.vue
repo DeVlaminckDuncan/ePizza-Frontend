@@ -32,6 +32,7 @@
 
 					<div class="flex items-end flex-col w-1/2">
 						<DropdownList
+							v-model="pizza.size"
 							class="select-md"
 							:options="[
 								{
@@ -47,7 +48,7 @@
 							]"
 						/>
 						<router-link :to="`/edit/${pizza.pizzaUrl}`" class="button-md flex justify-center items-center bg-alpha-yellow text-white font-semibold text-lg h-8 my-6 rounded-lg shadow-md">Edit toppings</router-link>
-						<ButtonMedium @click="addToCart(pizza.id)" :text="'Add to cart'" :color="'red'" />
+						<ButtonMedium @click="addToCart(pizza)" :text="'Add to cart'" :color="'red'" />
 					</div>
 
 					<div class="w-full flex justify-between pt-5">
@@ -99,13 +100,13 @@ export default defineComponent({
 			state.pizzas.forEach((pizza) => {
 				// pizza.pizzaUrl = pizza.name.toLowerCase().replaceAll(' ', '-');
 				pizza.pizzaUrl = pizza.id;
+				pizza.size = 'Medium';
 			});
 		};
 
 		getPizzas();
 
-		const addToCart = (id: string) => {
-			const pizza = state.pizzas.find((p) => p.id == id);
+		const addToCart = (pizza: Pizza) => {
 			store.commit(MutationTypes.ADD_PIZZA, pizza);
 			route.push({ name: 'Cart' });
 		};
