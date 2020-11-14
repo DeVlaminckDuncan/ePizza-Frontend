@@ -105,14 +105,14 @@ export default defineComponent({
 		getPizzas();
 
 		const addToCart = (id: string) => {
-			const pizza = state.pizzas.find((p) => (p.id = id));
+			const pizza = state.pizzas.find((p) => p.id == id);
 			store.commit(MutationTypes.ADD_PIZZA, pizza);
 			route.push({ name: 'Cart' });
 		};
 
 		return {
-			state: state,
-			addToCart: addToCart,
+			state,
+			addToCart,
 		};
 	},
 });
