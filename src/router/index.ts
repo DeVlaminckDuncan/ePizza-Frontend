@@ -78,14 +78,14 @@ const routes: Array<RouteRecordRaw> = [
 
 	{
 		path: '/admin/add',
-		name: 'Add',
-		component: () => import(/* webpackChunkName: "add" */ '../presentations/pizza/admin/views/Add.vue'),
+		name: 'AdminAddPizza',
+		component: () => import(/* webpackChunkName: "addPizza" */ '../presentations/pizza/admin/views/AddPizza.vue'),
 	},
 
 	{
 		path: '/admin/edit/:id',
-		name: 'AdminEdit',
-		component: () => import(/* webpackChunkName: "edit" */ '../presentations/pizza/admin/views/Edit.vue'),
+		name: 'AdminEditPizza',
+		component: () => import(/* webpackChunkName: "editPizza" */ '../presentations/pizza/admin/views/EditPizza.vue'),
 	},
 ];
 
