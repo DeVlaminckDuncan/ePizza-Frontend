@@ -8,5 +8,7 @@ export default interface Pizza {
 	toppings: Array<string>;
 	reviews: Array<Review>;
 
-	pizzaUrl: string;
+	pizzaUrl?: string;
+	size?: string;
+	amount?: number;
 }
