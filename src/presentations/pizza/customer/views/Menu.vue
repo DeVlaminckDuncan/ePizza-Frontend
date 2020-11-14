@@ -68,6 +68,8 @@
 
 <script lang="ts">
 import { defineComponent, reactive } from 'vue';
+import route from '@/router';
+import store, { MutationTypes } from '@/store';
 
 import { get } from '@/utils/api';
 import Pizza from '@/models/Pizza';
@@ -103,7 +105,9 @@ export default defineComponent({
 		getPizzas();
 
 		const addToCart = (id: string) => {
-			console.log('adding pizza to cart:', id);
+			const pizza = state.pizzas.find((p) => (p.id = id));
+			store.commit(MutationTypes.ADD_PIZZA, pizza);
+			route.push({ name: 'Cart' });
 		};
 
 		return {
