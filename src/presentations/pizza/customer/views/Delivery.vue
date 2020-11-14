@@ -20,8 +20,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from 'vue';
+import { defineComponent } from 'vue';
 import route from '@/router';
+import store, { MutationTypes } from '@/store';
 
 import InputField from '@/presentations/pizza/shared/components/InputField.vue';
 import ButtonWide from '@/presentations/pizza/shared/components/ButtonWide.vue';
@@ -43,8 +44,12 @@ export default defineComponent({
 
 		const continueToMenu = (event: Event) => {
 			event.preventDefault();
-			console.log(location);
-			// TODO: save data in localStorage
+
+			store.commit(MutationTypes.SET_ORDER_TYPE, {
+				orderType: 'delivery',
+				orderTypeData: location,
+			});
+
 			route.push({ name: 'Menu' });
 		};
 
