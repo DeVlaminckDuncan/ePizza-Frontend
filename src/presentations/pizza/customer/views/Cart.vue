@@ -40,7 +40,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, reactive } from 'vue';
+import store from '@/store';
 
 import ButtonBig from '../components/ButtonBig.vue';
 import ButtonSmall from '../components/ButtonSmall.vue';
@@ -56,6 +57,12 @@ export default defineComponent({
 	},
 
 	setup() {
+		const state = reactive({
+			pizzas: store.getters.getPizzas(),
+		});
+
+		console.log(state.pizzas);
+
 		const decreaseAmount = () => {};
 
 		const increaseAmount = () => {};
@@ -67,11 +74,12 @@ export default defineComponent({
 		const checkout = () => {};
 
 		return {
-			decreaseAmount: decreaseAmount,
-			increaseAmount: increaseAmount,
-			editPizza: editPizza,
-			removePizza: removePizza,
-			checkout: checkout,
+			state,
+			decreaseAmount,
+			increaseAmount,
+			editPizza,
+			removePizza,
+			checkout,
 		};
 	},
 });
