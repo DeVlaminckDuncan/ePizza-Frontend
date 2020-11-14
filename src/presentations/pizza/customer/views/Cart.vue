@@ -5,33 +5,37 @@
 		<div class="main">
 			<h1 class="font-semibold text-2xl">Your cart</h1>
 
-			<div class="flex flex-wrap items-center border border-dark border-opacity-5 rounded-lg shadow-md p-3 mt-8">
-				<div class="flex flex-col w-1/2 text-left pr-3">
-					<span class="text-xl">Pizza margherita</span>
-					<span class="opacity-80">Medium</span>
-				</div>
-
-				<div class="flex justify-end items-center w-1/2 pl-3">
-					<ButtonExtraSmall :text="'-'" :color="'red'" />
-					<span class="font-semibold px-2">1</span>
-					<ButtonExtraSmall :text="'+'" :color="'red'" />
-				</div>
-
-				<div class="flex items-center w-full pt-3">
-					<div class="flex w-3/4">
-						<ButtonSmall :text="'Edit'" :color="'yellow'" />
-						<ButtonSmall class="ml-3" :text="'Remove'" :color="'orange'" />
+			<div v-if="state.pizzas && state.pizzas.length">
+				<div v-for="pizza of state.pizzas" :key="pizza.id" class="flex flex-wrap items-center border border-dark border-opacity-5 rounded-lg shadow-md p-3 mt-8 mb-4">
+					<div class="flex flex-col w-1/2 text-left pr-3">
+						<span class="text-xl">{{ pizza.name }}</span>
+						<span class="opacity-80">Medium</span>
 					</div>
 
-					<div class="w-1/4 font-semibold text-xl flex justify-end">
-						€ 8.00
+					<div class="flex justify-end items-center w-1/2 pl-3">
+						<ButtonExtraSmall :text="'-'" :color="'red'" />
+						<span class="font-semibold px-2">1</span>
+						<ButtonExtraSmall :text="'+'" :color="'red'" />
+					</div>
+
+					<div class="flex items-center w-full pt-3">
+						<div class="flex w-3/4">
+							<ButtonSmall :text="'Edit'" :color="'yellow'" />
+							<ButtonSmall class="ml-3" :text="'Remove'" :color="'orange'" />
+						</div>
+
+						<div class="w-1/4 font-semibold text-xl flex justify-end">€ {{ pizza.price.toFixed(2) }}</div>
 					</div>
 				</div>
 			</div>
 
+			<div v-else class="text-lg mt-4">
+				Your cart is empty.
+			</div>
+
 			<div class="flex justify-between font-semibold py-8">
 				<span class="text-xl">Total</span>
-				<span class="price">€ 8.00</span>
+				<span class="price">€ {{ state.total.toFixed(2) }}</span>
 			</div>
 
 			<ButtonBig :text="'Checkout'" :color="'red'" />
@@ -59,7 +63,17 @@ export default defineComponent({
 	setup() {
 		const state = reactive({
 			pizzas: store.getters.getPizzas(),
+			total: 0,
 		});
+
+		const calculateTotal = () => {
+			state.total = 0;
+			state.pizzas.forEach((pizza: any) => {
+				state.total += pizza.price;
+			});
+		};
+
+		calculateTotal();
 
 		console.log(state.pizzas);
 
