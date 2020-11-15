@@ -16,7 +16,7 @@
 
 					<span class="price text-right font-semibold my-6">€ {{ state.pizza.price.toFixed(2) }}</span>
 
-					<ButtonMedium @click="addToCart" class="bg-alpha-red" :text="'Add to cart'" :color="'red'" />
+					<ButtonMedium @click="addToCart" class="bg-alpha-red" :text="isNaN(state.pizza.pizzaUrl) ? 'Save changes' : 'Add to cart'" :color="'red'" />
 				</div>
 			</div>
 
@@ -50,6 +50,7 @@
 <script lang="ts">
 import { defineComponent, reactive, ref } from 'vue';
 import route from '@/router';
+import store from '@/store';
 
 import { get } from '@/utils/api';
 import Pizza from '@/models/Pizza';
@@ -77,29 +78,35 @@ export default defineComponent({
 	setup() {
 		const state: PizzaState = reactive({
 			pizza: {
-				id: ref(route.currentRoute.value.params.id).value as string,
+				id: '',
 				name: '',
 				price: 0,
 				imgUrl: '',
 				toppings: [],
 				reviews: [],
 
-				pizzaUrl: '',
+				pizzaUrl: ref(route.currentRoute.value.params.id).value as string,
 			},
 
 			toppings: [],
 		});
 
 		const getPizza = async () => {
-			const data = await get(`pizzas/${state.pizza.id}`);
+			// @ts-ignore
+			if (isNaN(state.pizza.pizzaUrl)) {
+				const data = await get(`pizzas/${state.pizza.pizzaUrl}`);
 
-			state.pizza.name = data.name;
-			state.pizza.price = data.price;
-			state.pizza.imgUrl = data.imgUrl;
-			state.pizza.toppings = data.topppings;
-			state.pizza.reviews = data.orderReviews;
-			// pizza.pizzaUrl = pizza.name.toLowerCase().replaceAll(' ', '-');
-			state.pizza.pizzaUrl = state.pizza.id;
+				state.pizza.name = data.name;
+				state.pizza.price = data.price;
+				state.pizza.imgUrl = data.imgUrl;
+				state.pizza.toppings = data.topppings;
+				state.pizza.reviews = data.orderReviews;
+				// pizza.pizzaUrl = pizza.name.toLowerCase().replaceAll(' ', '-');
+				state.pizza.pizzaUrl = state.pizza.pizzaUrl;
+			} else {
+				const data = store.getters.getPizzaByIndex(state.pizza.pizzaUrl);
+				state.pizza = data;
+			}
 		};
 
 		getPizza();
@@ -126,15 +133,14 @@ export default defineComponent({
 			if (amount > 0) {
 				buttons[amount - 1].classList.remove('opacity-50');
 			}
-
-			console.log(state.toppings);
+			// TODO: save to localStorage
 		};
 
 		const decreaseTopping = (topping: string, button: any) => {
 			const toppingIndex = state.toppings.findIndex((t) => t.name == topping);
 			let amount = 0;
 
-			if (toppingIndex != -1 && state.toppings[toppingIndex].amount > 0) {
+			if (toppingIndex >= 0 && state.toppings[toppingIndex].amount > 0) {
 				state.toppings[toppingIndex].amount--;
 				amount = state.toppings[toppingIndex].amount;
 			}
@@ -145,15 +151,16 @@ export default defineComponent({
 				buttons[amount - 1].classList.remove('opacity-50');
 			} else {
 				button.parentElement.parentElement.remove();
-				if (toppingIndex != -1) {
+				if (toppingIndex >= 0) {
 					delete state.toppings[toppingIndex];
 				}
 			}
-
-			console.log(state.toppings);
+			// TODO: save to localStorage
 		};
 
-		const addTopping = () => {};
+		const addTopping = () => {
+			// TODO: save to localStorage
+		};
 
 		return {
 			state,
