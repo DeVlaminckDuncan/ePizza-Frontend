@@ -24,7 +24,7 @@
 							<ButtonSmall @click="removePizza(index, $event.currentTarget)" class="ml-3" :text="'Remove'" :color="'orange'" />
 						</div>
 
-						<div class="w-1/4 font-semibold text-xl flex justify-end">€ {{ pizza.price.toFixed(2) }}</div>
+						<div class="w-1/4 font-semibold text-xl flex justify-end">€ {{ (pizza.price * (pizza.amount ? pizza.amount : 1)).toFixed(2) }}</div>
 					</div>
 				</div>
 			</div>
