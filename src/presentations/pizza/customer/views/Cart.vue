@@ -8,7 +8,7 @@
 			<div v-if="state.pizzas && state.pizzas.length">
 				<div v-for="(pizza, index) of state.pizzas" :key="pizza.id" class="flex flex-wrap items-center border border-dark border-opacity-5 rounded-lg shadow-md p-3 mt-8 mb-4">
 					<div class="flex flex-col w-1/2 text-left pr-3">
-						<span class="text-xl">{{ pizza.name }}</span>
+						<router-link :to="`/details/${pizza.pizzaUrl}`" class="text-xl">{{ pizza.name }}</router-link>
 						<span class="opacity-80">{{ pizza.size }}</span>
 					</div>
 
