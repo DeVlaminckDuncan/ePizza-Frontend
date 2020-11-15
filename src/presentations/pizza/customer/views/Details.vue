@@ -12,6 +12,7 @@
 
 				<div class="flex items-end flex-col w-1/2">
 					<DropdownList
+						v-model="state.pizza.size"
 						class="select-md"
 						:options="[
 							{
@@ -33,7 +34,7 @@
 				<div class="w-full flex justify-between pt-5">
 					<div class="text-left">
 						<p class="text-lg">{{ state.pizza.name }}</p>
-						<p>{{ state.pizza.toppings.join(', ') }}.</p>
+						<p v-if="state.pizza.toppings">{{ state.pizza.toppings.join(', ') }}.</p>
 					</div>
 
 					<div class="price font-semibold">€ {{ state.pizza.price.toFixed(2) }}</div>
@@ -91,6 +92,7 @@
 <script lang="ts">
 import { defineComponent, reactive, ref } from 'vue';
 import route from '@/router';
+import store, { MutationTypes } from '@/store';
 
 import { get } from '@/utils/api';
 import Pizza from '@/models/Pizza';
@@ -120,6 +122,7 @@ export default defineComponent({
 				reviews: [],
 
 				pizzaUrl: '',
+				size: 'Medium',
 			},
 		});
 
@@ -137,12 +140,13 @@ export default defineComponent({
 		getPizza();
 
 		const addToCart = () => {
-			console.log('adding pizza to cart');
+			store.commit(MutationTypes.ADD_PIZZA, state.pizza);
+			route.push({ name: 'Cart' });
 		};
 
 		return {
-			state: state,
-			addToCart: addToCart,
+			state,
+			addToCart,
 		};
 	},
 });
