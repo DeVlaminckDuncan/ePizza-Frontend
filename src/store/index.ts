@@ -35,6 +35,10 @@ export default createStore({
 		getPizzas: (state) => () => {
 			return state.pizzas;
 		},
+
+		getPizzaByIndex: (state) => (index: number) => {
+			return state.pizzas ? state.pizzas[index] : null;
+		},
 	},
 
 	mutations: {
