@@ -1,27 +1,11 @@
 import { createStore } from 'vuex';
 
-import Pizza from '@/models/Pizza';
-
-export type PizzasState = {
-	[pizzas: string]: Array<Pizza>;
-};
-
-export type OrderTypeState = {
-	[orderType: string]: string;
-};
-
 export enum MutationTypes {
 	ADD_PIZZA = 'addPizza',
+	EDIT_PIZZA = 'editPizza',
+	REMOVE_PIZZA = 'removePizza',
 	SET_ORDER_TYPE = 'setOrderType',
 }
-
-export type PizzaMutations<S = PizzasState> = {
-	[MutationTypes.ADD_PIZZA](state: S, payload: Pizza): void;
-};
-
-export type OrderTypeMutations<S = OrderTypeState> = {
-	[MutationTypes.SET_ORDER_TYPE](state: S, payload: string): void;
-};
 
 const state = {
 	pizzas: localStorage.pizzas ? JSON.parse(localStorage.pizzas) : [],
@@ -43,9 +27,18 @@ export default createStore({
 
 	mutations: {
 		[MutationTypes.ADD_PIZZA](state, pizza) {
-			const pizzas = state.pizzas;
-			pizzas.push(pizza);
-			localStorage.setItem('pizzas', JSON.stringify(pizzas));
+			state.pizzas.push(pizza);
+			localStorage.setItem('pizzas', JSON.stringify(state.pizzas));
+		},
+
+		[MutationTypes.EDIT_PIZZA](state, { pizzaIndex, pizza }) {
+			state.pizzas[pizzaIndex] = pizza;
+			localStorage.setItem('pizzas', JSON.stringify(state.pizzas));
+		},
+
+		[MutationTypes.REMOVE_PIZZA](state, pizzaIndex) {
+			state.pizzas.some((index: number) => index == pizzaIndex);
+			localStorage.setItem('pizzas', JSON.stringify(state.pizzas));
 		},
 
 		[MutationTypes.SET_ORDER_TYPE](state, { orderType, orderTypeData }) {
