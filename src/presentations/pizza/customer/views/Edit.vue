@@ -1,6 +1,5 @@
 <template>
-	<NavigationBar :text="'Edit toppings'" :previousPage="'/menu'" :backIcon="true" :cartIcon="true" />
-	<!-- TODO: Previous page will be either menu, details or cart -->
+	<NavigationBar :text="'Edit toppings'" :backIcon="true" :cartIcon="true" />
 
 	<main class="px-6 py-8 flex justify-center">
 		<div class="main">

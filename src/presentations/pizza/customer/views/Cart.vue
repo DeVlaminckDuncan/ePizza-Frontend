@@ -1,5 +1,5 @@
 <template>
-	<NavigationBar :text="'Cart'" :previousPage="'/menu'" :backIcon="true" />
+	<NavigationBar :text="'Cart'" :backIcon="true" />
 
 	<main class="px-6 py-8 flex justify-center">
 		<div class="main">
