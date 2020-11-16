@@ -1,6 +1,5 @@
 <template>
-	<NavigationBar :text="'Menu'" :previousPage="'/'" :backIcon="true" :cartIcon="true" />
-	<!-- TODO: Previous page will be either delivery or takeaway - based on what the customer chose -->
+	<NavigationBar :text="'Menu'" :backIcon="true" :cartIcon="true" />
 
 	<main class="px-6 py-8 flex justify-center">
 		<div class="main">
