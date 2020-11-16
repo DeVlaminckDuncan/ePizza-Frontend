@@ -35,10 +35,10 @@
 
 			<p class="text-2xl text-left font-semibold mt-12">Add more toppings</p>
 
-			<div class="flex flex-wrap justify-between items-center w-full text-lg mt-4">
-				<span class="font-semibold">€ 1.50</span>
+			<div v-for="topping of state.allToppings" :key="topping.id" class="flex flex-wrap justify-between items-center w-full text-lg mt-4">
+				<span class="font-semibold">€ {{ (topping.price ? topping.price : 0).toFixed(2) }}</span>
 
-				Bacon
+				{{ topping.name }}
 
 				<button @click="addTopping" class="text-white font-semibold  bg-alpha-yellow px-4 py-1 rounded-lg shadow-md">Add</button>
 			</div>
@@ -49,7 +49,7 @@
 <script lang="ts">
 import { defineComponent, reactive, ref } from 'vue';
 import route from '@/router';
-import store from '@/store';
+import store, { MutationTypes } from '@/store';
 
 import { get } from '@/utils/api';
 import Pizza from '@/models/Pizza';
@@ -58,13 +58,16 @@ import ButtonExtraSmall from '../components/ButtonExtraSmall.vue';
 import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
 
 type Topping = {
+	id?: string;
 	name: string;
-	amount: number;
+	price?: number;
+	amount?: number;
 };
 
-type PizzaState = {
+type State = {
 	pizza: Pizza;
 	toppings: Array<Topping>;
+	allToppings: Array<Topping>;
 };
 
 export default defineComponent({
@@ -75,7 +78,7 @@ export default defineComponent({
 	},
 
 	setup() {
-		const state: PizzaState = reactive({
+		const state: State = reactive({
 			pizza: {
 				id: '',
 				name: '',
@@ -88,10 +91,11 @@ export default defineComponent({
 			},
 
 			toppings: [],
+
+			allToppings: [],
 		});
 
 		const getPizza = async () => {
-			// @ts-ignore
 			if (isNaN(state.pizza.pizzaUrl)) {
 				const data = await get(`pizzas/${state.pizza.pizzaUrl}`);
 
@@ -110,21 +114,32 @@ export default defineComponent({
 
 		getPizza();
 
+		const getToppings = async () => {
+			const data = await get('toppings');
+
+			state.allToppings = data;
+
+			// sort on name first, then on price
+			state.allToppings.sort((a, b) => a.name.localeCompare(b.name)).sort((a, b) => a.price!.toString().localeCompare(b.price!.toString()));
+		};
+
+		getToppings();
+
 		const addToCart = () => {
 			console.log('adding pizza to cart');
 		};
 
 		const increaseTopping = (topping: string, button: any) => {
 			const toppingIndex = state.toppings.findIndex((t) => t.name == topping);
-			let amount = 2;
+			let amount: any = 2;
 
 			if (toppingIndex == -1) {
 				state.toppings.push({
 					name: topping,
 					amount: amount,
 				});
-			} else if (state.toppings[toppingIndex].amount < 3) {
-				state.toppings[toppingIndex].amount++;
+			} else if (state.toppings[toppingIndex].amount! < 3) {
+				state.toppings[toppingIndex].amount!++;
 				amount = state.toppings[toppingIndex].amount;
 			}
 
@@ -137,10 +152,10 @@ export default defineComponent({
 
 		const decreaseTopping = (topping: string, button: any) => {
 			const toppingIndex = state.toppings.findIndex((t) => t.name == topping);
-			let amount = 0;
+			let amount: any = 0;
 
-			if (toppingIndex >= 0 && state.toppings[toppingIndex].amount > 0) {
-				state.toppings[toppingIndex].amount--;
+			if (toppingIndex >= 0 && state.toppings[toppingIndex].amount! > 0) {
+				state.toppings[toppingIndex].amount!--;
 				amount = state.toppings[toppingIndex].amount;
 			}
 
@@ -159,6 +174,14 @@ export default defineComponent({
 
 		const addTopping = () => {
 			// TODO: save to localStorage
+		};
+
+		const saveChanges = () => {
+			if (isNaN(state.pizza.pizzaUrl)) {
+				store.commit(MutationTypes.ADD_PIZZA, state.pizza);
+			} else {
+				store.commit(MutationTypes.EDIT_PIZZA, state.pizza);
+			}
 		};
 
 		return {
