@@ -13,15 +13,15 @@
 					</div>
 
 					<div class="flex justify-end items-center w-1/2 pl-3">
-						<ButtonExtraSmall @click="decreaseAmount(pizza, index, $event.currentTarget)" :text="'-'" :color="'red'" />
+						<ButtonExtraSmall @click="decreaseAmount(pizza, index)" :text="'-'" :color="'red'" />
 						<span class="font-semibold px-2">{{ pizza.amount }}</span>
-						<ButtonExtraSmall @click="increaseAmount(pizza)" :text="'+'" :color="'red'" />
+						<ButtonExtraSmall @click="increaseAmount(pizza, index)" :text="'+'" :color="'red'" />
 					</div>
 
 					<div class="flex items-center w-full pt-3">
 						<div class="flex w-3/4">
 							<router-link :to="`/edit/${index}`" class="flex justify-center items-center bg-alpha-yellow text-white font-semibold text-lg w-24 h-8 rounded-lg shadow-md">Edit</router-link>
-							<ButtonSmall @click="removePizza(index, $event.currentTarget)" class="ml-3" :text="'Remove'" :color="'orange'" />
+							<ButtonSmall @click="removePizza(index)" class="ml-3" :text="'Remove'" :color="'orange'" />
 						</div>
 
 						<div class="w-1/4 font-semibold text-xl flex justify-end">€ {{ (pizza.price * (pizza.amount ? pizza.amount : 1)).toFixed(2) }}</div>
@@ -87,32 +87,35 @@ export default defineComponent({
 
 		calculateTotal();
 
-		const increaseAmount = (pizza: Pizza) => {
+		const increaseAmount = (pizza: Pizza, pizzaIndex: number) => {
 			pizza.amount!++;
+
 			calculateTotal();
-			// TODO: save to localStorage
+
+			store.commit(MutationTypes.EDIT_PIZZA, { pizzaIndex, pizza });
 		};
 
-		const decreaseAmount = (pizza: Pizza, pizzaIndex: number, button: any) => {
+		const decreaseAmount = (pizza: Pizza, pizzaIndex: number) => {
 			pizza.amount!--;
 
 			if (pizza.amount == 0) {
-				removePizza(pizzaIndex, button);
+				removePizza(pizzaIndex);
 			} else {
 				calculateTotal();
-				// TODO: save to localStorage
+
+				store.commit(MutationTypes.EDIT_PIZZA, { pizzaIndex, pizza });
 			}
 		};
 
-		const editPizza = (pizza: Pizza) => {};
-
-		const removePizza = (pizzaIndex: number, button: any) => {
-			button.parentElement.parentElement.remove();
+		const removePizza = (pIndex: number) => {
+			const pizzaIndex = pIndex;
 			if (pizzaIndex >= 0) {
 				state.pizzas.splice(pizzaIndex, 1);
+
 				calculateTotal();
+
+				store.commit(MutationTypes.REMOVE_PIZZA, pizzaIndex);
 			}
-			// TODO: remove from localStorage
 		};
 
 		const checkout = () => {};
@@ -121,7 +124,6 @@ export default defineComponent({
 			state,
 			decreaseAmount,
 			increaseAmount,
-			editPizza,
 			removePizza,
 			checkout,
 		};
