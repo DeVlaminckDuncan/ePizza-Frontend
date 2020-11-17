@@ -34,7 +34,7 @@
 				<div class="w-full flex justify-between pt-5">
 					<div class="text-left">
 						<p class="text-lg">{{ state.pizza.name }}</p>
-						<p v-if="state.pizza.toppings">{{ state.pizza.toppings.join(', ') }}.</p>
+						<p v-if="state.pizza.toppings.length">{{ state.pizza.toppings.map((t) => t.name).join(', ') }}.</p>
 					</div>
 
 					<div class="price font-semibold">€ {{ state.pizza.price.toFixed(2) }}</div>
@@ -131,7 +131,7 @@ export default defineComponent({
 			state.pizza.name = data.name;
 			state.pizza.price = data.price;
 			state.pizza.imgUrl = data.imgUrl;
-			state.pizza.toppings = data.topppings;
+			state.pizza.toppings = data.topppings ? data.topppings.map((name: string) => ({ name })) : [];
 			state.pizza.reviews = data.orderReviews;
 			// pizza.pizzaUrl = pizza.name.toLowerCase().replaceAll(' ', '-');
 			state.pizza.pizzaUrl = state.pizza.id;
