@@ -94,7 +94,7 @@ export default defineComponent({
 				state.pizza.name = data.name;
 				state.pizza.price = data.price;
 				state.pizza.imgUrl = data.imgUrl;
-				state.pizza.toppings = data.topppings.map((name: string) => ({ name }));
+				state.pizza.toppings = data.topppings ? data.topppings.map((name: string) => ({ name })) : [];
 				state.pizza.reviews = data.orderReviews;
 				// pizza.pizzaUrl = pizza.name.toLowerCase().replaceAll(' ', '-');
 			} else {
@@ -119,7 +119,9 @@ export default defineComponent({
 			// sort on name first, then on price
 			state.allToppings.sort((a, b) => a.name.localeCompare(b.name)).sort((a, b) => a.price!.toString().localeCompare(b.price!.toString()));
 
-			state.allToppings = state.allToppings.filter((a) => state.pizza.toppings.findIndex((b) => b.name == a.name) == -1);
+			if (state.pizza.toppings) {
+				state.allToppings = state.allToppings.filter((a) => state.pizza.toppings.findIndex((b) => b.name == a.name) == -1);
+			}
 		};
 
 		getToppings();
