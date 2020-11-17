@@ -1,5 +1,5 @@
 <template>
-	<NavigationBar :text="'Menu'" :backIcon="true" :cartIcon="true" />
+	<NavigationBar :text="'Menu'" :backIcon="true" :previousPage="state.previousPage" :cartIcon="true" />
 
 	<main class="px-6 py-8 flex justify-center">
 		<div class="main">
@@ -77,8 +77,9 @@ import DropdownList from '@/presentations/pizza/shared/components/DropdownList.v
 import ButtonMedium from '@/presentations/pizza/shared/components/ButtonMedium.vue';
 import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
 
-type PizzasState = {
+type State = {
 	pizzas: Array<Pizza>;
+	previousPage: string;
 };
 
 export default defineComponent({
@@ -89,9 +90,17 @@ export default defineComponent({
 	},
 
 	setup() {
-		const state: PizzasState = reactive({
+		const state: State = reactive({
 			pizzas: [],
+			previousPage: '',
 		});
+
+		const getOrderType = async () => {
+			const data = store.getters.getOrderType();
+			state.previousPage = data.orderType ? data.orderType : '';
+		};
+
+		getOrderType();
 
 		const getPizzas = async () => {
 			const data = await get('pizzas');
