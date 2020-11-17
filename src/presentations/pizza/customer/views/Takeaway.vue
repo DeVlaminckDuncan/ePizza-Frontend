@@ -1,16 +1,21 @@
 <template>
-	<NavigationBar :text="'Takeaway'" :backIcon="true" />
+	<NavigationBar :text="'Takeaway'" :backIcon="true" :previousPage="'/'" />
 
 	<main class="px-6 py-8 flex justify-center">
 		<div class="main">
 			<h1 class="font-semibold text-2xl">Choose a restaurant</h1>
 
 			<form class="w-full mt-8">
-				<div v-for="restaurant of state.restaurants" :key="restaurant.id" class="mb-4">
-					<input @click="state.selectedRestaurant = restaurant" :id="restaurant.id" :value="restaurant.name" type="radio" name="restaurant" class="mr-2" />
-					<label :for="restaurant.id" class="text-lg">{{ restaurant.name }}</label>
-					<p>{{ `${restaurant.streetName} ${restaurant.houseNumber}, ${restaurant.city}` }}</p>
-					<a :href="`tel:${restaurant.phoneNumber.toString().replaceAll(' ', '')}`">{{ restaurant.phoneNumber }}</a>
+				<div v-if="state.restaurants.length">
+					<div v-for="restaurant of state.restaurants" :key="restaurant.id" class="mb-4">
+						<input @click="state.selectedRestaurant = restaurant" :id="restaurant.id" :value="restaurant.name" type="radio" name="restaurant" class="mr-2" />
+						<label :for="restaurant.id" class="text-lg">{{ restaurant.name }}</label>
+						<p>{{ `${restaurant.streetName} ${restaurant.houseNumber}, ${restaurant.city}` }}</p>
+						<a :href="`tel:${restaurant.phoneNumber.toString().replaceAll(' ', '')}`">{{ restaurant.phoneNumber }}</a>
+					</div>
+				</div>
+				<div v-else>
+					Loading restaurants...
 				</div>
 
 				<ButtonWide @click="continueToMenu" :text="'Continue'" :color="'red'" class="mt-4" />
