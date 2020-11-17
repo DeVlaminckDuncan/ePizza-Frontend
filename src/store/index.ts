@@ -9,7 +9,7 @@ export enum MutationTypes {
 
 const state = {
 	pizzas: localStorage.pizzas ? JSON.parse(localStorage.pizzas) : [],
-	orderType: localStorage.orderType ? JSON.parse(localStorage.orderType) : '',
+	orderType: localStorage.orderType ? JSON.parse(localStorage.orderType) : {},
 };
 
 export default createStore({
@@ -22,6 +22,10 @@ export default createStore({
 
 		getPizzaByIndex: (state) => (index: number) => {
 			return state.pizzas ? state.pizzas[index] : null;
+		},
+
+		getOrderType: (state) => () => {
+			return state.orderType ? state.orderType : null;
 		},
 	},
 
