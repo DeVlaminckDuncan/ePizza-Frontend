@@ -15,21 +15,20 @@
 
 					<span class="price text-right font-semibold my-6">€ {{ state.pizza.price.toFixed(2) }}</span>
 
-					<ButtonMedium @click="addToCart" class="bg-alpha-red" :text="isNaN(state.pizza.pizzaUrl) ? 'Save changes' : 'Add to cart'" :color="'red'" />
+					<ButtonMedium @click="saveChanges" class="bg-alpha-red" :text="isNaN(state.pizza.pizzaUrl) ? 'Add to cart' : 'Save changes'" :color="'red'" />
 				</div>
 			</div>
 
-			<div :ref="state.toppings" v-for="topping of state.pizza.toppings" :key="topping" class="flex flex-wrap justify-between items-center w-full text-lg mb-2">
+			<div v-for="topping of state.pizza.toppings" :key="topping.name" class="flex flex-wrap justify-between items-center w-full text-lg mb-2">
 				<div class="flex">
-					<ButtonExtraSmall @click="decreaseTopping(topping, $event.currentTarget)" :text="'-'" :color="'red'" />
+					<ButtonExtraSmall @click="decreaseTopping(topping)" :text="'-'" :color="'red'" />
 				</div>
 
-				{{ topping }}
+				{{ topping.name }}
 
-				<div class="flex">
-					<ButtonExtraSmall @click="increaseTopping(topping, $event.currentTarget)" class="bg-alpha-green" :text="'+'" :color="'green'" />
-					<ButtonExtraSmall @click="increaseTopping(topping, $event.currentTarget)" class="opacity-50 mx-1" :text="'+'" :color="'green'" />
-					<ButtonExtraSmall @click="increaseTopping(topping, $event.currentTarget)" class="opacity-50" :text="'+'" :color="'green'" />
+				<div class="flex -mr-1">
+					<ButtonExtraSmall v-for="i of topping.amount" :key="i" @click="increaseTopping(topping)" class="bg-alpha-green mr-1" :text="'+'" :color="'green'" />
+					<ButtonExtraSmall v-for="i of 3 - (topping.amount ? topping.amount : 0)" :key="i" @click="increaseTopping(topping)" class="opacity-50 mr-1" :text="'+'" :color="'green'" />
 				</div>
 			</div>
 
@@ -40,7 +39,7 @@
 
 				{{ topping.name }}
 
-				<button @click="addTopping" class="text-white font-semibold  bg-alpha-yellow px-4 py-1 rounded-lg shadow-md">Add</button>
+				<button @click="addTopping(topping.id ? topping.id : '')" class="text-white font-semibold  bg-alpha-yellow px-4 py-1 rounded-lg shadow-md">Add</button>
 			</div>
 		</div>
 	</main>
@@ -53,20 +52,13 @@ import store, { MutationTypes } from '@/store';
 
 import { get } from '@/utils/api';
 import Pizza from '@/models/Pizza';
+import Topping from '@/models/Topping';
 import ButtonMedium from '@/presentations/pizza/shared/components/ButtonMedium.vue';
 import ButtonExtraSmall from '../components/ButtonExtraSmall.vue';
 import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
 
-type Topping = {
-	id?: string;
-	name: string;
-	price?: number;
-	amount?: number;
-};
-
 type State = {
 	pizza: Pizza;
-	toppings: Array<Topping>;
 	allToppings: Array<Topping>;
 };
 
@@ -90,25 +82,25 @@ export default defineComponent({
 				pizzaUrl: ref(route.currentRoute.value.params.id).value as string,
 			},
 
-			toppings: [],
-
 			allToppings: [],
 		});
 
 		const getPizza = async () => {
-			if (isNaN(state.pizza.pizzaUrl)) {
-				const data = await get(`pizzas/${state.pizza.pizzaUrl}`);
+			const pizzaUrl = state.pizza.pizzaUrl;
+
+			if (isNaN(pizzaUrl)) {
+				const data = await get(`pizzas/${pizzaUrl}`);
 
 				state.pizza.name = data.name;
 				state.pizza.price = data.price;
 				state.pizza.imgUrl = data.imgUrl;
-				state.pizza.toppings = data.topppings;
+				state.pizza.toppings = data.topppings.map((name: string) => ({ name }));
 				state.pizza.reviews = data.orderReviews;
 				// pizza.pizzaUrl = pizza.name.toLowerCase().replaceAll(' ', '-');
-				state.pizza.pizzaUrl = state.pizza.pizzaUrl;
 			} else {
-				const data = store.getters.getPizzaByIndex(state.pizza.pizzaUrl);
+				const data = store.getters.getPizzaByIndex(pizzaUrl);
 				state.pizza = data;
+				state.pizza.pizzaUrl = pizzaUrl;
 			}
 		};
 
@@ -117,79 +109,88 @@ export default defineComponent({
 		const getToppings = async () => {
 			const data = await get('toppings');
 
-			state.allToppings = data;
+			state.allToppings = data.map((t: Topping) => ({
+				id: t.id,
+				name: t.name,
+				price: t.price,
+				amount: 1,
+			}));
 
 			// sort on name first, then on price
 			state.allToppings.sort((a, b) => a.name.localeCompare(b.name)).sort((a, b) => a.price!.toString().localeCompare(b.price!.toString()));
+
+			state.allToppings = state.allToppings.filter((a) => state.pizza.toppings.findIndex((b) => b.name == a.name) == -1);
 		};
 
 		getToppings();
 
-		const addToCart = () => {
-			console.log('adding pizza to cart');
-		};
-
-		const increaseTopping = (topping: string, button: any) => {
-			const toppingIndex = state.toppings.findIndex((t) => t.name == topping);
+		const increaseTopping = (topping: Topping) => {
+			const toppingIndex = state.pizza.toppings.findIndex((t) => t.name == topping.name);
 			let amount: any = 2;
 
-			if (toppingIndex == -1) {
-				state.toppings.push({
-					name: topping,
-					amount: amount,
-				});
-			} else if (state.toppings[toppingIndex].amount! < 3) {
-				state.toppings[toppingIndex].amount!++;
-				amount = state.toppings[toppingIndex].amount;
+			if (toppingIndex < 0) {
+				topping.amount = amount;
+				state.pizza.toppings.push(topping);
+			} else if (topping.amount! < 3) {
+				topping.amount!++;
+				state.pizza.toppings[toppingIndex].amount = topping.amount;
+				amount = topping.amount;
 			}
-
-			const buttons = button.parentElement.children;
-			if (amount > 0) {
-				buttons[amount - 1].classList.remove('opacity-50');
-			}
-			// TODO: save to localStorage
 		};
 
-		const decreaseTopping = (topping: string, button: any) => {
-			const toppingIndex = state.toppings.findIndex((t) => t.name == topping);
+		const decreaseTopping = (topping: Topping) => {
+			const toppingIndex = state.pizza.toppings.findIndex((t) => t.name == topping.name);
 			let amount: any = 0;
 
-			if (toppingIndex >= 0 && state.toppings[toppingIndex].amount! > 0) {
-				state.toppings[toppingIndex].amount!--;
-				amount = state.toppings[toppingIndex].amount;
+			if (toppingIndex > -1 && state.pizza.toppings[toppingIndex].amount! > 0) {
+				state.pizza.toppings[toppingIndex].amount!--;
+				amount = state.pizza.toppings[toppingIndex].amount;
 			}
 
-			const buttons = button.parentElement.parentElement.children[1].children;
-			buttons[amount].classList.add('opacity-50');
-			if (amount > 0) {
-				buttons[amount - 1].classList.remove('opacity-50');
-			} else {
-				button.parentElement.parentElement.remove();
-				if (toppingIndex >= 0) {
-					delete state.toppings[toppingIndex];
-				}
+			if (amount < 1 && toppingIndex >= 0) {
+				state.pizza.toppings.splice(toppingIndex, 1);
+				state.allToppings.push(topping);
+				state.allToppings.sort((a, b) => a.name.localeCompare(b.name)).sort((a, b) => a.price!.toString().localeCompare(b.price!.toString()));
 			}
-			// TODO: save to localStorage
 		};
 
-		const addTopping = () => {
-			// TODO: save to localStorage
+		const addTopping = (toppingId: string) => {
+			const toppingIndex = state.allToppings.findIndex((t) => t.id == toppingId);
+			const topping = state.allToppings[toppingIndex];
+			topping.amount = 1;
+
+			if (!state.pizza.toppings) {
+				state.pizza.toppings = [];
+			}
+
+			state.pizza.toppings.push(topping);
+
+			if (state.pizza.toppings.length > 1) {
+				state.pizza.toppings.sort((a, b) => a.name.localeCompare(b.name)).sort((a, b) => a.price!.toString().localeCompare(b.price!.toString()));
+			}
+
+			state.allToppings.splice(toppingIndex, 1);
 		};
 
 		const saveChanges = () => {
 			if (isNaN(state.pizza.pizzaUrl)) {
 				store.commit(MutationTypes.ADD_PIZZA, state.pizza);
 			} else {
-				store.commit(MutationTypes.EDIT_PIZZA, state.pizza);
+				store.commit(MutationTypes.EDIT_PIZZA, {
+					pizzaIndex: state.pizza.pizzaUrl,
+					pizza: state.pizza,
+				});
 			}
+
+			route.push('/cart');
 		};
 
 		return {
 			state,
-			addToCart,
 			increaseTopping,
 			decreaseTopping,
 			addTopping,
+			saveChanges,
 		};
 	},
 });
