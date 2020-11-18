@@ -20,3 +20,13 @@ export const post = (endpoint: string, payload: object): any => {
 		return new Error(error);
 	}
 };
+
+export const deleteById = (endpoint: string, id: string): any => {
+	try {
+		return fetch(`${BACKEND_URL_AZURE}${endpoint}/${id}`, {
+			method: 'DELETE',
+		});
+	} catch (error) {
+		return new Error(error);
+	}
+};
