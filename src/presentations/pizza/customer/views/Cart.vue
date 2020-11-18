@@ -24,7 +24,7 @@
 							<ButtonSmall @click="removePizza(index)" class="ml-3" :text="'Remove'" :color="'orange'" />
 						</div>
 
-						<div class="w-1/4 font-semibold text-xl flex justify-end">€ {{ (pizza.price * (pizza.amount ? pizza.amount : 1)).toFixed(2) }}</div>
+						<div class="w-1/4 font-semibold text-xl flex justify-end">€ {{ ((pizza.totalPrice ? pizza.totalPrice : pizza.price) * (pizza.amount ? pizza.amount : 1)).toFixed(2) }}</div>
 					</div>
 				</div>
 			</div>
@@ -78,15 +78,12 @@ export default defineComponent({
 			}
 
 			if (pizza.toppings && pizza.toppings.length) {
-				pizza.price += pizza.toppings.reduce((a, b) => a + (b.price ? b.price : 0) * (b.amount ? b.amount : 1), 0);
+				pizza.totalPrice = pizza.price + pizza.toppings.reduce((a, b) => a + (b.price ? b.price : 0) * (b.amount ? b.amount : 1), 0);
 			}
 		});
 
 		const calculateTotal = () => {
-			state.total = 0;
-			state.pizzas.forEach((pizza: Pizza) => {
-				state.total += pizza.price * (pizza.amount ? pizza.amount : 1);
-			});
+			state.total = state.pizzas.reduce((a, b) => a + (b.totalPrice ? b.totalPrice : b.price) * (b.amount ? b.amount : 1), 0);
 		};
 
 		calculateTotal();
