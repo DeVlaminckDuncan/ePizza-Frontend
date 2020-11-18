@@ -78,11 +78,7 @@ export default defineComponent({
 			}
 
 			if (pizza.toppings && pizza.toppings.length) {
-				pizza.toppings.forEach((t) => {
-					if (t.price) {
-						pizza.price += t.price * (t.amount ? t.amount : 1);
-					}
-				});
+				pizza.price += pizza.toppings.reduce((a, b) => a + (b.price ? b.price : 0) * (b.amount ? b.amount : 1), 0);
 			}
 		});
 
