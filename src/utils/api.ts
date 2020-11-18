@@ -1,5 +1,5 @@
-const BACKEND_URL_LOCAL: string = 'https://localhost:5001/api/';
-const BACKEND_URL_AZURE: string = 'https://epizza.azurewebsites.net/api/';
+const BACKEND_URL_LOCAL: string = process.env.VUE_APP_BACKEND_URL_LOCAL;
+const BACKEND_URL_AZURE: string = process.env.VUE_APP_BACKEND_URL_AZURE;
 
 export const get = (endpoint: string): any => {
 	return fetch(`${BACKEND_URL_AZURE}${endpoint}`)
