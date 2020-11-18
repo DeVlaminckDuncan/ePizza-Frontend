@@ -13,7 +13,7 @@
 				<div class="flex flex-col items-end w-1/2">
 					<p class="text-xl text-right font-semibold">{{ state.pizza.name }}</p>
 
-					<span class="price text-right font-semibold my-6">€ {{ state.pizza.price.toFixed(2) }}</span>
+					<span class="price text-right font-semibold my-6">€ {{ state.totalPrice.toFixed(2) }}</span>
 
 					<ButtonMedium @click="saveChanges" class="bg-alpha-red" :text="isNaN(state.pizza.pizzaUrl) ? 'Add to cart' : 'Save changes'" :color="'red'" />
 				</div>
@@ -59,6 +59,7 @@ import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar
 
 type State = {
 	pizza: Pizza;
+	totalPrice: number;
 	allToppings: Array<Topping>;
 };
 
@@ -82,8 +83,18 @@ export default defineComponent({
 				pizzaUrl: ref(route.currentRoute.value.params.id).value as string,
 			},
 
+			totalPrice: 0,
+
 			allToppings: [],
 		});
+
+		const calculateTotalPrice = () => {
+			state.totalPrice = state.pizza.price;
+
+			if (state.pizza.toppings && state.pizza.toppings.length) {
+				state.totalPrice += state.pizza.toppings.reduce((a, b) => a + (b.price ? b.price : 0) * (b.amount ? b.amount : 1), 0);
+			}
+		};
 
 		const getPizza = async () => {
 			const pizzaUrl = state.pizza.pizzaUrl;
@@ -91,6 +102,7 @@ export default defineComponent({
 			if (isNaN(pizzaUrl)) {
 				const data = await get(`pizzas/${pizzaUrl}`);
 
+				state.pizza.id = data.id;
 				state.pizza.name = data.name;
 				state.pizza.price = data.price;
 				state.pizza.imgUrl = data.imgUrl;
@@ -102,6 +114,8 @@ export default defineComponent({
 				state.pizza = data;
 				state.pizza.pizzaUrl = pizzaUrl;
 			}
+
+			calculateTotalPrice();
 		};
 
 		getPizza();
@@ -138,6 +152,8 @@ export default defineComponent({
 				state.pizza.toppings[toppingIndex].amount = topping.amount;
 				amount = topping.amount;
 			}
+
+			calculateTotalPrice();
 		};
 
 		const decreaseTopping = (topping: Topping) => {
@@ -154,6 +170,8 @@ export default defineComponent({
 				state.allToppings.push(topping);
 				state.allToppings.sort((a, b) => a.name.localeCompare(b.name)).sort((a, b) => a.price!.toString().localeCompare(b.price!.toString()));
 			}
+
+			calculateTotalPrice();
 		};
 
 		const addTopping = (toppingId: string) => {
@@ -172,9 +190,15 @@ export default defineComponent({
 			}
 
 			state.allToppings.splice(toppingIndex, 1);
+
+			calculateTotalPrice();
 		};
 
 		const saveChanges = () => {
+			if (!state.pizza.size) {
+				state.pizza.size = 'Medium';
+			}
+
 			if (isNaN(state.pizza.pizzaUrl)) {
 				store.commit(MutationTypes.ADD_PIZZA, state.pizza);
 			} else {
