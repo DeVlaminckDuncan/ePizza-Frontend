@@ -6,7 +6,7 @@
 			<div class="flex justify-between mb-8">
 				<h1 class="font-semibold text-2xl">Menu list</h1>
 
-				<router-link :to="'/admin/add'" class="w-6 h-6 flex items-center justify-center rounded-full shadow-md bg-alpha-yellow text-white text-xl">+</router-link>
+				<router-link to="/admin/add" class="w-6 h-6 flex items-center justify-center rounded-full shadow-md bg-alpha-yellow text-white text-xl">+</router-link>
 			</div>
 
 			<div class="flex flex-wrap items-center border border-dark border-opacity-5 rounded-lg shadow-md p-3">
