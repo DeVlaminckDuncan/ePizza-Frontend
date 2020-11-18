@@ -6,3 +6,41 @@ export const get = (endpoint: string): any => {
 		.then((r) => r.json())
 		.catch((error: any) => console.error(error));
 };
+
+export const post = (endpoint: string, payload: object): any => {
+	try {
+		return fetch(`${BACKEND_URL_AZURE}${endpoint}`, {
+			method: 'POST',
+			body: JSON.stringify(payload),
+			headers: {
+				'content-type': 'application/json',
+			},
+		});
+	} catch (error) {
+		return new Error(error);
+	}
+};
+
+export const put = (endpoint: string, id: string, payload: object): any => {
+	try {
+		return fetch(`${BACKEND_URL_AZURE}${endpoint}/${id}`, {
+			method: 'PUT',
+			body: JSON.stringify(payload),
+			headers: {
+				'content-type': 'application/json',
+			},
+		});
+	} catch (error) {
+		return new Error(error);
+	}
+};
+
+export const deleteById = (endpoint: string, id: string): any => {
+	try {
+		return fetch(`${BACKEND_URL_AZURE}${endpoint}/${id}`, {
+			method: 'DELETE',
+		});
+	} catch (error) {
+		return new Error(error);
+	}
+};
