@@ -1,5 +1,5 @@
 <template>
-	<NavigationBar :text="'Cart'" :backIcon="true" />
+	<NavigationBar :text="'Cart'" :backIcon="true" :previousPage="'/menu'" />
 
 	<main class="px-6 py-8 flex justify-center">
 		<div class="main">
@@ -75,6 +75,14 @@ export default defineComponent({
 		state.pizzas.forEach((pizza: Pizza) => {
 			if (!pizza.amount) {
 				pizza.amount = 1;
+			}
+
+			if (pizza.toppings && pizza.toppings.length) {
+				pizza.toppings.forEach((t) => {
+					if (t.price) {
+						pizza.price += t.price * (t.amount ? t.amount : 1);
+					}
+				});
 			}
 		});
 
