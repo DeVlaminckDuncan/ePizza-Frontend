@@ -21,6 +21,20 @@ export const post = (endpoint: string, payload: object): any => {
 	}
 };
 
+export const put = (endpoint: string, id: string, payload: object): any => {
+	try {
+		return fetch(`${BACKEND_URL_AZURE}${endpoint}/${id}`, {
+			method: 'PUT',
+			body: JSON.stringify(payload),
+			headers: {
+				'content-type': 'application/json',
+			},
+		});
+	} catch (error) {
+		return new Error(error);
+	}
+};
+
 export const deleteById = (endpoint: string, id: string): any => {
 	try {
 		return fetch(`${BACKEND_URL_AZURE}${endpoint}/${id}`, {
