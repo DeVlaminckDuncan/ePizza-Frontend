@@ -1,6 +1,6 @@
 <template>
 	<div class="relative mb-6">
-		<input @change="changeInputValue" class="input block border border-dark border-opacity-25 rounded shadow-md px-3 py-2 focus:outline-none w-full" :type="type ? type : 'text'" :value="value" required />
+		<input @change="changeInputValue" class="input block border border-dark border-opacity-25 rounded shadow-md px-3 py-2 focus:outline-none w-full" :type="type ? type : 'text'" :value="value" :step="step ? step : 1" required />
 		<label class="label absolute text-opacity-75 bg-white px-3 py-1 pointer-events-none">{{ label }}</label>
 	</div>
 </template>
@@ -16,6 +16,7 @@ export default defineComponent({
 		modelValue: {
 			type: String,
 		},
+		step: Number
 	},
 
 	setup(props, { emit }) {
