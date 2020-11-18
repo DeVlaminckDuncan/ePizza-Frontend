@@ -69,4 +69,10 @@ $bp-sm: '480px';
 		font-size: 14px;
 	}
 }
+
+hr {
+	@apply w-full;
+	@apply border-dark;
+	@apply border-opacity-25;
+}
 </style>
