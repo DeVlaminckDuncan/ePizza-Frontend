@@ -6,19 +6,26 @@
 			<h1 class="font-semibold text-2xl mb-3">Add a new pizza</h1>
 
 			<div class="flex flex-wrap items-center mt-12 mb-12">
-				<div class="w-1/2">
-					<img ref="imageRef" class="pizza-image rounded-lg" :src="pizza.imageUrl" alt="Pizza margherita" />
+				<div class="w-1/2 ">
+					<img v-if="pizza.imageUploaded" @click="uploadImage" ref="imageRef" class="pizza-image rounded-lg cursor-pointer" :src="pizza.imageUrl" alt="Pizza margherita" />
+
+					<div v-else class="flex items-center justify-center">
+						<svg @click="uploadImage" class="cursor-pointer" fill="#999" width="36" height="36" viewBox="0 0 24 24">
+							<path d="M0 0h24v24H0z" fill="none" />
+							<path d="M19 7v2.99s-1.99.01-2 0V7h-3s.01-1.99 0-2h3V2h2v3h3v2h-3zm-3 4V8h-3V5H5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-8h-3zM5 19l3-4 2 3 3-4 4 5H5z" />
+						</svg>
+					</div>
 				</div>
 
 				<div class="w-1/2">
-					<ButtonMedium @click="uploadImage" :text="'Upload image'" :color="'yellow'" />
+					<ButtonMedium @click="uploadImage" :text="`${pizza.imageUploaded ? 'Change' : 'Upload'} image`" :color="'yellow'" />
 					<input ref="uploadImageRef" @change="imageInputChange" class="hidden" type="file" />
 				</div>
 			</div>
 
 			<InputField :label="'Pizza name'" :value="pizza.name" />
 
-			<InputField :label="'Price in €'" :type="'number'" :value="pizza.price.toString()" />
+			<InputField :label="'Price in €'" :type="'number'" :value="pizza.price ? pizza.price.toString() : ''" :step="0.01" />
 
 			<div class="flex justify-between items-center mt-12 mb-8">
 				<span class="text-2xl font-semibold">Toppings</span>
@@ -69,6 +76,7 @@ export default defineComponent({
 			price: 8,
 			toppings: ['Mozzarella', 'Oregano'],
 			imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Pizza_Margherita_stu_spivack.jpg/320px-Pizza_Margherita_stu_spivack.jpg',
+			imageUploaded: false,
 		});
 
 		const uploadImage = () => {
@@ -82,7 +90,11 @@ export default defineComponent({
 				imageRef.value.src = e.target.result;
 			};
 
-			reader.readAsDataURL(e.target.files[0]);
+			if (e.target.files.length) {
+				reader.readAsDataURL(e.target.files[0]);
+
+				pizza.imageUploaded = true;
+			}
 		};
 
 		const addPizza = () => {};
