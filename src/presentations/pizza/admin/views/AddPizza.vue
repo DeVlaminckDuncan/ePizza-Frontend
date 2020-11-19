@@ -73,6 +73,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref } from 'vue';
+import route from '@/router';
 
 import { get, post } from '@/utils/api';
 // import Topping from '@/models/Topping';
@@ -164,7 +165,6 @@ export default defineComponent({
 			let toppings: Array<CustomTopping> = JSON.parse(JSON.stringify(state.toppings));
 			toppings = toppings.filter((t) => t.selected == true);
 			toppings.forEach((t) => {
-				t.price = +t.price;
 				delete t.selected;
 				// if (apiToppings.findIndex((t2) => t2.name.toLowerCase() == t.name.toLowerCase()) > 0) {
 				delete t.id;
@@ -178,7 +178,9 @@ export default defineComponent({
 				toppings: toppings,
 			};
 
-			await post('toppings', data);
+			await post('pizzas', data);
+
+			route.push('/admin/menu');
 		};
 
 		return {
