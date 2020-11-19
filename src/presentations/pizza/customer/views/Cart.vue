@@ -1,5 +1,5 @@
 <template>
-	<NavigationBar :text="'Cart'" :backIcon="true" :previousPage="'/menu'" />
+	<NavigationBar text="Cart" :backIcon="true" previousPage="/menu" />
 
 	<main class="px-6 py-8 flex justify-center">
 		<div class="main">
@@ -13,15 +13,15 @@
 					</div>
 
 					<div class="flex justify-end items-center w-1/2 pl-3">
-						<ButtonExtraSmall @click="decreaseAmount(pizza, index)" :text="'-'" :color="'red'" />
+						<ButtonExtraSmall @click="decreaseAmount(pizza, index)" text="-" color="red" />
 						<span class="font-semibold px-2">{{ pizza.amount }}</span>
-						<ButtonExtraSmall @click="increaseAmount(pizza, index)" :text="'+'" :color="'red'" />
+						<ButtonExtraSmall @click="increaseAmount(pizza, index)" text="+" color="red" />
 					</div>
 
 					<div class="flex items-center w-full pt-3">
 						<div class="flex w-3/4">
 							<router-link :to="`/edit/${index}`" class="flex justify-center items-center bg-alpha-yellow text-white font-semibold text-lg w-24 h-8 rounded-lg shadow-md">Edit</router-link>
-							<ButtonSmall @click="removePizza(index)" class="ml-3" :text="'Remove'" :color="'orange'" />
+							<ButtonSmall @click="removePizza(index)" class="ml-3" text="Remove" color="orange" />
 						</div>
 
 						<div class="w-1/4 font-semibold text-xl flex justify-end">€ {{ ((pizza.totalPrice ? pizza.totalPrice : pizza.price) * (pizza.amount ? pizza.amount : 1)).toFixed(2) }}</div>
@@ -38,7 +38,7 @@
 				<span class="price">€ {{ state.total.toFixed(2) }}</span>
 			</div>
 
-			<ButtonBig :text="'Checkout'" :color="'red'" />
+			<ButtonBig text="Checkout" color="red" />
 		</div>
 	</main>
 </template>

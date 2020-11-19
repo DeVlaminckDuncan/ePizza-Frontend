@@ -1,5 +1,5 @@
 <template>
-	<NavigationBar :text="'Order type'" />
+	<NavigationBar text="Order type" />
 
 	<main class="px-6 py-8 flex justify-center">
 		<div class="main">

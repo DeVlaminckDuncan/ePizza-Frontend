@@ -1,5 +1,5 @@
 <template>
-	<NavigationBar :text="'Edit toppings'" :backIcon="true" :previousPage="'/menu'" :cartIcon="true" />
+	<NavigationBar text="Edit toppings" :backIcon="true" previousPage="/menu" :cartIcon="true" />
 
 	<main class="px-6 py-8 flex justify-center">
 		<div class="main">
@@ -15,20 +15,20 @@
 
 					<span class="price text-right font-semibold my-6">€ {{ state.totalPrice.toFixed(2) }}</span>
 
-					<ButtonMedium @click="saveChanges" class="bg-alpha-red" :text="isNaN(state.pizza.pizzaUrl) ? 'Add to cart' : 'Save changes'" :color="'red'" />
+					<ButtonMedium @click="saveChanges" class="bg-alpha-red" :text="isNaN(state.pizza.pizzaUrl) ? 'Add to cart' : 'Save changes'" color="red" />
 				</div>
 			</div>
 
 			<div v-for="topping of state.pizza.toppings" :key="topping.name" class="flex flex-wrap justify-between items-center w-full text-lg mb-2">
 				<div class="flex">
-					<ButtonExtraSmall @click="decreaseTopping(topping)" :text="'-'" :color="'red'" />
+					<ButtonExtraSmall @click="decreaseTopping(topping)" text="-" color="red" />
 				</div>
 
 				{{ topping.name }}
 
 				<div class="flex -mr-1">
-					<ButtonExtraSmall v-for="i of topping.amount" :key="i" @click="increaseTopping(topping)" class="bg-alpha-green mr-1" :text="'+'" :color="'green'" />
-					<ButtonExtraSmall v-for="i of 3 - (topping.amount ? topping.amount : 0)" :key="i" @click="increaseTopping(topping)" class="opacity-50 mr-1" :text="'+'" :color="'green'" />
+					<ButtonExtraSmall v-for="i of topping.amount" :key="i" @click="increaseTopping(topping)" class="bg-alpha-green mr-1" text="+" color="green" />
+					<ButtonExtraSmall v-for="i of 3 - (topping.amount ? topping.amount : 0)" :key="i" @click="increaseTopping(topping)" class="opacity-50 mr-1" text="+" color="green" />
 				</div>
 			</div>
 

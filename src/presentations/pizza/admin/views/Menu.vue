@@ -1,5 +1,5 @@
 <template>
-	<NavigationBar :text="'Menu'" :menuIcon="true" />
+	<NavigationBar text="Menu" :menuIcon="true" />
 
 	<main class="px-6 py-8 flex justify-center">
 		<div class="main">

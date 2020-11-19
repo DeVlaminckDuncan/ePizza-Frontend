@@ -1,5 +1,5 @@
 <template>
-	<NavigationBar :text="'Details'" :backIcon="true" :previousPage="'/menu'" :cartIcon="true" />
+	<NavigationBar text="Details" :backIcon="true" previousPage="/menu" :cartIcon="true" />
 
 	<main class="px-6 py-8 flex justify-center">
 		<div class="main">
@@ -28,7 +28,7 @@
 						]"
 					/>
 					<router-link :to="`/edit/${state.pizza.pizzaUrl}`" class="button-md flex justify-center items-center bg-alpha-yellow text-white font-semibold text-lg h-8 my-6 rounded-lg shadow-md">Edit toppings</router-link>
-					<ButtonMedium @click="addToCart" :text="'Add to cart'" :color="'red'" />
+					<ButtonMedium @click="addToCart" text="Add to cart" color="red" />
 				</div>
 
 				<div class="w-full flex justify-between pt-5">

@@ -1,12 +1,12 @@
 <template>
-	<NavigationBar :text="'Menu'" :backIcon="true" :previousPage="state.previousPage" :cartIcon="true" />
+	<NavigationBar text="Menu" :backIcon="true" :previousPage="state.previousPage" :cartIcon="true" />
 
 	<main class="px-6 py-8 flex justify-center">
 		<div class="main">
 			<div class="flex justify-between items-center px-3 mb-8">
 				<h1 class="font-semibold text-2xl">Menu list</h1>
 				<DropdownList
-					:label="'Filter'"
+					label="Filter"
 					:options="[
 						{
 							text: 'Filter1',
@@ -47,7 +47,7 @@
 							]"
 						/>
 						<router-link :to="`/edit/${pizza.pizzaUrl}`" class="button-md flex justify-center items-center bg-alpha-yellow text-white font-semibold text-lg h-8 my-6 rounded-lg shadow-md">Edit toppings</router-link>
-						<ButtonMedium @click="addToCart(pizza)" :text="'Add to cart'" :color="'red'" />
+						<ButtonMedium @click="addToCart(pizza)" text="Add to cart" color="red" />
 					</div>
 
 					<div class="w-full flex justify-between pt-5">

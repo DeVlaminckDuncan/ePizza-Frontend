@@ -1,12 +1,12 @@
 <template>
-	<NavigationBar :text="'Order type'" :backIcon="true" :cartIcon="true" />
+	<NavigationBar text="Order type" :backIcon="true" :cartIcon="true" />
 
 	<main class="px-6 py-8 flex justify-center">
 		<div class="main">
 			<h1 class="font-semibold text-2xl">Rate the pizza margherita</h1>
 
 			<form class="w-full mt-8">
-				<InputField :label="'Name'" />
+				<InputField label="Name" />
 
 				<div class="relative">
 					<textarea class="input block border border-dark border-opacity-25 rounded shadow-md px-3 py-2 focus:outline-none w-full" type="text" required></textarea>
@@ -15,7 +15,7 @@
 
 				<Rating class="flex justify-center my-6" v-model="newReview.rating" />
 
-				<ButtonWide :text="'Submit'" :color="'red'" />
+				<ButtonWide text="Submit" color="red" />
 			</form>
 		</div>
 	</main>

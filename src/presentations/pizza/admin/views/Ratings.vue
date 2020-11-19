@@ -1,5 +1,5 @@
 <template>
-	<NavigationBar :text="'Ratings'" :menuIcon="true" />
+	<NavigationBar text="Ratings" :menuIcon="true" />
 
 	<main class="px-6 py-8 flex justify-center">
 		<div class="main">

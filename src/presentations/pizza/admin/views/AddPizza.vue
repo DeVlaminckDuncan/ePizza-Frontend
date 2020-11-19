@@ -1,11 +1,11 @@
 <template>
-	<NavigationBar :text="'Add pizza'" :backIcon="true" :previousPage="'/admin/menu'" />
+	<NavigationBar text="Add pizza" :backIcon="true" previousPage="/admin/menu" />
 
 	<main class="px-6 py-8 flex justify-center">
 		<div class="main">
 			<h1 class="font-semibold text-2xl mb-3">Add a new pizza</h1>
 
-			<ButtonWide @click="addPizza" :text="'Add pizza'" :color="'red'" />
+			<ButtonWide @click="addPizza" text="Add pizza" color="red" />
 
 			<!-- <div class="flex flex-wrap items-center mt-12 mb-12">
 				<div class="w-1/2 ">
@@ -20,16 +20,16 @@
 				</div>
 
 				<div class="w-1/2">
-					<ButtonMedium @click="uploadImage" :text="`${imageUploaded ? 'Change' : 'Upload'} image`" :color="'yellow'" />
+					<ButtonMedium @click="uploadImage" :text="`${imageUploaded ? 'Change' : 'Upload'} image`" color="yellow" />
 					<input ref="uploadImageRef" @change="imageInputChange" class="hidden" type="file" />
 				</div>
 			</div> -->
 
-			<InputField v-model="pizza.imageUrl" :label="'URL to image'" class="my-12" />
+			<InputField v-model="pizza.imageUrl" label="URL to image" class="my-12" />
 
-			<InputField v-model="pizza.name" :label="'Pizza name'" />
+			<InputField v-model="pizza.name" label="Pizza name" />
 
-			<InputField v-model="pizza.price" :label="'Price in €'" :type="'number'" :step="0.01" />
+			<InputField v-model="pizza.price" label="Price in €" type="number" :step="0.01" />
 
 			<div class="flex justify-between items-center mt-12 mb-8">
 				<span class="text-2xl font-semibold">Toppings</span>
@@ -52,8 +52,8 @@
 							</div>
 
 							<div class="w-5/6 flex flex-col justify-between">
-								<InputField v-model="topping.name" :label="'Topping name'" :value="topping.name ? topping.name : ''" />
-								<InputField v-model="topping.price" :label="'Price in €'" :value="(topping.price ? topping.price : 0).toString()" :type="'number'" :step="0.01" :marginBottom="false" />
+								<InputField v-model="topping.name" label="Topping name" :value="topping.name ? topping.name : ''" />
+								<InputField v-model="topping.price" label="Price in €" :value="(topping.price ? topping.price : 0).toString()" type="number" :step="0.01" :marginBottom="false" />
 							</div>
 						</div>
 

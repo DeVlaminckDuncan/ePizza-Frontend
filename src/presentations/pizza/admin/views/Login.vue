@@ -1,16 +1,16 @@
 <template>
-	<NavigationBar :text="'Login'" :backIcon="true" />
+	<NavigationBar text="Login" :backIcon="true" />
 
 	<main class="px-6 py-8 flex justify-center">
 		<div class="main">
 			<h1 class="font-semibold text-2xl">Log in to your account</h1>
 
 			<form class="w-full mt-8">
-				<InputField :label="'Username'" />
+				<InputField label="Username" />
 
-				<InputField :label="'Password'" :type="'password'" />
+				<InputField label="Password" type="password" />
 
-				<ButtonWide :text="'Log in'" :color="'red'" />
+				<ButtonWide text="Log in" color="red" />
 			</form>
 		</div>
 	</main>

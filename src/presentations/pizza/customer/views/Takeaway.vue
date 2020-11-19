@@ -1,5 +1,5 @@
 <template>
-	<NavigationBar :text="'Takeaway'" :backIcon="true" :previousPage="'/'" />
+	<NavigationBar text="Takeaway" :backIcon="true" previousPage="/" />
 
 	<main class="px-6 py-8 flex justify-center">
 		<div class="main">
@@ -18,7 +18,7 @@
 					Loading restaurants...
 				</div>
 
-				<ButtonWide @click="continueToMenu" :text="'Continue'" :color="'red'" class="mt-4" />
+				<ButtonWide @click="continueToMenu" text="Continue" color="red" class="mt-4" />
 			</form>
 		</div>
 	</main>

@@ -1,5 +1,5 @@
 <template>
-	<NavigationBar :text="'Delivery'" :backIcon="true" :previousPage="'/'" />
+	<NavigationBar text="Delivery" :backIcon="true" previousPage="/" />
 
 	<main class="px-6 py-8 flex justify-center">
 		<div class="main">
@@ -7,13 +7,13 @@
 
 			<form class="w-full mt-8">
 				<div class="flex">
-					<InputField v-model="location.street" :label="'Street'" class="w-3/4 mr-3" />
-					<InputField v-model="location.streetNo" :label="'No'" class="w-1/4" />
+					<InputField v-model="location.street" label="Street" class="w-3/4 mr-3" />
+					<InputField v-model="location.streetNo" label="No" class="w-1/4" />
 				</div>
 
-				<InputField v-model="location.city" :label="'City'" />
+				<InputField v-model="location.city" label="City" />
 
-				<ButtonWide @click="continueToMenu" :text="'Continue'" :color="'red'" />
+				<ButtonWide @click="continueToMenu" text="Continue" color="red" />
 			</form>
 		</div>
 	</main>
