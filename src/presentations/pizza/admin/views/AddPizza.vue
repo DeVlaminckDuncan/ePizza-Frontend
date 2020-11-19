@@ -40,7 +40,7 @@
 					<div v-for="(topping, index) of state.toppings" :key="topping.id ? topping.id : topping.name" class="flex flex-wrap items-center mb-4">
 						<div class="w-full flex mb-8">
 							<div class="w-1/6 flex flex-col justify-around items-center">
-								<input v-model="topping.selected" :checked="topping.selected ? true : false" type="checkbox" />
+								<input v-model="topping.selected" type="checkbox" />
 								<button @click="removeTopping(index)">
 									<svg fill="#999" width="24" height="24" viewBox="0 0 24 24">
 										<path d="M0 0h24v24H0z" fill="none" />
@@ -164,6 +164,7 @@ export default defineComponent({
 			let toppings: Array<CustomTopping> = JSON.parse(JSON.stringify(state.toppings));
 			toppings = toppings.filter((t) => t.selected == true);
 			toppings.forEach((t) => {
+				t.price = +t.price;
 				delete t.selected;
 				// if (apiToppings.findIndex((t2) => t2.name.toLowerCase() == t.name.toLowerCase()) > 0) {
 				delete t.id;
