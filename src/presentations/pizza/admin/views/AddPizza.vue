@@ -7,7 +7,7 @@
 
 			<ButtonWide @click="addPizza" :text="'Add pizza'" :color="'red'" />
 
-			<div class="flex flex-wrap items-center mt-12 mb-12">
+			<!-- <div class="flex flex-wrap items-center mt-12 mb-12">
 				<div class="w-1/2 ">
 					<img v-if="imageUploaded" @click="uploadImage" ref="imageRef" class="pizza-image rounded-lg cursor-pointer" :src="pizza.imageUrl" alt="Pizza margherita" />
 
@@ -23,7 +23,9 @@
 					<ButtonMedium @click="uploadImage" :text="`${imageUploaded ? 'Change' : 'Upload'} image`" :color="'yellow'" />
 					<input ref="uploadImageRef" @change="imageInputChange" class="hidden" type="file" />
 				</div>
-			</div>
+			</div> -->
+
+			<InputField v-model="pizza.imageUrl" :label="'URL to image'" class="my-12" />
 
 			<InputField v-model="pizza.name" :label="'Pizza name'" />
 
