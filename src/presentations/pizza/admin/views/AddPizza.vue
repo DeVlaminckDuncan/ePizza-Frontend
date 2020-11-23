@@ -164,6 +164,9 @@ export default defineComponent({
 		};
 
 		const addPizza = async () => {
+			const pizzaData = pizza;
+			pizza.price = +pizza.price;
+
 			let toppings: Array<CustomTopping> = JSON.parse(JSON.stringify(state.toppings));
 			toppings = toppings.filter((t) => t.selected == true);
 			toppings.forEach((t) => {
@@ -171,12 +174,13 @@ export default defineComponent({
 				// if (apiToppings.findIndex((t2) => t2.name.toLowerCase() == t.name.toLowerCase()) > 0) {
 				delete t.id;
 				// }
+				t.price = +t.price;
 			});
 
 			const data = {
-				name: pizza.name,
-				price: pizza.price,
-				imgUrl: pizza.imageUrl,
+				name: pizzaData.name,
+				price: pizzaData.price,
+				imgUrl: pizzaData.imageUrl,
 				toppings: toppings,
 			};
 
@@ -188,11 +192,11 @@ export default defineComponent({
 		return {
 			pizza,
 			state,
-			imageUploaded,
-			uploadImage,
-			imageInputChange,
-			imageRef,
-			uploadImageRef,
+			// imageUploaded,
+			// uploadImage,
+			// imageInputChange,
+			// imageRef,
+			// uploadImageRef,
 			addTopping,
 			removeTopping,
 			addPizza,
