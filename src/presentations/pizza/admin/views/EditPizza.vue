@@ -72,6 +72,7 @@ import route from '@/router';
 
 import { get, put } from '@/utils/api';
 import Pizza from '@/models/Pizza';
+import Topping from '@/models/Topping';
 import InputField from '@/presentations/pizza/shared/components/InputField.vue';
 import ButtonMedium from '@/presentations/pizza/shared/components/ButtonMedium.vue';
 import ButtonWide from '@/presentations/pizza/shared/components/ButtonWide.vue';
@@ -86,8 +87,6 @@ export default defineComponent({
 	},
 
 	setup() {
-		console.log('hi');
-
 		const imageRef = ref();
 		const uploadImageRef = ref();
 
@@ -141,7 +140,23 @@ export default defineComponent({
 		};
 
 		const saveChanges = async () => {
-			await put('pizzas', pizza.id, pizza);
+			const pizzaData: Pizza = JSON.parse(JSON.stringify(pizza));
+			pizzaData.price = +pizzaData.price;
+
+			pizzaData.toppings.forEach((t) => {
+				if (t.price) {
+					t.price = +t.price;
+				}
+			});
+
+			const data = {
+				name: pizzaData.name,
+				price: pizzaData.price,
+				imgUrl: pizzaData.imgUrl,
+				toppings: pizzaData.toppings,
+			};
+
+			await put('pizzas', pizza.id, data);
 
 			route.push('/admin/menu');
 		};
@@ -149,10 +164,10 @@ export default defineComponent({
 		return {
 			pizza,
 			dataLoaded,
-			uploadImage,
-			imageInputChange,
-			imageRef,
-			uploadImageRef,
+			// uploadImage,
+			// imageInputChange,
+			// imageRef,
+			// uploadImageRef,
 			addTopping,
 			removeTopping,
 			saveChanges,
