@@ -43,29 +43,16 @@ import { defineComponent } from 'vue';
 
 export default defineComponent({
 	props: {
-		showSmall: {
-			type: Boolean,
-			default: false,
-		},
-
-		modelValue: {
-			type: String,
-		},
+		modelValue: String,
 	},
 
 	setup(props, { emit }) {
-		const rating1: boolean = false,
-			rating2: boolean = false,
-			rating3: boolean = false,
-			rating4: boolean = false,
-			rating5: boolean = false;
-
 		const ratings: any = {
-			rating1,
-			rating2,
-			rating3,
-			rating4,
-			rating5,
+			rating1: false,
+			rating2: false,
+			rating3: false,
+			rating4: false,
+			rating5: false,
 		};
 
 		const setRatingValue = (rating: number) => {
@@ -99,7 +86,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .custom-rating-label {
-	cursor: pointer;
+	@apply cursor-pointer;
 
 	.container:hover & {
 		@apply opacity-100;
