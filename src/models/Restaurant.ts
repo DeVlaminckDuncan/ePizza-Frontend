@@ -1,8 +1,8 @@
 export default interface Restaurant {
-	id: string;
+	id?: string;
 	name: string;
 	streetName: string;
-	houseNumber: string;
+	houseNumber: number;
 	phoneNumber: string;
 	zipCode: number;
 	city: string;
