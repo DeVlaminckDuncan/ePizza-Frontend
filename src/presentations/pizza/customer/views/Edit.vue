@@ -13,7 +13,7 @@
 				<div class="flex flex-col items-end w-1/2">
 					<p class="text-xl text-right font-semibold">{{ state.pizza.name }}</p>
 
-					<span class="price text-right font-semibold my-6">€ {{ state.totalPrice.toFixed(2) }}</span>
+					<span class="price text-right font-semibold my-6">{{ makePricePrettier(state.totalPrice) }}</span>
 
 					<ButtonMedium @click="saveChanges" class="bg-alpha-red" :text="isNaN(state.pizza.pizzaUrl) ? 'Add to cart' : 'Save changes'" color="red" />
 				</div>
@@ -35,7 +35,7 @@
 			<p class="text-2xl text-left font-semibold mt-12">Add more toppings</p>
 
 			<div v-for="topping of state.allToppings" :key="topping.id" class="flex flex-wrap justify-between items-center w-full text-lg mt-4">
-				<span class="font-semibold">€ {{ (topping.price ? topping.price : 0).toFixed(2) }}</span>
+				<span class="font-semibold">{{ makePricePrettier(topping.price ? topping.price : 0) }}</span>
 
 				{{ topping.name }}
 
@@ -51,6 +51,7 @@ import route from '@/router';
 import store, { MutationTypes } from '@/store';
 
 import { get } from '@/utils/api';
+import { makePricePrettier } from '@/utils/dataFormattings';
 import Pizza from '@/models/Pizza';
 import Topping from '@/models/Topping';
 import ButtonMedium from '@/presentations/pizza/shared/components/ButtonMedium.vue';
@@ -217,6 +218,7 @@ export default defineComponent({
 			decreaseTopping,
 			addTopping,
 			saveChanges,
+			makePricePrettier,
 		};
 	},
 });
