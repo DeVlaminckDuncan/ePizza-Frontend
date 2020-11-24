@@ -52,7 +52,7 @@ export default defineComponent({
 				id: '',
 				name: '',
 				streetName: '',
-				houseNumber: '',
+				houseNumber: 0,
 				phoneNumber: '',
 				zipCode: 0,
 				city: '',
