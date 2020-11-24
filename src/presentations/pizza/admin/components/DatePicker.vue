@@ -1,5 +1,5 @@
 <template>
-	<button @click="buttonClicked" class="h-8 w-48 flex justify-center items-center border border-dark border-opacity-10 rounded shadow-md focus:outline-none">
+	<button class="h-8 w-48 flex justify-center items-center border border-dark border-opacity-10 rounded shadow-md focus:outline-none">
 		<span class="text-lg font-semibold opacity-80 mr-3">Change period</span>
 		<svg class="opacity-80" width="20" height="20" viewBox="0 0 24 24">
 			<path d="M0 0h24v24H0z" fill="none" />
@@ -7,17 +7,3 @@
 		</svg>
 	</button>
 </template>
-
-<script lang="ts">
-import { defineComponent } from 'vue';
-
-export default defineComponent({
-	setup() {
-		const buttonClicked = () => {};
-
-		return {
-			buttonClicked: buttonClicked,
-		};
-	},
-});
-</script>
