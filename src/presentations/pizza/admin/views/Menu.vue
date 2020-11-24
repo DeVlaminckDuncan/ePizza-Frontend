@@ -30,7 +30,7 @@
 						</div>
 					</div>
 
-					<div class="font-semibold mt-1">€ {{ pizza.price.toFixed(2) }}</div>
+					<div class="font-semibold mt-1">{{ makePricePrettier(pizza.price) }}</div>
 				</div>
 			</div>
 
@@ -45,6 +45,7 @@
 import { defineComponent, reactive } from 'vue';
 
 import { get, deleteById } from '@/utils/api';
+import { makePricePrettier } from '@/utils/dataFormattings';
 import Pizza from '@/models/Pizza';
 import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
 
@@ -78,6 +79,7 @@ export default defineComponent({
 		return {
 			state,
 			removePizza,
+			makePricePrettier,
 		};
 	},
 });

@@ -24,7 +24,7 @@
 							<ButtonSmall @click="removePizza(index)" class="ml-3" text="Remove" color="orange" />
 						</div>
 
-						<div class="w-1/4 font-semibold text-xl flex justify-end">€ {{ ((pizza.totalPrice ? pizza.totalPrice : pizza.price) * (pizza.amount ? pizza.amount : 1)).toFixed(2) }}</div>
+						<div class="w-1/4 font-semibold text-xl flex justify-end">{{ makePricePrettier((pizza.totalPrice ? pizza.totalPrice : pizza.price) * (pizza.amount ? pizza.amount : 1)) }}</div>
 					</div>
 				</div>
 			</div>
@@ -35,7 +35,7 @@
 
 			<div class="flex justify-between font-semibold py-8">
 				<span class="text-xl">Total</span>
-				<span class="price">€ {{ state.total.toFixed(2) }}</span>
+				<span class="price">{{ makePricePrettier(state.total) }}</span>
 			</div>
 
 			<ButtonBig text="Checkout" color="red" />
@@ -47,6 +47,7 @@
 import { defineComponent, reactive } from 'vue';
 import store, { MutationTypes } from '@/store';
 
+import { makePricePrettier } from '@/utils/dataFormattings';
 import Pizza from '@/models/Pizza';
 import ButtonBig from '../components/ButtonBig.vue';
 import ButtonSmall from '../components/ButtonSmall.vue';
@@ -127,6 +128,7 @@ export default defineComponent({
 			increaseAmount,
 			removePizza,
 			checkout,
+			makePricePrettier,
 		};
 	},
 });

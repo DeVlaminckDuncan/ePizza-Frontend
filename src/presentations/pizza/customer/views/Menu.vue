@@ -55,7 +55,7 @@
 							<span class="text-xl">{{ pizza.name }}</span>
 						</router-link>
 
-						<span class="price font-semibold">€ {{ pizza.price.toFixed(2) }}</span>
+						<span class="price font-semibold">{{ makePricePrettier(pizza.price) }}</span>
 					</div>
 				</div>
 			</div>
@@ -72,6 +72,7 @@ import route from '@/router';
 import store, { MutationTypes } from '@/store';
 
 import { get } from '@/utils/api';
+import { makePricePrettier } from '@/utils/dataFormattings';
 import Pizza from '@/models/Pizza';
 import DropdownList from '@/presentations/pizza/shared/components/DropdownList.vue';
 import ButtonMedium from '@/presentations/pizza/shared/components/ButtonMedium.vue';
@@ -122,6 +123,7 @@ export default defineComponent({
 		return {
 			state,
 			addToCart,
+			makePricePrettier,
 		};
 	},
 });
