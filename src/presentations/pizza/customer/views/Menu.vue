@@ -55,7 +55,7 @@
 							<span class="text-xl">{{ pizza.name }}</span>
 						</router-link>
 
-						<span class="price font-semibold">{{ makePricePrettier(pizza.price) }}</span>
+						<span class="price font-semibold">{{ makePricePrettier(sizeMultiplier(pizza.price, pizza.size)) }}</span>
 					</div>
 				</div>
 			</div>
@@ -73,7 +73,7 @@ import store from '@/store';
 
 import { get } from '@/utils/api';
 import { saveItem } from '@/utils/idb';
-import { makePricePrettier } from '@/utils/dataFormattings';
+import { makePricePrettier, sizeMultiplier } from '@/utils/dataFormattings';
 import Pizza from '@/models/Pizza';
 import DropdownList from '@/presentations/pizza/shared/components/DropdownList.vue';
 import ButtonMedium from '@/presentations/pizza/shared/components/ButtonMedium.vue';
@@ -135,6 +135,7 @@ export default defineComponent({
 			state,
 			addToCart,
 			makePricePrettier,
+			sizeMultiplier,
 		};
 	},
 });
