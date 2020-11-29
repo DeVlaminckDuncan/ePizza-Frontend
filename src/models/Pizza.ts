@@ -2,6 +2,7 @@ import Review from './Review';
 import Topping from './Topping';
 
 export default interface Pizza {
+	idbId?: number;
 	id: string;
 	name: string;
 	price: number;
