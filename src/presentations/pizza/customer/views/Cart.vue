@@ -24,7 +24,7 @@
 							<ButtonSmall @click="removePizza(pizza)" class="ml-3" text="Remove" color="orange" />
 						</div>
 
-						<div class="w-1/4 font-semibold text-xl flex justify-end">{{ makePricePrettier((pizza.totalPrice ? pizza.totalPrice : pizza.price) * (pizza.amount ? pizza.amount : 1)) }}</div>
+						<div class="w-1/4 font-semibold text-xl flex justify-end">{{ makePricePrettier(sizeMultiplier(pizza.totalPrice ? pizza.totalPrice : pizza.price, pizza.size) * (pizza.amount ? pizza.amount : 1)) }}</div>
 					</div>
 				</div>
 			</div>
@@ -47,7 +47,7 @@
 import { defineComponent, reactive } from 'vue';
 
 import { getItems, editItem, deleteItem } from '@/utils/idb';
-import { makePricePrettier } from '@/utils/dataFormattings';
+import { makePricePrettier, sizeMultiplier } from '@/utils/dataFormattings';
 import Pizza from '@/models/Pizza';
 import Topping from '@/models/Topping';
 import ButtonBig from '../components/ButtonBig.vue';
@@ -95,7 +95,7 @@ export default defineComponent({
 		getPizzas();
 
 		const calculateTotal = () => {
-			state.total = state.pizzas.reduce((a, b) => a + (b.totalPrice ? b.totalPrice : b.price) * (b.amount ? b.amount : 1), 0);
+			state.total = state.pizzas.reduce((a, b) => a + sizeMultiplier(b.totalPrice ? b.totalPrice : b.price, b.size) * (b.amount ? b.amount : 1), 0);
 		};
 
 		const removeReactivityFromPizza = (pizza: Pizza) => {
@@ -170,6 +170,7 @@ export default defineComponent({
 			removePizza,
 			checkout,
 			makePricePrettier,
+			sizeMultiplier,
 		};
 	},
 });
