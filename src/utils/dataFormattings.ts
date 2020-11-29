@@ -1,1 +1,1 @@
-export const makePricePrettier = (price: any): string => `€ ${price.toFixed(2)}`;
+export const makePricePrettier = (price: any): string => `€ ${(price ? price : 0).toFixed(2)}`;
