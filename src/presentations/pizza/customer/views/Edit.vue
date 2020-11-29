@@ -13,7 +13,7 @@
 				<div class="flex flex-col items-end w-1/2">
 					<p class="text-xl text-right font-semibold">{{ state.pizza.name }}</p>
 
-					<span class="price text-right font-semibold my-6">{{ makePricePrettier(state.totalPrice) }}</span>
+					<span class="price text-right font-semibold my-6">{{ makePricePrettier(sizeMultiplier(state.totalPrice, state.pizza.size)) }}</span>
 
 					<ButtonMedium @click="saveChanges" class="bg-alpha-red" :text="isNaN(state.pizza.pizzaUrl) ? 'Add to cart' : 'Save changes'" color="red" />
 				</div>
@@ -51,7 +51,7 @@ import route from '@/router';
 
 import { get } from '@/utils/api';
 import { getItemById, saveItem, editItem } from '@/utils/idb';
-import { makePricePrettier } from '@/utils/dataFormattings';
+import { makePricePrettier, sizeMultiplier } from '@/utils/dataFormattings';
 import Pizza from '@/models/Pizza';
 import Topping from '@/models/Topping';
 import ButtonMedium from '@/presentations/pizza/shared/components/ButtonMedium.vue';
@@ -240,6 +240,7 @@ export default defineComponent({
 			addTopping,
 			saveChanges,
 			makePricePrettier,
+			sizeMultiplier,
 		};
 	},
 });
