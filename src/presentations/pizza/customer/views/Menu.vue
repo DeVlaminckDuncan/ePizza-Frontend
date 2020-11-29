@@ -69,9 +69,10 @@
 <script lang="ts">
 import { defineComponent, reactive } from 'vue';
 import route from '@/router';
-import store, { MutationTypes } from '@/store';
+import store from '@/store';
 
 import { get } from '@/utils/api';
+import { saveItem } from '@/utils/idb';
 import { makePricePrettier } from '@/utils/dataFormattings';
 import Pizza from '@/models/Pizza';
 import DropdownList from '@/presentations/pizza/shared/components/DropdownList.vue';
@@ -105,9 +106,10 @@ export default defineComponent({
 
 		const getPizzas = async () => {
 			const data = await get('pizzas');
+
 			state.pizzas = data;
+
 			state.pizzas.forEach((pizza) => {
-				// pizza.pizzaUrl = pizza.name.toLowerCase().replaceAll(' ', '-');
 				pizza.pizzaUrl = pizza.id;
 				pizza.size = 'Medium';
 			});
@@ -115,8 +117,17 @@ export default defineComponent({
 
 		getPizzas();
 
-		const addToCart = (pizza: Pizza) => {
-			store.commit(MutationTypes.ADD_PIZZA, pizza);
+		const addToCart = async (pizza: Pizza) => {
+			const data = {
+				id: pizza.id,
+				name: pizza.name,
+				price: pizza.price,
+				imgUrl: pizza.imgUrl,
+				size: pizza.size,
+			};
+
+			await saveItem('pizzas', data);
+
 			route.push({ name: 'Cart' });
 		};
 
