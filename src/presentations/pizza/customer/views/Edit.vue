@@ -48,9 +48,9 @@
 <script lang="ts">
 import { defineComponent, reactive, ref } from 'vue';
 import route from '@/router';
-import store, { MutationTypes } from '@/store';
 
 import { get } from '@/utils/api';
+import { getItemById, saveItem, editItem } from '@/utils/idb';
 import { makePricePrettier } from '@/utils/dataFormattings';
 import Pizza from '@/models/Pizza';
 import Topping from '@/models/Topping';
@@ -109,11 +109,11 @@ export default defineComponent({
 				state.pizza.imgUrl = data.imgUrl;
 				state.pizza.toppings = data.topppings ? data.topppings.map((name: string) => ({ name })) : [];
 				state.pizza.reviews = data.orderReviews;
-				// pizza.pizzaUrl = pizza.name.toLowerCase().replaceAll(' ', '-');
 			} else {
-				const data = store.getters.getPizzaByIndex(pizzaUrl);
+				const data = await getItemById('pizzas', pizzaUrl);
 				state.pizza = data;
 				state.pizza.pizzaUrl = pizzaUrl;
+				state.pizza.idbId = +pizzaUrl;
 			}
 
 			calculateTotalPrice();
@@ -195,18 +195,39 @@ export default defineComponent({
 			calculateTotalPrice();
 		};
 
-		const saveChanges = () => {
+		const saveChanges = async () => {
 			if (!state.pizza.size) {
 				state.pizza.size = 'Medium';
 			}
 
+			const data = {
+				idbId: state.pizza.idbId,
+				id: state.pizza.id,
+				name: state.pizza.name,
+				price: state.pizza.price,
+				imgUrl: state.pizza.imgUrl,
+				amount: state.pizza.amount ? state.pizza.amount : 1,
+				size: state.pizza.size,
+				toppings: [],
+			};
+
+			state.pizza.toppings.forEach((t) => {
+				const topping: Topping = {
+					id: t.id,
+					name: t.name,
+					price: t.price,
+					amount: t.amount,
+				};
+				// @ts-ignore
+				data.toppings.push(topping);
+			});
+
 			if (isNaN(state.pizza.pizzaUrl)) {
-				store.commit(MutationTypes.ADD_PIZZA, state.pizza);
+				delete data.idbId;
+
+				await saveItem('pizzas', data);
 			} else {
-				store.commit(MutationTypes.EDIT_PIZZA, {
-					pizzaIndex: state.pizza.pizzaUrl,
-					pizza: state.pizza,
-				});
+				await editItem('pizzas', data);
 			}
 
 			route.push('/cart');
