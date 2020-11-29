@@ -2,7 +2,7 @@
 	"name": "ePizza",
 	"short_name": "ePizza",
 	"theme_color": "#cc3128",
-	"background_color": "#ffffff",
+	"background_color": "#cc3128",
 	"display": "fullscreen",
 	"start_url": "/",
 	"scope": "/",
