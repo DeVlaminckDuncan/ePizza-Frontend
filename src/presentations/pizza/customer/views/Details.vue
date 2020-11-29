@@ -96,9 +96,9 @@
 <script lang="ts">
 import { defineComponent, reactive, ref } from 'vue';
 import route from '@/router';
-import store, { MutationTypes } from '@/store';
 
 import { get } from '@/utils/api';
+import { getItemById, saveItem } from '@/utils/idb';
 import { makePricePrettier } from '@/utils/dataFormattings';
 import Pizza from '@/models/Pizza';
 import DropdownList from '@/presentations/pizza/shared/components/DropdownList.vue';
@@ -133,8 +133,8 @@ export default defineComponent({
 
 		const getPizza = async () => {
 			if (!isNaN(state.pizza.pizzaUrl)) {
-				const localData = store.getters.getPizzaByIndex(state.pizza.pizzaUrl);
-				state.pizza.pizzaUrl = localData.id;
+				const data = await getItemById('pizzas', state.pizza.pizzaUrl);
+				state.pizza.pizzaUrl = data.id;
 			}
 
 			const data = await get(`pizzas/${state.pizza.pizzaUrl}`);
@@ -145,13 +145,21 @@ export default defineComponent({
 			state.pizza.imgUrl = data.imgUrl;
 			state.pizza.toppings = data.topppings ? data.topppings.map((name: string) => ({ name })) : [];
 			state.pizza.reviews = data.orderReviews;
-			// pizza.pizzaUrl = pizza.name.toLowerCase().replaceAll(' ', '-');
 		};
 
 		getPizza();
 
-		const addToCart = () => {
-			store.commit(MutationTypes.ADD_PIZZA, state.pizza);
+		const addToCart = async () => {
+			const data = {
+				id: state.pizza.id,
+				name: state.pizza.name,
+				price: state.pizza.price,
+				imgUrl: state.pizza.imgUrl,
+				size: state.pizza.size,
+			};
+
+			await saveItem('pizzas', data);
+
 			route.push({ name: 'Cart' });
 		};
 
