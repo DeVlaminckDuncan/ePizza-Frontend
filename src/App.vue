@@ -1,9 +1,51 @@
 <template>
-	<router-view />
+	<div class="custom-container flex flex-col items-center">
+		<div class="min-h-full w-full -mb-16">
+			<router-view />
+		</div>
+		<footer class="flex justify-between items-center bg-alpha-red h-16 px-6">
+			<span class="text-white">Copyright {{ new Date().getFullYear() }}</span>
+			<div class="relative">
+				<select @change="changeLocale" v-model="selectedLocale" class="select h-8 block border border-dark border-opacity-10 rounded shadow-md px-3 py-1 focus:outline-none w-full">
+					<option v-for="l of locales" :key="l" :value="l">{{ l }}</option>
+				</select>
+			</div>
+		</footer>
+	</div>
 </template>
+
+<script lang="ts">
+import { defineComponent, Ref, ref } from 'vue';
+
+import i18n, { locales, loadMessages } from '@/plugins/i18n';
+
+export default defineComponent({
+	setup() {
+		const selectedLocale: Ref<string> = ref('en');
+
+		const changeLocale = async () => {
+			await loadMessages(selectedLocale.value);
+			i18n.global.locale = selectedLocale.value;
+		};
+
+		return {
+			locales,
+			selectedLocale,
+			changeLocale,
+		};
+	},
+});
+</script>
 
 <style lang="scss">
 $bp-sm: '480px';
+
+html,
+body,
+#app,
+.custom-container {
+	@apply h-full;
+}
 
 #app {
 	font-family: Lato, Helvetica, Arial, sans-serif;
@@ -15,7 +57,8 @@ $bp-sm: '480px';
 
 .main,
 .nav,
-.button-lg {
+.button-lg,
+footer {
 	@apply w-full;
 
 	@screen sm {
