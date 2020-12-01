@@ -1,9 +1,9 @@
 <template>
-	<NavigationBar text="Takeaway" :backIcon="true" previousPage="/" />
+	<NavigationBar :text="$t('ORDERTYPE-TAKEAWAY')" :backIcon="true" previousPage="/" />
 
 	<main class="px-6 py-8 flex justify-center">
 		<div class="main">
-			<h1 class="font-semibold text-2xl">Choose a restaurant</h1>
+			<h1 class="font-semibold text-2xl">{{ $t('PAGE-INFO-TAKEAWAY') }}</h1>
 
 			<form class="w-full mt-8">
 				<div v-if="state.restaurants.length">
@@ -18,7 +18,7 @@
 					Loading restaurants...
 				</div>
 
-				<ButtonWide @click="continueToMenu" text="Continue" color="red" class="mt-4" />
+				<ButtonWide @click="continueToMenu" :text="$t('BUTTON-CONTINUE')" color="red" class="mt-4" />
 			</form>
 		</div>
 	</main>
