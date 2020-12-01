@@ -1,39 +1,21 @@
 <template>
-	<div class="custom-container flex flex-col items-center">
-		<div class="min-h-full w-full -mb-16">
+	<div class="min-h-full mt-0 -mb-16">
+		<div class="mb-16">
 			<router-view />
 		</div>
-		<footer class="flex justify-between items-center bg-alpha-red h-16 px-6">
-			<span class="text-white">&copy; {{ new Date().getFullYear() }} ePizza</span>
-			<div class="relative">
-				<select @change="changeLocale" v-model="selectedLocale" class="select h-8 block border border-dark border-opacity-10 rounded shadow-md px-3 py-1 focus:outline-none w-full">
-					<option v-for="l of locales" :key="l" :value="l">{{ languages[l] }}</option>
-				</select>
-			</div>
-		</footer>
 	</div>
+
+	<FooterComponent />
 </template>
 
 <script lang="ts">
-import { defineComponent, Ref, ref } from 'vue';
+import { defineComponent } from 'vue';
 
-import i18n, { locales, languages, loadMessages } from '@/plugins/i18n';
+import FooterComponent from '@/presentations/pizza/shared/components/FooterComponent.vue';
 
 export default defineComponent({
-	setup() {
-		const selectedLocale: Ref<string> = ref('en');
-
-		const changeLocale = async () => {
-			await loadMessages(selectedLocale.value);
-			i18n.global.locale = selectedLocale.value;
-		};
-
-		return {
-			locales,
-			languages,
-			selectedLocale,
-			changeLocale,
-		};
+	components: {
+		FooterComponent,
 	},
 });
 </script>
@@ -43,9 +25,9 @@ $bp-sm: '480px';
 
 html,
 body,
-#app,
-.custom-container {
+#app {
 	@apply h-full;
+	@apply m-0;
 }
 
 #app {
