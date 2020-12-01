@@ -87,6 +87,31 @@ const routes: Array<RouteRecordRaw> = [
 		name: 'AdminEditPizza',
 		component: () => import(/* webpackChunkName: "editPizza" */ '../presentations/pizza/admin/views/EditPizza.vue'),
 	},
+
+	{
+		path: '/admin/toppings',
+		name: 'AdminToppings',
+		component: () => import(/* webpackChunkName: "toppings" */ '../presentations/pizza/admin/views/Toppings.vue'),
+		children: [
+			{
+				path: '/admin/toppings',
+				name: 'AdminToppingsOverview',
+				component: () => import(/* webpackChunkName: "adminToppingsOverview" */ '../presentations/pizza/admin/views/ToppingsOverview.vue'),
+			},
+
+			{
+				path: '/admin/toppings/add',
+				name: 'AdminAddTopping',
+				component: () => import(/* webpackChunkName: "adminAddTopping" */ '../presentations/pizza/admin/views/AddTopping.vue'),
+			},
+
+			{
+				path: '/admin/toppings/edit/:id',
+				name: 'AdminEditTopping',
+				component: () => import(/* webpackChunkName: "adminEditTopping" */ '../presentations/pizza/admin/views/EditTopping.vue'),
+			},
+		],
+	},
 ];
 
 const router = createRouter({
