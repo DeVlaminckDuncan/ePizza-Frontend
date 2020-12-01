@@ -1,5 +1,19 @@
 {
 	"LOCALE": "en",
 	"LOCALE-LANGUAGE": "English",
-	"HEADER-TITLE-ORDERTYPE": "Order type"
+
+	"HEADER-TITLE-ORDERTYPE": "Order type",
+
+	"PAGE-INFO-ORDERTYPE": "Choose the order type",
+	"PAGE-INFO-DELIVERY": "Enter your address",
+	"PAGE-INFO-TAKEAWAY": "Choose a restaurant",
+
+	"ORDERTYPE-DELIVERY": "Delivery",
+	"ORDERTYPE-TAKEAWAY": "Takeaway",
+
+	"BUTTON-CONTINUE": "Continue",
+
+	"INPUT-LABEL-STREET": "Street",
+	"INPUT-LABEL-HOUSE-NUMBER": "No",
+	"INPUT-LABEL-CITY": "City"
 }
