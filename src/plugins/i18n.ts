@@ -3,6 +3,11 @@ import { createI18n } from 'vue-i18n';
 const DEFAULT_LOCALE = 'en';
 
 export const locales = [DEFAULT_LOCALE, 'nl', 'fr'].sort();
+export const languages: { [key: string]: string } = {
+	en: 'English',
+	nl: 'Nederlands',
+	fr: 'Français',
+};
 
 const i18n = new (createI18n as any)({
 	locale: DEFAULT_LOCALE,
