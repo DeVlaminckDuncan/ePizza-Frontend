@@ -112,6 +112,31 @@ const routes: Array<RouteRecordRaw> = [
 			},
 		],
 	},
+
+	{
+		path: '/admin/restaurants',
+		name: 'AdminRestaurants',
+		component: () => import(/* webpackChunkName: "restaurants" */ '../presentations/pizza/admin/views/Restaurants.vue'),
+		children: [
+			{
+				path: '/admin/restaurants',
+				name: 'AdminRestaurantsOverview',
+				component: () => import(/* webpackChunkName: "adminRestaurantsOverview" */ '../presentations/pizza/admin/views/RestaurantsOverview.vue'),
+			},
+
+			{
+				path: '/admin/restaurants/add',
+				name: 'AdminAddRestaurant',
+				component: () => import(/* webpackChunkName: "adminAddRestaurant" */ '../presentations/pizza/admin/views/AddRestaurant.vue'),
+			},
+
+			{
+				path: '/admin/restaurants/edit/:id',
+				name: 'AdminEditRestaurant',
+				component: () => import(/* webpackChunkName: "adminEditRestaurant" */ '../presentations/pizza/admin/views/EditRestaurant.vue'),
+			},
+		],
+	},
 ];
 
 const router = createRouter({
