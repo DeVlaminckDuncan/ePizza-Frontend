@@ -46,8 +46,8 @@
 			<div v-else-if="!dataLoaded" class="text-lg">
 				There are no orders yet.
 			</div>
-			<div v-else class="text-lg">
-				Loading...
+			<div v-else>
+				<LoadingIcon />
 			</div>
 		</div>
 	</main>
@@ -61,6 +61,7 @@ import { makePricePrettier } from '@/utils/dataFormattings';
 import Order from '@/models/Order';
 import DatePicker from '../components/DatePicker.vue';
 import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
+import LoadingIcon from '@/presentations/pizza/shared/components/LoadingIcon.vue';
 
 type State = {
 	orders: Array<Order>;
@@ -70,6 +71,7 @@ export default defineComponent({
 	components: {
 		DatePicker,
 		NavigationBar,
+		LoadingIcon,
 	},
 
 	setup() {

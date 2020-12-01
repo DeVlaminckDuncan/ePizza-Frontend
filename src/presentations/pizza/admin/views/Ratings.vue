@@ -60,8 +60,8 @@
 			<div v-else-if="!dataLoaded" class="text-lg">
 				There are no ratings yet.
 			</div>
-			<div v-else class="text-lg">
-				Loading...
+			<div v-else>
+				<LoadingIcon />
 			</div>
 		</div>
 	</main>
@@ -74,6 +74,7 @@ import { get } from '@/utils/api';
 import Review from '@/models/Review';
 import DatePicker from '../components/DatePicker.vue';
 import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
+import LoadingIcon from '@/presentations/pizza/shared/components/LoadingIcon.vue';
 
 type State = {
 	reviews: Array<Review>;
@@ -83,6 +84,7 @@ export default defineComponent({
 	components: {
 		DatePicker,
 		NavigationBar,
+		LoadingIcon,
 	},
 
 	setup() {
