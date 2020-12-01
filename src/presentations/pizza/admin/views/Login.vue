@@ -1,7 +1,7 @@
 <template>
 	<NavigationBar text="Login" :backIcon="true" />
 
-	<main class="px-6 py-8 flex justify-center">
+	<main class="px-3 sm:px-6 py-8 flex justify-center">
 		<div class="main">
 			<h1 class="font-semibold text-2xl">Log in to your account</h1>
 
