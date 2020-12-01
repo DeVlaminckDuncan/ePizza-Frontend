@@ -52,8 +52,8 @@
 							</div>
 
 							<div class="w-5/6 flex flex-col justify-between">
-								<InputField v-model="topping.name" label="Topping name" :value="topping.name ? topping.name : ''" />
-								<InputField v-model="topping.price" label="Price in €" :value="(topping.price ? topping.price : 0).toString()" type="number" :step="0.01" :marginBottom="false" />
+								<InputField v-model="topping.name" label="Topping name" />
+								<InputField v-model="topping.price" label="Price in €" type="number" :step="0.01" :marginBottom="false" />
 							</div>
 						</div>
 
