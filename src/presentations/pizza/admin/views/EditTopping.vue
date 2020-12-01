@@ -7,7 +7,7 @@
 
 			<InputField v-model="topping.name" label="Topping name" :value="topping.name" class="my-12" />
 
-			<InputField v-model="topping.price" label="Price" type="number" :value="topping.price" :step="0.01" class="my-12" />
+			<InputField v-model="topping.price" label="Price" type="number" :value="topping.price.toString()" :step="0.01" class="my-12" />
 
 			<ButtonWide @click="saveChanges" text="Save changes" color="red" />
 		</div>
