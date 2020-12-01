@@ -1,5 +1,5 @@
 <template>
-	<div class="flex justify-center">
+	<header class="sticky top-0 z-10 flex justify-center">
 		<div class="nav flex justify-between items-center px-6 py-4 shadow-md bg-alpha-red text-xl text-white">
 			<div class="pr-6">
 				<div v-if="backIcon && previousPage && previousPage != ''">
@@ -34,7 +34,7 @@
 				</router-link>
 			</div>
 		</div>
-	</div>
+	</header>
 </template>
 
 <script lang="ts">
