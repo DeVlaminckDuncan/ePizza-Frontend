@@ -35,7 +35,7 @@
 			</div>
 
 			<div v-else>
-				Loading...
+				<LoadingIcon />
 			</div>
 		</div>
 	</main>
@@ -48,6 +48,7 @@ import { get, deleteById } from '@/utils/api';
 import { makePricePrettier } from '@/utils/dataFormattings';
 import Pizza from '@/models/Pizza';
 import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
+import LoadingIcon from '@/presentations/pizza/shared/components/LoadingIcon.vue';
 
 type State = {
 	pizzas: Array<Pizza>;
@@ -56,6 +57,7 @@ type State = {
 export default defineComponent({
 	components: {
 		NavigationBar,
+		LoadingIcon,
 	},
 
 	setup() {

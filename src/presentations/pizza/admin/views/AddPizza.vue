@@ -61,8 +61,8 @@
 					</div>
 				</div>
 
-				<div v-else-if="!state.toppingsLoaded" class="text-lg">
-					Loading...
+				<div v-else-if="!state.toppingsLoaded">
+					<LoadingIcon />
 				</div>
 
 				<div v-else class="text-lg">
@@ -83,6 +83,7 @@ import InputField from '@/presentations/pizza/shared/components/InputField.vue';
 import ButtonMedium from '@/presentations/pizza/shared/components/ButtonMedium.vue';
 import ButtonWide from '@/presentations/pizza/shared/components/ButtonWide.vue';
 import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
+import LoadingIcon from '@/presentations/pizza/shared/components/LoadingIcon.vue';
 
 type CustomTopping = {
 	id?: string;
@@ -102,6 +103,7 @@ export default defineComponent({
 		ButtonMedium,
 		ButtonWide,
 		NavigationBar,
+		LoadingIcon,
 	},
 
 	setup() {

@@ -10,7 +10,9 @@
 			<!-- <div class="flex flex-wrap items-center mt-12 mb-12">
 				<div class="w-1/2">
 					<img v-if="dataLoaded && pizza.imgUrl" @click="uploadImage" ref="imageRef" class="pizza-image rounded-lg cursor-pointer" :src="pizza.imgUrl" :alt="`Pizza ${pizza.name}`" />
-					<span v-else>Loading image...</span>
+					<span v-else>
+						<LoadingIcon />
+					</span>
 				</div>
 
 				<div class="w-1/2">
@@ -54,8 +56,8 @@
 					</div>
 				</div>
 
-				<div v-else-if="!dataLoaded" class="text-lg">
-					Loading...
+				<div v-else-if="!dataLoaded">
+					<LoadingIcon />
 				</div>
 
 				<div v-else class="text-lg">
@@ -77,6 +79,7 @@ import InputField from '@/presentations/pizza/shared/components/InputField.vue';
 import ButtonMedium from '@/presentations/pizza/shared/components/ButtonMedium.vue';
 import ButtonWide from '@/presentations/pizza/shared/components/ButtonWide.vue';
 import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
+import LoadingIcon from '@/presentations/pizza/shared/components/LoadingIcon.vue';
 
 export default defineComponent({
 	components: {
@@ -84,6 +87,7 @@ export default defineComponent({
 		ButtonMedium,
 		ButtonWide,
 		NavigationBar,
+		LoadingIcon,
 	},
 
 	setup() {

@@ -86,8 +86,8 @@
 					There are no ratings yet for this pizza.
 				</div>
 			</div>
-			<div v-else class="text-lg">
-				Loading data...
+			<div v-else>
+				<LoadingIcon />
 			</div>
 		</div>
 	</main>
@@ -104,6 +104,7 @@ import Pizza from '@/models/Pizza';
 import DropdownList from '@/presentations/pizza/shared/components/DropdownList.vue';
 import ButtonMedium from '@/presentations/pizza/shared/components/ButtonMedium.vue';
 import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
+import LoadingIcon from '@/presentations/pizza/shared/components/LoadingIcon.vue';
 
 type PizzaState = {
 	pizza: Pizza;
@@ -114,6 +115,7 @@ export default defineComponent({
 		DropdownList,
 		ButtonMedium,
 		NavigationBar,
+		LoadingIcon,
 	},
 
 	setup() {

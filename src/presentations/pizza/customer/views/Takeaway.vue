@@ -15,7 +15,7 @@
 					</div>
 				</div>
 				<div v-else>
-					Loading restaurants...
+					<LoadingIcon />
 				</div>
 
 				<ButtonWide @click="continueToMenu" :text="$t('BUTTON-CONTINUE')" color="red" class="mt-4" />
@@ -33,6 +33,7 @@ import { get } from '@/utils/api';
 import Restaurant from '@/models/Restaurant';
 import ButtonWide from '@/presentations/pizza/shared/components/ButtonWide.vue';
 import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
+import LoadingIcon from '@/presentations/pizza/shared/components/LoadingIcon.vue';
 
 type State = {
 	restaurants: Array<Restaurant>;
@@ -43,6 +44,7 @@ export default defineComponent({
 	components: {
 		ButtonWide,
 		NavigationBar,
+		LoadingIcon,
 	},
 
 	setup() {
