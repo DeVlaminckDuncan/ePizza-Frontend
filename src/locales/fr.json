@@ -1,0 +1,19 @@
+{
+	"LOCALE": "fr",
+	"LOCALE-LANGUAGE": "Français",
+
+	"HEADER-TITLE-ORDERTYPE": "Type de commande",
+
+	"PAGE-INFO-ORDERTYPE": "Choisissez le type de commande",
+	"PAGE-INFO-DELIVERY": "Entrez votre adresse",
+	"PAGE-INFO-TAKEAWAY": "Choisissez un restaurant",
+
+	"ORDERTYPE-DELIVERY": "Livraison",
+	"ORDERTYPE-TAKEAWAY": "À emporter",
+
+	"BUTTON-CONTINUE": "Continuer",
+
+	"INPUT-LABEL-STREET": "Rue",
+	"INPUT-LABEL-HOUSE-NUMBER": "No",
+	"INPUT-LABEL-CITY": "Ville"
+}

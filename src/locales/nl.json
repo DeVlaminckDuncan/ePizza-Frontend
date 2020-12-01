@@ -1,0 +1,19 @@
+{
+	"LOCALE": "nl",
+	"LOCALE-LANGUAGE": "Nederlands",
+
+	"HEADER-TITLE-ORDERTYPE": "Bestellingstype",
+
+	"PAGE-INFO-ORDERTYPE": "Kies het bestellingstype",
+	"PAGE-INFO-DELIVERY": "Voer je adres in",
+	"PAGE-INFO-TAKEAWAY": "Kies een restaurant",
+
+	"ORDERTYPE-DELIVERY": "Bezorgen",
+	"ORDERTYPE-TAKEAWAY": "Afhalen",
+
+	"BUTTON-CONTINUE": "Volgende",
+
+	"INPUT-LABEL-STREET": "Straat",
+	"INPUT-LABEL-HOUSE-NUMBER": "Nr",
+	"INPUT-LABEL-CITY": "Gemeente"
+}
