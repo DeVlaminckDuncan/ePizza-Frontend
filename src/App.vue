@@ -4,10 +4,10 @@
 			<router-view />
 		</div>
 		<footer class="flex justify-between items-center bg-alpha-red h-16 px-6">
-			<span class="text-white">Copyright {{ new Date().getFullYear() }}</span>
+			<span class="text-white">&copy; {{ new Date().getFullYear() }} ePizza</span>
 			<div class="relative">
 				<select @change="changeLocale" v-model="selectedLocale" class="select h-8 block border border-dark border-opacity-10 rounded shadow-md px-3 py-1 focus:outline-none w-full">
-					<option v-for="l of locales" :key="l" :value="l">{{ l }}</option>
+					<option v-for="l of locales" :key="l" :value="l">{{ languages[l] }}</option>
 				</select>
 			</div>
 		</footer>
@@ -17,7 +17,7 @@
 <script lang="ts">
 import { defineComponent, Ref, ref } from 'vue';
 
-import i18n, { locales, loadMessages } from '@/plugins/i18n';
+import i18n, { locales, languages, loadMessages } from '@/plugins/i18n';
 
 export default defineComponent({
 	setup() {
@@ -30,6 +30,7 @@ export default defineComponent({
 
 		return {
 			locales,
+			languages,
 			selectedLocale,
 			changeLocale,
 		};
