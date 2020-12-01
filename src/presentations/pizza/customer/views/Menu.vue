@@ -1,7 +1,7 @@
 <template>
 	<NavigationBar text="Menu" :backIcon="true" :previousPage="state.previousPage" :cartIcon="true" />
 
-	<main class="px-6 py-8 flex justify-center">
+	<main class="px-3 sm:px-6 py-8 flex justify-center">
 		<div class="main">
 			<div class="flex justify-between items-center px-3 mb-8">
 				<h1 class="font-semibold text-2xl">Menu list</h1>

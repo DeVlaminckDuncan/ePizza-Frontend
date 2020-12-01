@@ -1,7 +1,7 @@
 <template>
 	<NavigationBar :text="$t('ORDERTYPE-DELIVERY')" :backIcon="true" previousPage="/" />
 
-	<main class="px-6 py-8 flex justify-center">
+	<main class="px-3 sm:px-6 py-8 flex justify-center">
 		<div class="main">
 			<h1 class="font-semibold text-2xl">{{ $t('PAGE-INFO-DELIVERY') }}</h1>
 

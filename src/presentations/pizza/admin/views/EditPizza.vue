@@ -1,7 +1,7 @@
 <template>
 	<NavigationBar text="Edit pizza" :backIcon="true" previousPage="/admin/menu" />
 
-	<main class="px-6 py-8 flex justify-center">
+	<main class="px-3 sm:px-6 py-8 flex justify-center">
 		<div class="main">
 			<h1 class="font-semibold text-2xl mb-3">Edit pizza {{ pizza.name.toLowerCase() }}</h1>
 
