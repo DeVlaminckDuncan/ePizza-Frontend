@@ -2,18 +2,26 @@
 	"LOCALE": "fr",
 	"LOCALE-LANGUAGE": "Français",
 
+	"HEADER-TITLE-MENU": "Menu",
 	"HEADER-TITLE-ORDERTYPE": "Type de commande",
 
-	"PAGE-INFO-ORDERTYPE": "Choisissez le type de commande",
 	"PAGE-INFO-DELIVERY": "Entrez votre adresse",
+	"PAGE-INFO-EDIT-TOPPINGS": "Modifier vos garnitures",
+	"PAGE-INFO-MENU": "Liste des menus",
+	"PAGE-INFO-ORDERTYPE": "Choisissez le type de commande",
 	"PAGE-INFO-TAKEAWAY": "Choisissez un restaurant",
+
+	"SUBTITLE-ADD-MORE-TOPPINGS": "Ajouter plus de garnitures",
 
 	"ORDERTYPE-DELIVERY": "Livraison",
 	"ORDERTYPE-TAKEAWAY": "À emporter",
 
+	"BUTTON-ADD-TO-CART": "Ajouter",
 	"BUTTON-CONTINUE": "Continuer",
+	"BUTTON-EDIT-TOPPINGS": "Modifier",
+	"BUTTON-SAVE-CHANGES": "Sauvegarder",
 
-	"INPUT-LABEL-STREET": "Rue",
+	"INPUT-LABEL-CITY": "Ville",
 	"INPUT-LABEL-HOUSE-NUMBER": "No",
-	"INPUT-LABEL-CITY": "Ville"
+	"INPUT-LABEL-STREET": "Rue"
 }

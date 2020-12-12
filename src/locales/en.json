@@ -2,18 +2,26 @@
 	"LOCALE": "en",
 	"LOCALE-LANGUAGE": "English",
 
+	"HEADER-TITLE-MENU": "Menu",
 	"HEADER-TITLE-ORDERTYPE": "Order type",
 
-	"PAGE-INFO-ORDERTYPE": "Choose the order type",
 	"PAGE-INFO-DELIVERY": "Enter your address",
+	"PAGE-INFO-EDIT-TOPPINGS": "Edit your toppings",
+	"PAGE-INFO-MENU": "Menu list",
+	"PAGE-INFO-ORDERTYPE": "Choose the order type",
 	"PAGE-INFO-TAKEAWAY": "Choose a restaurant",
+
+	"SUBTITLE-ADD-MORE-TOPPINGS": "Add more toppings",
 
 	"ORDERTYPE-DELIVERY": "Delivery",
 	"ORDERTYPE-TAKEAWAY": "Takeaway",
 
+	"BUTTON-ADD-TO-CART": "Add to cart",
 	"BUTTON-CONTINUE": "Continue",
+	"BUTTON-EDIT-TOPPINGS": "Edit toppings",
+	"BUTTON-SAVE-CHANGES": "Save changes",
 
-	"INPUT-LABEL-STREET": "Street",
+	"INPUT-LABEL-CITY": "City",
 	"INPUT-LABEL-HOUSE-NUMBER": "No",
-	"INPUT-LABEL-CITY": "City"
+	"INPUT-LABEL-STREET": "Street"
 }
