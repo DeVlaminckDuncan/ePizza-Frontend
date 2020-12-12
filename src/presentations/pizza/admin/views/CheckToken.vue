@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 import route from '@/router';
 
 import cookie from '@/utils/cookie';
@@ -14,7 +14,9 @@ export default defineComponent({
 			if (cookie.get('token') == '') {
 				route.replace('/admin/login');
 			} else {
-				route.replace('/admin/menu');
+				const path = ref(route.currentRoute.value.path).value as string;
+
+				route.replace(path != '/admin/' ? path : '/admin/menu');
 			}
 		};
 
