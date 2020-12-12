@@ -1,4 +1,3 @@
-// TODO: Make more generic
 // TODO: Look for type annotation IDB Transaction callbacks
 
 const DB_NAME: string = 'pizzadb',
