@@ -1,5 +1,5 @@
 <template>
-	<NavigationBar :text="$t('ORDERTYPE-DELIVERY')" :backIcon="true" previousPage="/" />
+	<NavigationBar :text="$t('ORDERTYPE-DELIVERY')" :backIcon="true" previousPage="/ordertype" />
 
 	<main class="px-3 sm:px-6 py-8 flex justify-center">
 		<div class="main">
