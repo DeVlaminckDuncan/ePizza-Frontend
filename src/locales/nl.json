@@ -2,18 +2,26 @@
 	"LOCALE": "nl",
 	"LOCALE-LANGUAGE": "Nederlands",
 
+	"HEADER-TITLE-MENU": "Menu",
 	"HEADER-TITLE-ORDERTYPE": "Bestellingstype",
 
-	"PAGE-INFO-ORDERTYPE": "Kies het bestellingstype",
 	"PAGE-INFO-DELIVERY": "Voer je adres in",
+	"PAGE-INFO-EDIT-TOPPINGS": "Pas je beleg aan",
+	"PAGE-INFO-MENU": "Menulijst",
+	"PAGE-INFO-ORDERTYPE": "Kies het bestellingstype",
 	"PAGE-INFO-TAKEAWAY": "Kies een restaurant",
+
+	"SUBTITLE-ADD-MORE-TOPPINGS": "Meer beleg toevoegen",
 
 	"ORDERTYPE-DELIVERY": "Bezorgen",
 	"ORDERTYPE-TAKEAWAY": "Afhalen",
 
+	"BUTTON-ADD-TO-CART": "Toevoegen",
 	"BUTTON-CONTINUE": "Volgende",
+	"BUTTON-EDIT-TOPPINGS": "Aanpassen",
+	"BUTTON-SAVE-CHANGES": "Opslaan",
 
-	"INPUT-LABEL-STREET": "Straat",
+	"INPUT-LABEL-CITY": "Gemeente",
 	"INPUT-LABEL-HOUSE-NUMBER": "Nr",
-	"INPUT-LABEL-CITY": "Gemeente"
+	"INPUT-LABEL-STREET": "Straat"
 }
