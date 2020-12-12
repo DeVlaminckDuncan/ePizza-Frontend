@@ -38,14 +38,16 @@
 				<span class="price">{{ makePricePrettier(state.total) }}</span>
 			</div>
 
-			<ButtonBig text="Checkout" color="red" />
+			<ButtonBig @click="checkout" text="Checkout" color="red" />
 		</div>
 	</main>
 </template>
 
 <script lang="ts">
 import { defineComponent, reactive } from 'vue';
+import route from '@/router';
 
+import cookie from '@/utils/cookie';
 import { getItems, editItem, deleteItem } from '@/utils/idb';
 import { makePricePrettier, sizeMultiplier } from '@/utils/dataFormattings';
 import Pizza from '@/models/Pizza';
@@ -54,6 +56,7 @@ import ButtonBig from '../components/ButtonBig.vue';
 import ButtonSmall from '../components/ButtonSmall.vue';
 import ButtonExtraSmall from '../components/ButtonExtraSmall.vue';
 import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
+import { post } from '@/utils/api';
 
 type State = {
 	pizzas: Array<Pizza>;
@@ -161,7 +164,21 @@ export default defineComponent({
 			await deleteItem('pizzas', data);
 		};
 
-		const checkout = () => {};
+		const checkout = async () => {
+			const pizzasData = JSON.parse(JSON.stringify(state.pizzas));
+
+			const token = cookie.get('token');
+
+			await post('orders', pizzasData, token);
+
+			state.pizzas.forEach(async (p) => {
+				const data = removeReactivityFromPizza(p);
+
+				await deleteItem('pizzas', data);
+			});
+
+			route.push('/orderplaced');
+		};
 
 		return {
 			state,
