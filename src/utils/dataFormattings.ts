@@ -10,3 +10,5 @@ export const sizeMultiplier = (price: number, size: string = 'medium'): number =
 	// @ts-ignore
 	return price * sizes[size.toLowerCase()];
 };
+
+export const capitalize = (s: string): string => `${s[0].toUpperCase()}${s.slice(1)}`;
