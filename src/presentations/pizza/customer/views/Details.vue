@@ -98,7 +98,6 @@ import { defineComponent, reactive, ref } from 'vue';
 import route from '@/router';
 
 import { get } from '@/utils/api';
-import cookie from '@/utils/cookie';
 import { getItemById, saveItem } from '@/utils/idb';
 import { makePricePrettier, sizeMultiplier } from '@/utils/dataFormattings';
 import Pizza from '@/models/Pizza';
@@ -140,9 +139,7 @@ export default defineComponent({
 				state.pizza.pizzaUrl = data.id;
 			}
 
-			const token = cookie.get('token');
-
-			const data = await get(`pizzas/${state.pizza.pizzaUrl}`, token);
+			const data = await get(`pizzas/${state.pizza.pizzaUrl}`);
 
 			state.pizza.id = state.pizza.id;
 			state.pizza.name = data.name;

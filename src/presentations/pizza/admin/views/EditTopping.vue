@@ -32,8 +32,6 @@ export default defineComponent({
 	},
 
 	setup() {
-		const token = cookie.get('token');
-
 		const topping = ref({
 			id: ref(route.currentRoute.value.params.id).value as string,
 			name: '',
@@ -41,7 +39,7 @@ export default defineComponent({
 		});
 
 		const getTopping = async () => {
-			const data = await get(`toppings/${topping.value.id}`, token);
+			const data = await get(`toppings/${topping.value.id}`);
 
 			topping.value = data;
 		};
@@ -54,6 +52,8 @@ export default defineComponent({
 				name: topping.value.name,
 				price: +topping.value.price,
 			};
+
+			const token = cookie.get('token');
 
 			await put('toppings', topping.value.id, topping.value, token);
 

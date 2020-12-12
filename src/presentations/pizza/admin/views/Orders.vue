@@ -55,10 +55,8 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref } from 'vue';
-import route from '@/router';
 
 import { get } from '@/utils/api';
-import cookie from '@/utils/cookie';
 import { makePricePrettier } from '@/utils/dataFormattings';
 import Order from '@/models/Order';
 import DatePicker from '../components/DatePicker.vue';
@@ -85,9 +83,7 @@ export default defineComponent({
 		const dataLoaded = ref(false);
 
 		const getOrders = async () => {
-			const token = cookie.get('token');
-
-			const data = await get('orders', token);
+			const data = await get('orders');
 
 			state.orders = data;
 			dataLoaded.value = true;

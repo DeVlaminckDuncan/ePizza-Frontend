@@ -72,7 +72,6 @@ import route from '@/router';
 import store from '@/store';
 
 import { get } from '@/utils/api';
-import cookie from '@/utils/cookie';
 import { saveItem } from '@/utils/idb';
 import { makePricePrettier, sizeMultiplier } from '@/utils/dataFormattings';
 import Pizza from '@/models/Pizza';
@@ -108,9 +107,7 @@ export default defineComponent({
 		getOrderType();
 
 		const getPizzas = async () => {
-			const token = cookie.get('token');
-
-			const data = await get('pizzas', token);
+			const data = await get('pizzas');
 
 			state.pizzas = data;
 

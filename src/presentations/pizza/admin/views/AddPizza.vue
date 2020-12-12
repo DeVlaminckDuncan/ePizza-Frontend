@@ -108,8 +108,6 @@ export default defineComponent({
 	},
 
 	setup() {
-		const token = cookie.get('token');
-
 		const imageRef = ref();
 		const uploadImageRef = ref();
 
@@ -129,7 +127,7 @@ export default defineComponent({
 		// let apiToppings: Array<Topping> = [];
 
 		const getToppings = async () => {
-			const data = await get('toppings', token);
+			const data = await get('toppings');
 			state.toppings = data;
 			// apiToppings = data;
 			state.toppings.sort((a, b) => a.name.localeCompare(b.name)).sort((a, b) => a.price!.toString().localeCompare(b.price!.toString()));
@@ -188,6 +186,8 @@ export default defineComponent({
 				imgUrl: pizzaData.imageUrl,
 				toppings: toppings,
 			};
+
+			const token = cookie.get('token');
 
 			await post('pizzas', data, token);
 

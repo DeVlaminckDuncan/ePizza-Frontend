@@ -69,10 +69,8 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref } from 'vue';
-import route from '@/router';
 
 import { get } from '@/utils/api';
-import cookie from '@/utils/cookie';
 import Review from '@/models/Review';
 import DatePicker from '../components/DatePicker.vue';
 import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
@@ -98,9 +96,7 @@ export default defineComponent({
 		const dataLoaded = ref(false);
 
 		const getReviews = async () => {
-			const token = cookie.get('token');
-
-			const data = await get('reviews', token);
+			const data = await get('reviews');
 
 			state.reviews = data;
 			dataLoaded.value = true;

@@ -42,8 +42,6 @@ export default defineComponent({
 	},
 
 	setup() {
-		const token = cookie.get('token');
-
 		const restaurant = ref({
 			id: ref(route.currentRoute.value.params.id).value as string,
 			name: '',
@@ -55,7 +53,7 @@ export default defineComponent({
 		});
 
 		const getRestaurant = async () => {
-			const data = await get(`restaurants/${restaurant.value.id}`, token);
+			const data = await get(`restaurants/${restaurant.value.id}`);
 
 			restaurant.value = data;
 		};
@@ -63,6 +61,8 @@ export default defineComponent({
 		getRestaurant();
 
 		const saveChanges = async () => {
+			const token = cookie.get('token');
+
 			await put('restaurants', restaurant.value.id, restaurant.value, token);
 
 			route.push('/admin/restaurants');

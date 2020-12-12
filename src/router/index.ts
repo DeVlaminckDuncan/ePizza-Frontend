@@ -5,71 +5,66 @@ import { capitalize } from '@/utils/dataFormattings';
 
 const routes: Array<RouteRecordRaw> = [
 	// Customer routes
+
+	{
+		path: '/login',
+		name: 'Login',
+		component: () => import(/* webpackChunkName: "login" */ '../presentations/pizza/customer/views/Login.vue'),
+	},
+
 	{
 		path: '/',
-		name: 'CheckToken',
-		component: () => import(/* webpackChunkName: "checkToken" */ '../presentations/pizza/customer/views/CheckToken.vue'),
-		children: [
-			{
-				path: '/login',
-				name: 'Login',
-				component: () => import(/* webpackChunkName: "login" */ '../presentations/pizza/customer/views/Login.vue'),
-			},
+		alias: '/ordertype',
+		name: 'OrderType',
+		component: () => import(/* webpackChunkName: "orderType" */ '../presentations/pizza/customer/views/OrderType.vue'),
+	},
 
-			{
-				path: '/ordertype',
-				name: 'OrderType',
-				component: () => import(/* webpackChunkName: "orderType" */ '../presentations/pizza/customer/views/OrderType.vue'),
-			},
+	{
+		path: '/cart',
+		name: 'Cart',
+		component: () => import(/* webpackChunkName: "cart" */ '../presentations/pizza/customer/views/Cart.vue'),
+	},
 
-			{
-				path: '/cart',
-				name: 'Cart',
-				component: () => import(/* webpackChunkName: "cart" */ '../presentations/pizza/customer/views/Cart.vue'),
-			},
+	{
+		path: '/delivery',
+		name: 'Delivery',
+		component: () => import(/* webpackChunkName: "delivery" */ '../presentations/pizza/customer/views/Delivery.vue'),
+	},
 
-			{
-				path: '/delivery',
-				name: 'Delivery',
-				component: () => import(/* webpackChunkName: "delivery" */ '../presentations/pizza/customer/views/Delivery.vue'),
-			},
+	{
+		path: '/details/:id',
+		name: 'Details',
+		component: () => import(/* webpackChunkName: "details" */ '../presentations/pizza/customer/views/Details.vue'),
+	},
 
-			{
-				path: '/details/:id',
-				name: 'Details',
-				component: () => import(/* webpackChunkName: "details" */ '../presentations/pizza/customer/views/Details.vue'),
-			},
+	{
+		path: '/edit/:id',
+		name: 'Edit',
+		component: () => import(/* webpackChunkName: "edit" */ '../presentations/pizza/customer/views/Edit.vue'),
+	},
 
-			{
-				path: '/edit/:id',
-				name: 'Edit',
-				component: () => import(/* webpackChunkName: "edit" */ '../presentations/pizza/customer/views/Edit.vue'),
-			},
+	{
+		path: '/menu',
+		name: 'Menu',
+		component: () => import(/* webpackChunkName: "menu" */ '../presentations/pizza/customer/views/Menu.vue'),
+	},
 
-			{
-				path: '/menu',
-				name: 'Menu',
-				component: () => import(/* webpackChunkName: "menu" */ '../presentations/pizza/customer/views/Menu.vue'),
-			},
+	{
+		path: '/rate/:id',
+		name: 'Rate',
+		component: () => import(/* webpackChunkName: "rate" */ '../presentations/pizza/customer/views/Rate.vue'),
+	},
 
-			{
-				path: '/rate/:id',
-				name: 'Rate',
-				component: () => import(/* webpackChunkName: "rate" */ '../presentations/pizza/customer/views/Rate.vue'),
-			},
+	{
+		path: '/takeaway',
+		name: 'Takeaway',
+		component: () => import(/* webpackChunkName: "takeaway" */ '../presentations/pizza/customer/views/Takeaway.vue'),
+	},
 
-			{
-				path: '/takeaway',
-				name: 'Takeaway',
-				component: () => import(/* webpackChunkName: "takeaway" */ '../presentations/pizza/customer/views/Takeaway.vue'),
-			},
-
-			{
-				path: '/orderPlaced',
-				name: 'OrderPlaced',
-				component: () => import(/* webpackChunkName: "orderPlaced" */ '../presentations/pizza/customer/views/OrderPlaced.vue'),
-			},
-		],
+	{
+		path: '/orderPlaced',
+		name: 'OrderPlaced',
+		component: () => import(/* webpackChunkName: "orderPlaced" */ '../presentations/pizza/customer/views/OrderPlaced.vue'),
 	},
 
 	// Admin routes
