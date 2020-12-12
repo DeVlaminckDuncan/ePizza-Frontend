@@ -1,4 +1,7 @@
+import { nextTick } from 'vue';
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+
+import { capitalize } from '@/utils/dataFormattings';
 
 const routes: Array<RouteRecordRaw> = [
 	// Customer routes
@@ -59,6 +62,12 @@ const routes: Array<RouteRecordRaw> = [
 				path: '/takeaway',
 				name: 'Takeaway',
 				component: () => import(/* webpackChunkName: "takeaway" */ '../presentations/pizza/customer/views/Takeaway.vue'),
+			},
+
+			{
+				path: '/orderPlaced',
+				name: 'OrderPlaced',
+				component: () => import(/* webpackChunkName: "orderPlaced" */ '../presentations/pizza/customer/views/OrderPlaced.vue'),
 			},
 		],
 	},
@@ -161,6 +170,20 @@ const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
 	history: createWebHistory(process.env.BASE_URL),
 	routes,
+});
+
+router.afterEach((to) => {
+	nextTick(() => {
+		if (to.name) {
+			document.title = `${capitalize(
+				to.name
+					.toString()
+					.replace('Admin', '')
+					.replace(/[A-Z]/g, (letter) => ` ${letter.toLowerCase()}`)
+					.trim(),
+			)} - ePizza`;
+		}
+	});
 });
 
 export default router;
