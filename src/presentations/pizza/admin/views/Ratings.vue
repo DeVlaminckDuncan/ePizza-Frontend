@@ -1,5 +1,5 @@
 <template>
-	<NavigationBar text="Ratings" :menuIcon="true" />
+	<NavigationBar text="Ratings" :menuItems="navigationMenuItems" />
 
 	<main class="px-3 sm:px-6 py-8 flex justify-center">
 		<div class="main">
@@ -69,12 +69,15 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref } from 'vue';
+import route from '@/router';
 
 import { get } from '@/utils/api';
+import cookie from '@/utils/cookie';
 import Review from '@/models/Review';
 import DatePicker from '../components/DatePicker.vue';
 import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
 import LoadingIcon from '@/presentations/pizza/shared/components/LoadingIcon.vue';
+import navigationMenuItems from '@/assets/navigationMenuItems.json';
 
 type State = {
 	reviews: Array<Review>;
@@ -95,13 +98,15 @@ export default defineComponent({
 		const dataLoaded = ref(false);
 
 		const getReviews = async () => {
-			const data = await get('reviews');
+			const token = cookie.get('token');
+
+			const data = await get('reviews', token);
 
 			state.reviews = data;
 			dataLoaded.value = true;
 		};
 
-		// getReviews();
+		getReviews();
 
 		const changePeriod = () => {};
 
@@ -109,6 +114,7 @@ export default defineComponent({
 			state,
 			dataLoaded,
 			changePeriod,
+			navigationMenuItems: navigationMenuItems.sort((a: any, b: any) => a.text.localeCompare(b.text)),
 		};
 	},
 });

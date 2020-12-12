@@ -1,5 +1,5 @@
 <template>
-	<NavigationBar text="Restaurants" :menuIcon="true" />
+	<NavigationBar text="Restaurants" :menuItems="navigationMenuItems" />
 
 	<main class="px-3 sm:px-6 py-8 flex justify-center">
 		<div class="main">
@@ -45,9 +45,11 @@
 import { defineComponent, reactive } from 'vue';
 
 import { get, deleteById } from '@/utils/api';
+import cookie from '@/utils/cookie';
 import Restaurant from '@/models/Restaurant';
 import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
 import LoadingIcon from '@/presentations/pizza/shared/components/LoadingIcon.vue';
+import navigationMenuItems from '@/assets/navigationMenuItems.json';
 
 type State = {
 	restaurants: Array<Restaurant>;
@@ -60,12 +62,14 @@ export default defineComponent({
 	},
 
 	setup() {
+		const token = cookie.get('token');
+
 		const state: State = reactive({
 			restaurants: [],
 		});
 
 		const getRestaurants = async () => {
-			const data = await get('restaurants');
+			const data = await get('restaurants', token);
 			state.restaurants = data;
 		};
 
@@ -75,13 +79,14 @@ export default defineComponent({
 			if (id != '') {
 				state.restaurants.splice(index, 1);
 
-				await deleteById('restaurants', id);
+				await deleteById('restaurants', id, token);
 			}
 		};
 
 		return {
 			state,
 			removeRestaurant,
+			navigationMenuItems: navigationMenuItems.sort((a: any, b: any) => a.text.localeCompare(b.text)),
 		};
 	},
 });

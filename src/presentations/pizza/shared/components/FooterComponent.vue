@@ -13,6 +13,7 @@
 
 <script lang="ts">
 import { defineComponent, Ref, ref } from 'vue';
+import store, { MutationTypes } from '@/store';
 
 import i18n, { locales, languages, loadMessages } from '@/plugins/i18n';
 
@@ -23,7 +24,18 @@ export default defineComponent({
 		const changeLocale = async () => {
 			await loadMessages(selectedLocale.value);
 			i18n.global.locale = selectedLocale.value;
+			store.commit(MutationTypes.SET_LANGUAGE, selectedLocale.value);
 		};
+
+		const getSavedLanguage = () => {
+			const language = store.getters.getLanguage();
+			if (language != null && language != i18n.global.locale) {
+				selectedLocale.value = language;
+				changeLocale();
+			}
+		};
+
+		getSavedLanguage();
 
 		return {
 			locales,

@@ -19,6 +19,7 @@ import { defineComponent } from 'vue';
 import route from '@/router';
 
 import { post } from '@/utils/api';
+import cookie from '@/utils/cookie';
 import Topping from '@/models/Topping';
 import InputField from '@/presentations/pizza/shared/components/InputField.vue';
 import ButtonWide from '@/presentations/pizza/shared/components/ButtonWide.vue';
@@ -44,7 +45,9 @@ export default defineComponent({
 				price: +topping.price!,
 			};
 
-			await post('toppings', data);
+			const token = cookie.get('token');
+
+			await post('toppings', data, token);
 
 			route.push('/admin/toppings');
 		};

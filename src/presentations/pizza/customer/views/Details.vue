@@ -28,8 +28,8 @@
 								},
 							]"
 						/>
-						<router-link :to="`/edit/${state.pizza.pizzaUrl}`" class="button-md flex justify-center items-center bg-alpha-yellow text-white font-semibold text-lg h-8 my-6 rounded-lg shadow-md">Edit toppings</router-link>
-						<ButtonMedium @click="addToCart" text="Add to cart" color="red" />
+						<router-link :to="`/edit/${state.pizza.pizzaUrl}`" class="button-md flex justify-center items-center bg-alpha-yellow text-white font-semibold text-lg h-8 my-6 rounded-lg shadow-md">{{ $t('BUTTON-EDIT-TOPPINGS') }}</router-link>
+						<ButtonMedium @click="addToCart" :text="$t('BUTTON-ADD-TO-CART')" color="red" />
 					</div>
 
 					<div class="w-full flex justify-between pt-5">
@@ -98,6 +98,7 @@ import { defineComponent, reactive, ref } from 'vue';
 import route from '@/router';
 
 import { get } from '@/utils/api';
+import cookie from '@/utils/cookie';
 import { getItemById, saveItem } from '@/utils/idb';
 import { makePricePrettier, sizeMultiplier } from '@/utils/dataFormattings';
 import Pizza from '@/models/Pizza';
@@ -139,13 +140,15 @@ export default defineComponent({
 				state.pizza.pizzaUrl = data.id;
 			}
 
-			const data = await get(`pizzas/${state.pizza.pizzaUrl}`);
+			const token = cookie.get('token');
+
+			const data = await get(`pizzas/${state.pizza.pizzaUrl}`, token);
 
 			state.pizza.id = state.pizza.id;
 			state.pizza.name = data.name;
 			state.pizza.price = data.price;
 			state.pizza.imgUrl = data.imgUrl;
-			state.pizza.toppings = data.topppings ? data.topppings.map((name: string) => ({ name })) : [];
+			state.pizza.toppings = data.toppings ? data.toppings.map((name: string) => ({ name })) : [];
 			state.pizza.reviews = data.orderReviews;
 		};
 

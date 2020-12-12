@@ -19,6 +19,7 @@ import { defineComponent, ref } from 'vue';
 import route from '@/router';
 
 import { get, put } from '@/utils/api';
+import cookie from '@/utils/cookie';
 import InputField from '@/presentations/pizza/shared/components/InputField.vue';
 import ButtonWide from '@/presentations/pizza/shared/components/ButtonWide.vue';
 import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
@@ -31,6 +32,8 @@ export default defineComponent({
 	},
 
 	setup() {
+		const token = cookie.get('token');
+
 		const topping = ref({
 			id: ref(route.currentRoute.value.params.id).value as string,
 			name: '',
@@ -38,7 +41,7 @@ export default defineComponent({
 		});
 
 		const getTopping = async () => {
-			const data = await get(`toppings/${topping.value.id}`);
+			const data = await get(`toppings/${topping.value.id}`, token);
 
 			topping.value = data;
 		};
@@ -52,7 +55,7 @@ export default defineComponent({
 				price: +topping.value.price,
 			};
 
-			await put('toppings', topping.value.id, topping.value);
+			await put('toppings', topping.value.id, topping.value, token);
 
 			route.push('/admin/toppings');
 		};

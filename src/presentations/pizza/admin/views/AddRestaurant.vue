@@ -29,6 +29,7 @@ import { defineComponent } from 'vue';
 import route from '@/router';
 
 import { post } from '@/utils/api';
+import cookie from '@/utils/cookie';
 import Restaurant from '@/models/Restaurant';
 import InputField from '@/presentations/pizza/shared/components/InputField.vue';
 import ButtonWide from '@/presentations/pizza/shared/components/ButtonWide.vue';
@@ -52,7 +53,9 @@ export default defineComponent({
 		};
 
 		const addRestaurant = async () => {
-			await post('restaurants', restaurant);
+			const token = cookie.get('token');
+
+			await post('restaurants', restaurant, token);
 
 			route.push('/admin/restaurants');
 		};

@@ -1,9 +1,9 @@
 <template>
-	<NavigationBar text="Edit toppings" :backIcon="true" previousPage="/menu" :cartIcon="true" />
+	<NavigationBar :text="$t('BUTTON-EDIT-TOPPINGS')" :backIcon="true" previousPage="/menu" :cartIcon="true" />
 
 	<main class="px-3 sm:px-6 py-8 flex justify-center">
 		<div class="main">
-			<h1 class="font-semibold text-2xl">Edit your toppings</h1>
+			<h1 class="font-semibold text-2xl">{{ $t('PAGE-INFO-EDIT-TOPPINGS') }}</h1>
 
 			<div class="flex flex-wrap items-center pt-8 mb-12">
 				<div class="w-1/2">
@@ -15,7 +15,7 @@
 
 					<span class="price text-right font-semibold my-6">{{ makePricePrettier(sizeMultiplier(state.totalPrice, state.pizza.size)) }}</span>
 
-					<ButtonMedium @click="saveChanges" class="bg-alpha-red" :text="isNaN(state.pizza.pizzaUrl) ? 'Add to cart' : 'Save changes'" color="red" />
+					<ButtonMedium @click="saveChanges" class="bg-alpha-red" :text="isNaN(state.pizza.pizzaUrl) ? $t('BUTTON-EDIT-TOPPINGS') : $t('BUTTON-SAVE-CHANGES')" color="red" />
 				</div>
 			</div>
 
@@ -32,7 +32,7 @@
 				</div>
 			</div>
 
-			<p class="text-2xl text-left font-semibold mt-12">Add more toppings</p>
+			<p class="text-2xl text-left font-semibold mt-12">{{ $t('SUBTITLE-ADD-MORE-TOPPINGS') }}</p>
 
 			<div v-for="topping of state.allToppings" :key="topping.id" class="flex flex-wrap justify-between items-center w-full text-lg mt-4">
 				<span class="font-semibold">{{ makePricePrettier(topping.price ? topping.price : 0) }}</span>
@@ -50,6 +50,7 @@ import { defineComponent, reactive, ref } from 'vue';
 import route from '@/router';
 
 import { get } from '@/utils/api';
+import cookie from '@/utils/cookie';
 import { getItemById, saveItem, editItem } from '@/utils/idb';
 import { makePricePrettier, sizeMultiplier } from '@/utils/dataFormattings';
 import Pizza from '@/models/Pizza';
@@ -72,6 +73,8 @@ export default defineComponent({
 	},
 
 	setup() {
+		const token = cookie.get('token');
+
 		const state: State = reactive({
 			pizza: {
 				id: '',
@@ -101,13 +104,13 @@ export default defineComponent({
 			const pizzaUrl = state.pizza.pizzaUrl;
 
 			if (isNaN(pizzaUrl)) {
-				const data = await get(`pizzas/${pizzaUrl}`);
+				const data = await get(`pizzas/${pizzaUrl}`, token);
 
 				state.pizza.id = data.id;
 				state.pizza.name = data.name;
 				state.pizza.price = data.price;
 				state.pizza.imgUrl = data.imgUrl;
-				state.pizza.toppings = data.topppings ? data.topppings.map((name: string) => ({ name })) : [];
+				state.pizza.toppings = data.toppings ? data.toppings.map((name: string) => ({ name })) : [];
 				state.pizza.reviews = data.orderReviews;
 			} else {
 				const data = await getItemById('pizzas', pizzaUrl);
@@ -122,7 +125,7 @@ export default defineComponent({
 		getPizza();
 
 		const getToppings = async () => {
-			const data = await get('toppings');
+			const data = await get('toppings', token);
 
 			state.allToppings = data.map((t: Topping) => ({
 				id: t.id,

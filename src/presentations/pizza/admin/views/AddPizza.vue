@@ -78,6 +78,7 @@ import { defineComponent, reactive, ref } from 'vue';
 import route from '@/router';
 
 import { get, post } from '@/utils/api';
+import cookie from '@/utils/cookie';
 // import Topping from '@/models/Topping';
 import InputField from '@/presentations/pizza/shared/components/InputField.vue';
 import ButtonMedium from '@/presentations/pizza/shared/components/ButtonMedium.vue';
@@ -107,6 +108,8 @@ export default defineComponent({
 	},
 
 	setup() {
+		const token = cookie.get('token');
+
 		const imageRef = ref();
 		const uploadImageRef = ref();
 
@@ -126,7 +129,7 @@ export default defineComponent({
 		// let apiToppings: Array<Topping> = [];
 
 		const getToppings = async () => {
-			const data = await get('toppings');
+			const data = await get('toppings', token);
 			state.toppings = data;
 			// apiToppings = data;
 			state.toppings.sort((a, b) => a.name.localeCompare(b.name)).sort((a, b) => a.price!.toString().localeCompare(b.price!.toString()));
@@ -186,7 +189,7 @@ export default defineComponent({
 				toppings: toppings,
 			};
 
-			await post('pizzas', data);
+			await post('pizzas', data, token);
 
 			route.push('/admin/menu');
 		};
