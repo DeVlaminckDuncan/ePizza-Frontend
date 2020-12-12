@@ -30,6 +30,7 @@ import route from '@/router';
 import store, { MutationTypes } from '@/store';
 
 import { get } from '@/utils/api';
+import cookie from '@/utils/cookie';
 import Restaurant from '@/models/Restaurant';
 import ButtonWide from '@/presentations/pizza/shared/components/ButtonWide.vue';
 import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
@@ -62,7 +63,10 @@ export default defineComponent({
 		});
 
 		const getRestaurants = async () => {
-			const data = await get('restaurants');
+			const token = cookie.get('token');
+
+			const data = await get('restaurants', token);
+
 			state.restaurants = data;
 		};
 

@@ -26,6 +26,7 @@ import { defineComponent, ref } from 'vue';
 import route from '@/router';
 
 import { get, post } from '@/utils/api';
+import cookie from '@/utils/cookie';
 import InputField from '@/presentations/pizza/shared/components/InputField.vue';
 import Rating from '../components/Rating.vue';
 import ButtonWide from '@/presentations/pizza/shared/components/ButtonWide.vue';
@@ -51,7 +52,10 @@ export default defineComponent({
 
 		const getPizza = async () => {
 			pizzaId = ref(route.currentRoute.value.params.id).value as string;
-			const data = await get(`pizzas/${pizzaId}`);
+
+			const token = cookie.get('token');
+
+			const data = await get(`pizzas/${pizzaId}`, token);
 
 			pizzaName.value = data.name;
 		};

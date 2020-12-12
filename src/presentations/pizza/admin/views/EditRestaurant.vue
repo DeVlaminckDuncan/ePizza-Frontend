@@ -29,6 +29,7 @@ import { defineComponent, ref } from 'vue';
 import route from '@/router';
 
 import { get, put } from '@/utils/api';
+import cookie from '@/utils/cookie';
 import InputField from '@/presentations/pizza/shared/components/InputField.vue';
 import ButtonWide from '@/presentations/pizza/shared/components/ButtonWide.vue';
 import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
@@ -41,6 +42,8 @@ export default defineComponent({
 	},
 
 	setup() {
+		const token = cookie.get('token');
+
 		const restaurant = ref({
 			id: ref(route.currentRoute.value.params.id).value as string,
 			name: '',
@@ -52,7 +55,7 @@ export default defineComponent({
 		});
 
 		const getRestaurant = async () => {
-			const data = await get(`restaurants/${restaurant.value.id}`);
+			const data = await get(`restaurants/${restaurant.value.id}`, token);
 
 			restaurant.value = data;
 		};
@@ -60,7 +63,7 @@ export default defineComponent({
 		getRestaurant();
 
 		const saveChanges = async () => {
-			await put('restaurants', restaurant.value.id, restaurant.value);
+			await put('restaurants', restaurant.value.id, restaurant.value, token);
 
 			route.push('/admin/restaurants');
 		};

@@ -1,5 +1,5 @@
 <template>
-	<NavigationBar text="Toppings" :menuIcon="true" />
+	<NavigationBar text="Toppings" :menuItems="navigationMenuItems" />
 
 	<main class="px-3 sm:px-6 py-8 flex justify-center">
 		<div class="main">
@@ -45,10 +45,12 @@
 import { defineComponent, reactive } from 'vue';
 
 import { get, deleteById } from '@/utils/api';
+import cookie from '@/utils/cookie';
 import { makePricePrettier } from '@/utils/dataFormattings';
 import Topping from '@/models/Topping';
 import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
 import LoadingIcon from '@/presentations/pizza/shared/components/LoadingIcon.vue';
+import navigationMenuItems from '@/assets/navigationMenuItems.json';
 
 type State = {
 	toppings: Array<Topping>;
@@ -61,12 +63,14 @@ export default defineComponent({
 	},
 
 	setup() {
+		const token = cookie.get('token');
+
 		const state: State = reactive({
 			toppings: [],
 		});
 
 		const getToppings = async () => {
-			const data = await get('toppings');
+			const data = await get('toppings', token);
 
 			state.toppings = data;
 
@@ -75,16 +79,19 @@ export default defineComponent({
 
 		getToppings();
 
-		const removeTopping = async (id: string, index: number) => {
-			state.toppings.splice(index, 1);
+		const removeTopping = async (id: string | undefined, index: number) => {
+			if (id) {
+				state.toppings.splice(index, 1);
 
-			await deleteById('toppings', id);
+				await deleteById('toppings', id, token);
+			}
 		};
 
 		return {
 			state,
 			removeTopping,
 			makePricePrettier,
+			navigationMenuItems: navigationMenuItems.sort((a: any, b: any) => a.text.localeCompare(b.text)),
 		};
 	},
 });

@@ -1,5 +1,5 @@
 <template>
-	<NavigationBar text="Orders" :menuIcon="true" />
+	<NavigationBar text="Orders" :menuItems="navigationMenuItems" />
 
 	<main class="px-3 sm:px-6 py-8 flex justify-center">
 		<div class="main">
@@ -55,13 +55,16 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref } from 'vue';
+import route from '@/router';
 
 import { get } from '@/utils/api';
+import cookie from '@/utils/cookie';
 import { makePricePrettier } from '@/utils/dataFormattings';
 import Order from '@/models/Order';
 import DatePicker from '../components/DatePicker.vue';
 import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
 import LoadingIcon from '@/presentations/pizza/shared/components/LoadingIcon.vue';
+import navigationMenuItems from '@/assets/navigationMenuItems.json';
 
 type State = {
 	orders: Array<Order>;
@@ -82,13 +85,15 @@ export default defineComponent({
 		const dataLoaded = ref(false);
 
 		const getOrders = async () => {
-			const data = await get('orders');
+			const token = cookie.get('token');
+
+			const data = await get('orders', token);
 
 			state.orders = data;
 			dataLoaded.value = true;
 		};
 
-		// getOrders();
+		getOrders();
 
 		const changePeriod = () => {};
 
@@ -97,6 +102,7 @@ export default defineComponent({
 			dataLoaded,
 			changePeriod,
 			makePricePrettier,
+			navigationMenuItems: navigationMenuItems.sort((a: any, b: any) => a.text.localeCompare(b.text)),
 		};
 	},
 });

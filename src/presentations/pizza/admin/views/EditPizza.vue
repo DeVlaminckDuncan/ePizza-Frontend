@@ -73,6 +73,7 @@ import { defineComponent, reactive, ref } from 'vue';
 import route from '@/router';
 
 import { get, put } from '@/utils/api';
+import cookie from '@/utils/cookie';
 import Pizza from '@/models/Pizza';
 import Topping from '@/models/Topping';
 import InputField from '@/presentations/pizza/shared/components/InputField.vue';
@@ -91,6 +92,8 @@ export default defineComponent({
 	},
 
 	setup() {
+		const token = cookie.get('token');
+
 		const imageRef = ref();
 		const uploadImageRef = ref();
 
@@ -105,13 +108,13 @@ export default defineComponent({
 		const dataLoaded = ref(false);
 
 		const getPizza = async () => {
-			const data = await get(`pizzas/${pizza.id}`);
+			const data = await get(`pizzas/${pizza.id}`, token);
 
 			pizza.id = data.id;
 			pizza.name = data.name;
 			pizza.price = data.price;
 			pizza.imgUrl = data.imgUrl;
-			pizza.toppings = data.topppings ? data.topppings.map((name: string) => ({ name })) : [];
+			pizza.toppings = data.toppings ? data.toppings.map((name: string) => ({ name })) : [];
 
 			dataLoaded.value = true;
 		};
@@ -160,7 +163,7 @@ export default defineComponent({
 				toppings: pizzaData.toppings,
 			};
 
-			await put('pizzas', pizza.id, data);
+			await put('pizzas', pizza.id, data, token);
 
 			route.push('/admin/menu');
 		};

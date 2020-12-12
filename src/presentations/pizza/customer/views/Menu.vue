@@ -1,10 +1,10 @@
 <template>
-	<NavigationBar text="Menu" :backIcon="true" :previousPage="state.previousPage" :cartIcon="true" />
+	<NavigationBar :text="$t('HEADER-TITLE-MENU')" :backIcon="true" :previousPage="state.previousPage" :cartIcon="true" />
 
 	<main class="px-3 sm:px-6 py-8 flex justify-center">
 		<div class="main">
 			<div class="flex justify-between items-center px-3 mb-8">
-				<h1 class="font-semibold text-2xl">Menu list</h1>
+				<h1 class="font-semibold text-2xl">{{ $t('PAGE-INFO-MENU') }}</h1>
 				<DropdownList
 					label="Filter"
 					:options="[
@@ -46,8 +46,8 @@
 								},
 							]"
 						/>
-						<router-link :to="`/edit/${pizza.pizzaUrl}`" class="button-md flex justify-center items-center bg-alpha-yellow text-white font-semibold text-lg h-8 my-6 rounded-lg shadow-md">Edit toppings</router-link>
-						<ButtonMedium @click="addToCart(pizza)" text="Add to cart" color="red" />
+						<router-link :to="`/edit/${pizza.pizzaUrl}`" class="button-md flex justify-center items-center bg-alpha-yellow text-white font-semibold text-lg h-8 my-6 rounded-lg shadow-md">{{ $t('BUTTON-EDIT-TOPPINGS') }}</router-link>
+						<ButtonMedium @click="addToCart(pizza)" :text="$t('BUTTON-ADD-TO-CART')" color="red" />
 					</div>
 
 					<div class="w-full flex justify-between pt-5">
@@ -72,6 +72,7 @@ import route from '@/router';
 import store from '@/store';
 
 import { get } from '@/utils/api';
+import cookie from '@/utils/cookie';
 import { saveItem } from '@/utils/idb';
 import { makePricePrettier, sizeMultiplier } from '@/utils/dataFormattings';
 import Pizza from '@/models/Pizza';
@@ -107,7 +108,9 @@ export default defineComponent({
 		getOrderType();
 
 		const getPizzas = async () => {
-			const data = await get('pizzas');
+			const token = cookie.get('token');
+
+			const data = await get('pizzas', token);
 
 			state.pizzas = data;
 
