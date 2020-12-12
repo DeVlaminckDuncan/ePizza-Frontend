@@ -92,8 +92,6 @@ export default defineComponent({
 	},
 
 	setup() {
-		const token = cookie.get('token');
-
 		const imageRef = ref();
 		const uploadImageRef = ref();
 
@@ -108,7 +106,7 @@ export default defineComponent({
 		const dataLoaded = ref(false);
 
 		const getPizza = async () => {
-			const data = await get(`pizzas/${pizza.id}`, token);
+			const data = await get(`pizzas/${pizza.id}`);
 
 			pizza.id = data.id;
 			pizza.name = data.name;
@@ -162,6 +160,8 @@ export default defineComponent({
 				imgUrl: pizzaData.imgUrl,
 				toppings: pizzaData.toppings,
 			};
+
+			const token = cookie.get('token');
 
 			await put('pizzas', pizza.id, data, token);
 

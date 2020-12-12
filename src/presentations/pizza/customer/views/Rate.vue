@@ -53,9 +53,7 @@ export default defineComponent({
 		const getPizza = async () => {
 			pizzaId = ref(route.currentRoute.value.params.id).value as string;
 
-			const token = cookie.get('token');
-
-			const data = await get(`pizzas/${pizzaId}`, token);
+			const data = await get(`pizzas/${pizzaId}`);
 
 			pizzaName.value = data.name;
 		};
@@ -66,7 +64,10 @@ export default defineComponent({
 			const data = newReview;
 			data.rating = +data.rating;
 
-			await post('ratings', data);
+			const token = cookie.get('token');
+
+			await post('ratings', data, token);
+
 			route.push(`/details/${pizzaId}`);
 		};
 

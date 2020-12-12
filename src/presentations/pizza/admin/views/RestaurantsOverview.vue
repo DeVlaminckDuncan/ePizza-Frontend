@@ -62,14 +62,12 @@ export default defineComponent({
 	},
 
 	setup() {
-		const token = cookie.get('token');
-
 		const state: State = reactive({
 			restaurants: [],
 		});
 
 		const getRestaurants = async () => {
-			const data = await get('restaurants', token);
+			const data = await get('restaurants');
 			state.restaurants = data;
 		};
 
@@ -78,6 +76,8 @@ export default defineComponent({
 		const removeRestaurant = async (id: string, index: number) => {
 			if (id != '') {
 				state.restaurants.splice(index, 1);
+
+				const token = cookie.get('token');
 
 				await deleteById('restaurants', id, token);
 			}

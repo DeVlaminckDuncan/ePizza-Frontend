@@ -63,14 +63,12 @@ export default defineComponent({
 	},
 
 	setup() {
-		const token = cookie.get('token');
-
 		const state: State = reactive({
 			toppings: [],
 		});
 
 		const getToppings = async () => {
-			const data = await get('toppings', token);
+			const data = await get('toppings');
 
 			state.toppings = data;
 
@@ -82,6 +80,8 @@ export default defineComponent({
 		const removeTopping = async (id: string | undefined, index: number) => {
 			if (id) {
 				state.toppings.splice(index, 1);
+
+				const token = cookie.get('token');
 
 				await deleteById('toppings', id, token);
 			}

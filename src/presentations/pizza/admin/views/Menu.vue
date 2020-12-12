@@ -43,7 +43,6 @@
 
 <script lang="ts">
 import { defineComponent, reactive } from 'vue';
-import route from '@/router';
 
 import { get, deleteById } from '@/utils/api';
 import cookie from '@/utils/cookie';
@@ -64,14 +63,12 @@ export default defineComponent({
 	},
 
 	setup() {
-		const token = cookie.get('token');
-
 		const state: State = reactive({
 			pizzas: [],
 		});
 
 		const getPizzas = async () => {
-			const data = await get('pizzas', token);
+			const data = await get('pizzas');
 
 			state.pizzas = data;
 		};
@@ -80,6 +77,8 @@ export default defineComponent({
 
 		const removePizza = async (id: string, index: number) => {
 			state.pizzas.splice(index, 1);
+
+			const token = cookie.get('token');
 
 			await deleteById('pizzas', id, token);
 		};

@@ -50,7 +50,6 @@ import { defineComponent, reactive, ref } from 'vue';
 import route from '@/router';
 
 import { get } from '@/utils/api';
-import cookie from '@/utils/cookie';
 import { getItemById, saveItem, editItem } from '@/utils/idb';
 import { makePricePrettier, sizeMultiplier } from '@/utils/dataFormattings';
 import Pizza from '@/models/Pizza';
@@ -73,8 +72,6 @@ export default defineComponent({
 	},
 
 	setup() {
-		const token = cookie.get('token');
-
 		const state: State = reactive({
 			pizza: {
 				id: '',
@@ -104,7 +101,7 @@ export default defineComponent({
 			const pizzaUrl = state.pizza.pizzaUrl;
 
 			if (isNaN(pizzaUrl)) {
-				const data = await get(`pizzas/${pizzaUrl}`, token);
+				const data = await get(`pizzas/${pizzaUrl}`);
 
 				state.pizza.id = data.id;
 				state.pizza.name = data.name;
@@ -125,7 +122,7 @@ export default defineComponent({
 		getPizza();
 
 		const getToppings = async () => {
-			const data = await get('toppings', token);
+			const data = await get('toppings');
 
 			state.allToppings = data.map((t: Topping) => ({
 				id: t.id,
