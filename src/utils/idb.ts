@@ -115,6 +115,7 @@ export const deleteItem = async (entity: string, item: any) => {
 	return new Promise((resolve) => {
 		const trans: IDBTransaction = db.transaction(entity, 'readwrite');
 		trans.oncomplete = () => {
+			// @ts-ignore
 			resolve();
 		};
 
