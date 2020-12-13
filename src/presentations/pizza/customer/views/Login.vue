@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 import route from '@/router';
 
 import { post } from '@/utils/api';
@@ -53,9 +53,15 @@ export default defineComponent({
 				};
 
 				const tokenData = await post('auth/login', data);
+
 				cookie.save('token', tokenData.token, tokenData.expiration);
 
-				route.push('/ordertype');
+				const redirect = ref(route.currentRoute.value.query.redirect).value as string;
+				if (redirect) {
+					route.push(redirect);
+				} else {
+					route.push('/ordertype');
+				}
 			}
 		};
 
