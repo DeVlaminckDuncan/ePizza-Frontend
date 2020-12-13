@@ -20,7 +20,7 @@
 
 				<InputField v-model="state.restaurant.phoneNumber" label="Phone number" type="tel" :value="state.restaurant.phoneNumber" class="my-12" />
 
-				<ButtonWide @click="saveChanges" text="Save changes" color="red" />
+				<Button @click="saveChanges" text="Save changes" color="red" :classes="['w-full', 'px-12', 'py-2', 'text-lg', 'rounded-lg']" />
 			</div>
 			<div v-else-if="state.error">
 				<p class="text-lg text-alpha-red">{{ $t('ERROR-LOADING-RESTAURANT') }}</p>
@@ -39,7 +39,7 @@ import route from '@/router';
 import { get, put } from '@/utils/api';
 import cookie from '@/utils/cookie';
 import InputField from '@/presentations/pizza/shared/components/InputField.vue';
-import ButtonWide from '@/presentations/pizza/shared/components/ButtonWide.vue';
+import Button from '@/presentations/pizza/shared/components/Button.vue';
 import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
 import LoadingIcon from '@/presentations/pizza/shared/components/LoadingIcon.vue';
 
@@ -51,7 +51,7 @@ type State = {
 export default defineComponent({
 	components: {
 		InputField,
-		ButtonWide,
+		Button,
 		NavigationBar,
 		LoadingIcon,
 	},

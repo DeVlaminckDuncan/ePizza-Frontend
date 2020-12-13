@@ -1,5 +1,5 @@
 <template>
-	<button :class="bgClassName" class="text-white font-semibold text-lg w-24 h-8 rounded-lg shadow-md">{{ text }}</button>
+	<button :style="`${width ? `width:${width}` : ''};${height ? `height:${height}` : ''}`" :class="[bgClassName, classes]" class="text-white font-semibold shadow-md">{{ text }}</button>
 </template>
 
 <script lang="ts">
@@ -9,6 +9,9 @@ export default defineComponent({
 	props: {
 		text: String,
 		color: String,
+		width: String,
+		height: String,
+		classes: Array,
 	},
 
 	setup(props) {

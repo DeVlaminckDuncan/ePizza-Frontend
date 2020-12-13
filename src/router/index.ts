@@ -91,6 +91,7 @@ const routes: Array<RouteRecordRaw> = [
 				component: () => import(/* webpackChunkName: "ratings" */ '../presentations/pizza/admin/views/Ratings.vue'),
 			},
 
+			// TODO: make "/menu" the parent with children "/menu/add" and "/menu/edit"
 			{
 				path: '/admin/menu',
 				name: 'AdminMenu',
@@ -170,6 +171,7 @@ const router = createRouter({
 router.afterEach((to) => {
 	nextTick(() => {
 		if (to.name) {
+			// TODO: use translations of the page titles
 			document.title = `${capitalize(
 				to.name
 					.toString()

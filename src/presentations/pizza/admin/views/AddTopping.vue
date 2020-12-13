@@ -9,7 +9,7 @@
 
 			<InputField v-model="topping.price" label="Price" type="number" :step="0.01" class="my-12" />
 
-			<ButtonWide @click="addTopping" text="Add topping" color="red" />
+			<Button @click="addTopping" text="Add topping" color="red" :classes="['w-full', 'px-12', 'py-2', 'text-lg', 'rounded-lg']" />
 		</div>
 	</main>
 </template>
@@ -22,13 +22,13 @@ import { post } from '@/utils/api';
 import cookie from '@/utils/cookie';
 import Topping from '@/models/Topping';
 import InputField from '@/presentations/pizza/shared/components/InputField.vue';
-import ButtonWide from '@/presentations/pizza/shared/components/ButtonWide.vue';
+import Button from '@/presentations/pizza/shared/components/Button.vue';
 import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
 
 export default defineComponent({
 	components: {
 		InputField,
-		ButtonWide,
+		Button,
 		NavigationBar,
 	},
 

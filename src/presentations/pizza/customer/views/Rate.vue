@@ -16,7 +16,7 @@
 
 					<Rating class="flex justify-center my-6" v-model="newReview.rating" />
 
-					<ButtonWide @click="submitReview" text="Submit" color="red" />
+					<Button @click="submitReview" text="Submit" color="red" :classes="['w-full', 'px-12', 'py-2', 'text-lg', 'rounded-lg']" />
 				</div>
 			</div>
 			<div v-else-if="state.error">
@@ -37,7 +37,7 @@ import { get, post } from '@/utils/api';
 import cookie from '@/utils/cookie';
 import InputField from '@/presentations/pizza/shared/components/InputField.vue';
 import Rating from '../components/Rating.vue';
-import ButtonWide from '@/presentations/pizza/shared/components/ButtonWide.vue';
+import Button from '@/presentations/pizza/shared/components/Button.vue';
 import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
 import LoadingIcon from '@/presentations/pizza/shared/components/LoadingIcon.vue';
 
@@ -50,7 +50,7 @@ export default defineComponent({
 	components: {
 		InputField,
 		Rating,
-		ButtonWide,
+		Button,
 		NavigationBar,
 		LoadingIcon,
 	},

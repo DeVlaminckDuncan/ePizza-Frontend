@@ -5,7 +5,7 @@
 		<div class="main">
 			<h1 class="font-semibold text-2xl mb-3">Add a new pizza</h1>
 
-			<ButtonWide @click="addPizza" text="Add pizza" color="red" />
+			<Button @click="addPizza" text="Add pizza" color="red" :classes="['w-full', 'px-12', 'py-2', 'text-lg', 'rounded-lg']" />
 
 			<!-- <div class="flex flex-wrap items-center mt-12 mb-12">
 				<div class="w-1/2 ">
@@ -20,7 +20,7 @@
 				</div>
 
 				<div class="w-1/2">
-					<ButtonMedium @click="uploadImage" :text="`${imageUploaded ? 'Change' : 'Upload'} image`" color="yellow" />
+					<Button @click="uploadImage" :text="`${imageUploaded ? 'Change' : 'Upload'} image`" color="yellow" :classes="['w-24', 'h-8', 'text-lg', 'rounded-lg']" />
 					<input ref="uploadImageRef" @change="imageInputChange" class="hidden" type="file" />
 				</div>
 			</div> -->
@@ -85,8 +85,7 @@ import { get, post } from '@/utils/api';
 import cookie from '@/utils/cookie';
 // import Topping from '@/models/Topping';
 import InputField from '@/presentations/pizza/shared/components/InputField.vue';
-import ButtonMedium from '@/presentations/pizza/shared/components/ButtonMedium.vue';
-import ButtonWide from '@/presentations/pizza/shared/components/ButtonWide.vue';
+import Button from '@/presentations/pizza/shared/components/Button.vue';
 import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
 import LoadingIcon from '@/presentations/pizza/shared/components/LoadingIcon.vue';
 
@@ -106,8 +105,7 @@ type State = {
 export default defineComponent({
 	components: {
 		InputField,
-		ButtonMedium,
-		ButtonWide,
+		Button,
 		NavigationBar,
 		LoadingIcon,
 	},
