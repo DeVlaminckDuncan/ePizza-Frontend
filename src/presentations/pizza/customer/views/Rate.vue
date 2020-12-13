@@ -66,9 +66,13 @@ export default defineComponent({
 
 			const token = cookie.get('token');
 
-			await post('ratings', data, token);
+			if (token != '') {
+				await post('ratings', data, token);
 
-			route.push(`/details/${pizzaId}`);
+				route.push(`/details/${pizzaId}`);
+			} else {
+				route.push(`/login?redirect=/rate/${pizzaId}`);
+			}
 		};
 
 		return {

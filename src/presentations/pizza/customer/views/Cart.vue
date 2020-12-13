@@ -169,15 +169,18 @@ export default defineComponent({
 
 			const token = cookie.get('token');
 
-			await post('orders', pizzasData, token);
+			if (token != '') {
+				await post('orders', pizzasData, token);
 
-			state.pizzas.forEach(async (p) => {
-				const data = removeReactivityFromPizza(p);
+				state.pizzas.forEach(async (p) => {
+					const data = removeReactivityFromPizza(p);
+					await deleteItem('pizzas', data);
+				});
 
-				await deleteItem('pizzas', data);
-			});
-
-			route.push('/orderplaced');
+				route.push('/orderplaced');
+			} else {
+				route.push('/login?redirect=/cart');
+			}
 		};
 
 		return {
