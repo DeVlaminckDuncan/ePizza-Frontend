@@ -34,6 +34,10 @@
 				</div>
 			</div>
 
+			<div v-else-if="state.error">
+				<p class="text-lg text-alpha-red">{{ $t('ERROR-LOADING-TOPPINGS') }}</p>
+			</div>
+
 			<div v-else>
 				<LoadingIcon />
 			</div>
@@ -54,6 +58,7 @@ import navigationMenuItems from '@/assets/navigationMenuItems.json';
 
 type State = {
 	toppings: Array<Topping>;
+	error: Boolean;
 };
 
 export default defineComponent({
@@ -65,14 +70,19 @@ export default defineComponent({
 	setup() {
 		const state: State = reactive({
 			toppings: [],
+			error: false,
 		});
 
 		const getToppings = async () => {
 			const data = await get('toppings');
 
-			state.toppings = data;
+			if (data == null) {
+				state.error = true;
+			} else {
+				state.toppings = data;
 
-			state.toppings.sort((a, b) => a.name.localeCompare(b.name)).sort((a, b) => a.price!.toString().localeCompare(b.price!.toString()));
+				state.toppings.sort((a, b) => a.name.localeCompare(b.name)).sort((a, b) => a.price!.toString().localeCompare(b.price!.toString()));
+			}
 		};
 
 		getToppings();

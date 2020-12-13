@@ -5,7 +5,8 @@
 		<div class="main">
 			<div class="flex justify-between items-center px-3 mb-8">
 				<h1 class="font-semibold text-2xl">{{ $t('PAGE-INFO-MENU') }}</h1>
-				<DropdownList
+				<!-- TODO: DropdownList: pizza type -->
+				<!-- <DropdownList
 					label="Filter"
 					:options="[
 						{
@@ -18,7 +19,7 @@
 							text: 'Filter3',
 						},
 					]"
-				/>
+				/> -->
 			</div>
 
 			<div v-if="state.pizzas.length">
@@ -59,6 +60,9 @@
 					</div>
 				</div>
 			</div>
+			<div v-else-if="state.error">
+				<p class="text-lg text-alpha-red">{{ $t('ERROR-LOADING-PIZZAS') }}</p>
+			</div>
 			<div v-else>
 				<LoadingIcon />
 			</div>
@@ -83,6 +87,7 @@ import LoadingIcon from '@/presentations/pizza/shared/components/LoadingIcon.vue
 type State = {
 	pizzas: Array<Pizza>;
 	previousPage: string;
+	error: Boolean;
 };
 
 export default defineComponent({
@@ -97,6 +102,7 @@ export default defineComponent({
 		const state: State = reactive({
 			pizzas: [],
 			previousPage: '',
+			error: false,
 		});
 
 		const getOrderType = async () => {
@@ -109,12 +115,15 @@ export default defineComponent({
 		const getPizzas = async () => {
 			const data = await get('pizzas');
 
-			state.pizzas = data;
-
-			state.pizzas.forEach((pizza) => {
-				pizza.pizzaUrl = pizza.id;
-				pizza.size = 'Medium';
-			});
+			if (data == null) {
+				state.error = true;
+			} else {
+				state.pizzas = data;
+				state.pizzas.forEach((pizza) => {
+					pizza.pizzaUrl = pizza.id;
+					pizza.size = 'Medium';
+				});
+			}
 		};
 
 		getPizzas();

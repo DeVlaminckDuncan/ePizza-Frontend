@@ -1,3 +1,5 @@
+// TODO: translate the other pages of the app
+
 import { createI18n } from 'vue-i18n';
 
 const DEFAULT_LOCALE = 'en';

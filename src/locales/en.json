@@ -23,5 +23,14 @@
 
 	"INPUT-LABEL-CITY": "City",
 	"INPUT-LABEL-HOUSE-NUMBER": "No",
-	"INPUT-LABEL-STREET": "Street"
+	"INPUT-LABEL-STREET": "Street",
+
+	"ERROR-LOADING-PIZZAS": "Pizzas failed to load.",
+	"ERROR-LOADING-PIZZA": "Pizza failed to load.",
+	"ERROR-LOADING-RESTAURANTS": "Restaurants failed to load.",
+	"ERROR-LOADING-RESTAURANT": "Restaurant failed to load.",
+	"ERROR-LOADING-TOPPINGS": "Toppings failed to load.",
+	"ERROR-LOADING-TOPPING": "Topping failed to load.",
+	"ERROR-LOADING-ORDERS": "Orders failed to load.",
+	"ERROR-LOADING-RATINGS": "Ratings failed to load."
 }

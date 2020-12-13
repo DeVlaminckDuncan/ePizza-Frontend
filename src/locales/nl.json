@@ -23,5 +23,14 @@
 
 	"INPUT-LABEL-CITY": "Gemeente",
 	"INPUT-LABEL-HOUSE-NUMBER": "Nr",
-	"INPUT-LABEL-STREET": "Straat"
+	"INPUT-LABEL-STREET": "Straat",
+
+	"ERROR-LOADING-PIZZAS": "Pizza's konden niet geladen worden.",
+	"ERROR-LOADING-PIZZA": "Pizza kon niet geladen worden.",
+	"ERROR-LOADING-RESTAURANTS": "Restaurants konden niet geladen worden.",
+	"ERROR-LOADING-RESTAURANT": "Restaurant kon niet geladen worden.",
+	"ERROR-LOADING-TOPPINGS": "De soorten beleg konden niet geladen worden.",
+	"ERROR-LOADING-TOPPING": "Het beleg kon niet geladen worden.",
+	"ERROR-LOADING-ORDERS": "Bestellingen konden niet geladen worden.",
+	"ERROR-LOADING-RATINGS": "Beoordelingen konden niet geladen worden."
 }

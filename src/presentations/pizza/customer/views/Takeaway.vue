@@ -14,11 +14,14 @@
 						<a :href="`tel:${restaurant.phoneNumber.toString().replaceAll(' ', '')}`">{{ restaurant.phoneNumber }}</a>
 					</div>
 				</div>
+				<div v-else-if="state.error" class="mb-4">
+					<p class="text-lg text-alpha-red">{{ $t('ERROR-LOADING-RESTAURANTS') }}</p>
+				</div>
 				<div v-else>
 					<LoadingIcon />
 				</div>
 
-				<ButtonWide @click="continueToMenu" :text="$t('BUTTON-CONTINUE')" color="red" class="mt-4" />
+				<ButtonWide v-if="!state.error" @click="continueToMenu" :text="$t('BUTTON-CONTINUE')" color="red" class="mt-4" />
 			</form>
 		</div>
 	</main>
@@ -38,6 +41,7 @@ import LoadingIcon from '@/presentations/pizza/shared/components/LoadingIcon.vue
 type State = {
 	restaurants: Array<Restaurant>;
 	selectedRestaurant: Restaurant;
+	error: Boolean;
 };
 
 export default defineComponent({
@@ -59,12 +63,16 @@ export default defineComponent({
 				zipCode: 0,
 				city: '',
 			},
+			error: false,
 		});
 
 		const getRestaurants = async () => {
 			const data = await get('restaurants');
-
-			state.restaurants = data;
+			if (data == null) {
+				state.error = true;
+			} else {
+				state.restaurants = data;
+			}
 		};
 
 		getRestaurants();

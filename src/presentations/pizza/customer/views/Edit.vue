@@ -5,41 +5,57 @@
 		<div class="main">
 			<h1 class="font-semibold text-2xl">{{ $t('PAGE-INFO-EDIT-TOPPINGS') }}</h1>
 
-			<div class="flex flex-wrap items-center pt-8 mb-12">
-				<div class="w-1/2">
-					<img class="pizza-image rounded-lg" :src="state.pizza.imgUrl" :alt="`Pizza ${state.pizza.name}`" />
+			<div v-if="state.pizza.name != ''">
+				<div class="flex flex-wrap items-center pt-8 mb-12">
+					<div class="w-1/2">
+						<img class="pizza-image rounded-lg" :src="state.pizza.imgUrl" :alt="`Pizza ${state.pizza.name}`" />
+					</div>
+
+					<div class="flex flex-col items-end w-1/2">
+						<p class="text-xl text-right font-semibold">{{ state.pizza.name }}</p>
+
+						<span class="price text-right font-semibold my-6">{{ makePricePrettier(sizeMultiplier(state.totalPrice, state.pizza.size)) }}</span>
+
+						<ButtonMedium @click="saveChanges" class="bg-alpha-red" :text="isNaN(state.pizza.pizzaUrl) ? $t('BUTTON-EDIT-TOPPINGS') : $t('BUTTON-SAVE-CHANGES')" color="red" />
+					</div>
 				</div>
 
-				<div class="flex flex-col items-end w-1/2">
-					<p class="text-xl text-right font-semibold">{{ state.pizza.name }}</p>
+				<div v-for="topping of state.pizza.toppings" :key="topping.name" class="flex flex-wrap justify-between items-center w-full text-lg mb-2">
+					<div class="flex">
+						<ButtonExtraSmall @click="decreaseTopping(topping)" text="-" color="red" />
+					</div>
 
-					<span class="price text-right font-semibold my-6">{{ makePricePrettier(sizeMultiplier(state.totalPrice, state.pizza.size)) }}</span>
+					{{ topping.name }}
 
-					<ButtonMedium @click="saveChanges" class="bg-alpha-red" :text="isNaN(state.pizza.pizzaUrl) ? $t('BUTTON-EDIT-TOPPINGS') : $t('BUTTON-SAVE-CHANGES')" color="red" />
+					<div class="flex -mr-1">
+						<ButtonExtraSmall v-for="i of topping.amount" :key="i" @click="increaseTopping(topping)" class="bg-alpha-green mr-1" text="+" color="green" />
+						<ButtonExtraSmall v-for="i of 3 - (topping.amount ? topping.amount : 0)" :key="i" @click="increaseTopping(topping)" class="opacity-50 mr-1" text="+" color="green" />
+					</div>
 				</div>
 			</div>
-
-			<div v-for="topping of state.pizza.toppings" :key="topping.name" class="flex flex-wrap justify-between items-center w-full text-lg mb-2">
-				<div class="flex">
-					<ButtonExtraSmall @click="decreaseTopping(topping)" text="-" color="red" />
-				</div>
-
-				{{ topping.name }}
-
-				<div class="flex -mr-1">
-					<ButtonExtraSmall v-for="i of topping.amount" :key="i" @click="increaseTopping(topping)" class="bg-alpha-green mr-1" text="+" color="green" />
-					<ButtonExtraSmall v-for="i of 3 - (topping.amount ? topping.amount : 0)" :key="i" @click="increaseTopping(topping)" class="opacity-50 mr-1" text="+" color="green" />
-				</div>
+			<div v-else-if="state.errorPizza" class="my-4">
+				<p class="text-lg text-alpha-red">{{ $t('ERROR-LOADING-PIZZA') }}</p>
+			</div>
+			<div v-else>
+				<LoadingIcon />
 			</div>
 
-			<p class="text-2xl text-left font-semibold mt-12">{{ $t('SUBTITLE-ADD-MORE-TOPPINGS') }}</p>
+			<div v-if="state.allToppings.length">
+				<p class="text-2xl text-left font-semibold mt-12">{{ $t('SUBTITLE-ADD-MORE-TOPPINGS') }}</p>
 
-			<div v-for="topping of state.allToppings" :key="topping.id" class="flex flex-wrap justify-between items-center w-full text-lg mt-4">
-				<span class="font-semibold">{{ makePricePrettier(topping.price ? topping.price : 0) }}</span>
+				<div v-for="topping of state.allToppings" :key="topping.id" class="flex flex-wrap justify-between items-center w-full text-lg mt-4">
+					<span class="font-semibold">{{ makePricePrettier(topping.price ? topping.price : 0) }}</span>
 
-				{{ topping.name }}
+					{{ topping.name }}
 
-				<button @click="addTopping(topping.id ? topping.id : '')" class="text-white font-semibold  bg-alpha-yellow px-4 py-1 rounded-lg shadow-md">Add</button>
+					<button @click="addTopping(topping.id ? topping.id : '')" class="text-white font-semibold  bg-alpha-yellow px-4 py-1 rounded-lg shadow-md">Add</button>
+				</div>
+			</div>
+			<div v-else-if="state.errorToppings" class="my-4">
+				<p class="text-lg text-alpha-red">{{ $t('ERROR-LOADING-TOPPINGS') }}</p>
+			</div>
+			<div v-else>
+				<LoadingIcon />
 			</div>
 		</div>
 	</main>
@@ -57,11 +73,14 @@ import Topping from '@/models/Topping';
 import ButtonMedium from '@/presentations/pizza/shared/components/ButtonMedium.vue';
 import ButtonExtraSmall from '../components/ButtonExtraSmall.vue';
 import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
+import LoadingIcon from '@/presentations/pizza/shared/components/LoadingIcon.vue';
 
 type State = {
 	pizza: Pizza;
 	totalPrice: number;
 	allToppings: Array<Topping>;
+	errorPizza: Boolean;
+	errorToppings: Boolean;
 };
 
 export default defineComponent({
@@ -69,6 +88,7 @@ export default defineComponent({
 		ButtonMedium,
 		ButtonExtraSmall,
 		NavigationBar,
+		LoadingIcon,
 	},
 
 	setup() {
@@ -87,6 +107,9 @@ export default defineComponent({
 			totalPrice: 0,
 
 			allToppings: [],
+
+			errorPizza: false,
+			errorToppings: false,
 		});
 
 		const calculateTotalPrice = () => {
@@ -103,14 +126,19 @@ export default defineComponent({
 			if (isNaN(pizzaUrl)) {
 				const data = await get(`pizzas/${pizzaUrl}`);
 
-				state.pizza.id = data.id;
-				state.pizza.name = data.name;
-				state.pizza.price = data.price;
-				state.pizza.imgUrl = data.imgUrl;
-				state.pizza.toppings = data.toppings ? data.toppings.map((name: string) => ({ name })) : [];
-				state.pizza.reviews = data.orderReviews;
+				if (data == null) {
+					state.errorPizza = true;
+				} else {
+					state.pizza.id = data.id;
+					state.pizza.name = data.name;
+					state.pizza.price = data.price;
+					state.pizza.imgUrl = data.imgUrl;
+					state.pizza.toppings = data.toppings ? data.toppings.map((name: string) => ({ name })) : [];
+					state.pizza.reviews = data.orderReviews;
+				}
 			} else {
 				const data = await getItemById('pizzas', pizzaUrl);
+
 				state.pizza = data;
 				state.pizza.pizzaUrl = pizzaUrl;
 				state.pizza.idbId = +pizzaUrl;
@@ -124,18 +152,22 @@ export default defineComponent({
 		const getToppings = async () => {
 			const data = await get('toppings');
 
-			state.allToppings = data.map((t: Topping) => ({
-				id: t.id,
-				name: t.name,
-				price: t.price,
-				amount: 1,
-			}));
+			if (data == null) {
+				state.errorToppings = true;
+			} else {
+				state.allToppings = data.map((t: Topping) => ({
+					id: t.id,
+					name: t.name,
+					price: t.price,
+					amount: 1,
+				}));
 
-			// sort on name first, then on price
-			state.allToppings.sort((a, b) => a.name.localeCompare(b.name)).sort((a, b) => a.price!.toString().localeCompare(b.price!.toString()));
+				// sort on name first, then on price
+				state.allToppings.sort((a, b) => a.name.localeCompare(b.name)).sort((a, b) => a.price!.toString().localeCompare(b.price!.toString()));
 
-			if (state.pizza.toppings) {
-				state.allToppings = state.allToppings.filter((a) => state.pizza.toppings.findIndex((b) => b.name == a.name) == -1);
+				if (state.pizza.toppings) {
+					state.allToppings = state.allToppings.filter((a) => state.pizza.toppings.findIndex((b) => b.name == a.name) == -1);
+				}
 			}
 		};
 

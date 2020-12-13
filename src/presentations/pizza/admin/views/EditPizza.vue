@@ -3,13 +3,13 @@
 
 	<main class="px-3 sm:px-6 py-8 flex justify-center">
 		<div class="main">
-			<h1 class="font-semibold text-2xl mb-3">Edit pizza {{ pizza.name.toLowerCase() }}</h1>
+			<h1 class="font-semibold text-2xl mb-3">Edit pizza {{ state.pizza.name.toLowerCase() }}</h1>
 
 			<ButtonWide @click="saveChanges" text="Save changes" color="red" />
 
 			<!-- <div class="flex flex-wrap items-center mt-12 mb-12">
 				<div class="w-1/2">
-					<img v-if="dataLoaded && pizza.imgUrl" @click="uploadImage" ref="imageRef" class="pizza-image rounded-lg cursor-pointer" :src="pizza.imgUrl" :alt="`Pizza ${pizza.name}`" />
+					<img v-if="dataLoaded && state.pizza.imgUrl" @click="uploadImage" ref="imageRef" class="pizza-image rounded-lg cursor-pointer" :src="state.pizza.imgUrl" :alt="`Pizza ${state.pizza.name}`" />
 					<span v-else>
 						<LoadingIcon />
 					</span>
@@ -21,11 +21,11 @@
 				</div>
 			</div> -->
 
-			<InputField v-model="pizza.imgUrl" :value="pizza.imgUrl" label="URL to image" class="my-12" />
+			<InputField v-model="state.pizza.imgUrl" :value="state.pizza.imgUrl" label="URL to image" class="my-12" />
 
-			<InputField v-model="pizza.name" :value="pizza.name" label="Pizza name" />
+			<InputField v-model="state.pizza.name" :value="state.pizza.name" label="Pizza name" />
 
-			<InputField v-model="pizza.price" :value="pizza.price.toString()" label="Price in €" type="number" :step="0.01" />
+			<InputField v-model="state.pizza.price" :value="state.pizza.price.toString()" label="Price in €" type="number" :step="0.01" />
 
 			<div class="flex justify-between items-center mt-12 mb-8">
 				<span class="text-2xl font-semibold">Toppings</span>
@@ -34,8 +34,8 @@
 			</div>
 
 			<div class="mb-6">
-				<div v-if="pizza.toppings.length">
-					<div v-for="(topping, index) of pizza.toppings" :key="topping.id ? topping.id : topping.name" class="flex flex-wrap items-center mb-4">
+				<div v-if="state.pizza.toppings.length">
+					<div v-for="(topping, index) of state.pizza.toppings" :key="topping.id ? topping.id : topping.name" class="flex flex-wrap items-center mb-4">
 						<div class="w-full flex mb-8">
 							<div class="w-1/6 flex justify-center items-center">
 								<button @click="removeTopping(index)">
@@ -52,8 +52,12 @@
 							</div>
 						</div>
 
-						<hr v-if="index - 3 > pizza.toppings.length" />
+						<hr v-if="index - 3 > state.pizza.toppings.length" />
 					</div>
+				</div>
+
+				<div v-else-if="state.error">
+					<p class="text-lg text-alpha-red">{{ $t('ERROR-LOADING-TOPPINGS') }}</p>
 				</div>
 
 				<div v-else-if="!dataLoaded">
@@ -82,6 +86,11 @@ import ButtonWide from '@/presentations/pizza/shared/components/ButtonWide.vue';
 import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
 import LoadingIcon from '@/presentations/pizza/shared/components/LoadingIcon.vue';
 
+type State = {
+	pizza: Pizza;
+	error: Boolean;
+};
+
 export default defineComponent({
 	components: {
 		InputField,
@@ -95,26 +104,33 @@ export default defineComponent({
 		const imageRef = ref();
 		const uploadImageRef = ref();
 
-		const pizza: Pizza = reactive({
-			id: ref(route.currentRoute.value.params.id).value as string,
-			name: '',
-			price: 0,
-			imgUrl: '',
-			toppings: [],
+		const state: State = reactive({
+			pizza: {
+				id: ref(route.currentRoute.value.params.id).value as string,
+				name: '',
+				price: 0,
+				imgUrl: '',
+				toppings: [],
+			},
+			error: false,
 		});
 
 		const dataLoaded = ref(false);
 
 		const getPizza = async () => {
-			const data = await get(`pizzas/${pizza.id}`);
+			const data = await get(`pizzas/${state.pizza.id}`);
 
-			pizza.id = data.id;
-			pizza.name = data.name;
-			pizza.price = data.price;
-			pizza.imgUrl = data.imgUrl;
-			pizza.toppings = data.toppings ? data.toppings.map((name: string) => ({ name })) : [];
+			if (data == null) {
+				state.error = true;
+			} else {
+				state.pizza.id = data.id;
+				state.pizza.name = data.name;
+				state.pizza.price = data.price;
+				state.pizza.imgUrl = data.imgUrl;
+				state.pizza.toppings = data.toppings ? data.toppings.map((name: string) => ({ name })) : [];
 
-			dataLoaded.value = true;
+				dataLoaded.value = true;
+			}
 		};
 
 		getPizza();
@@ -134,18 +150,18 @@ export default defineComponent({
 		};
 
 		const addTopping = () => {
-			pizza.toppings.push({
+			state.pizza.toppings.push({
 				name: '',
 				price: 0,
 			});
 		};
 
 		const removeTopping = (index: number) => {
-			pizza.toppings.splice(index, 1);
+			state.pizza.toppings.splice(index, 1);
 		};
 
 		const saveChanges = async () => {
-			const pizzaData: Pizza = JSON.parse(JSON.stringify(pizza));
+			const pizzaData: Pizza = JSON.parse(JSON.stringify(state.pizza));
 			pizzaData.price = +pizzaData.price;
 
 			pizzaData.toppings.forEach((t) => {
@@ -163,13 +179,13 @@ export default defineComponent({
 
 			const token = cookie.get('token');
 
-			await put('pizzas', pizza.id, data, token);
+			await put('pizzas', state.pizza.id, data, token);
 
 			route.push('/admin/menu');
 		};
 
 		return {
-			pizza,
+			state,
 			dataLoaded,
 			// uploadImage,
 			// imageInputChange,

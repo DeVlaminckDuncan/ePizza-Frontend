@@ -5,7 +5,8 @@
 		<div class="main">
 			<h1 class="font-semibold text-2xl">This week's ratings</h1>
 
-			<DatePicker @click="changePeriod" class="mt-4 mb-8" />
+			<!-- TODO: DatePicker -->
+			<!-- <DatePicker @click="changePeriod" class="mt-4 mb-8" /> -->
 
 			<div v-if="state.reviews.length">
 				<div v-for="review of state.reviews" :key="review.id" class="flex flex-wrap items-center border border-dark border-opacity-5 rounded-lg shadow-md p-3">
@@ -57,6 +58,9 @@
 					</div>
 				</div>
 			</div>
+			<div v-else-if="state.error">
+				<p class="text-lg text-alpha-red">{{ $t('ERROR-LOADING-RATINGS') }}</p>
+			</div>
 			<div v-else-if="!dataLoaded" class="text-lg">
 				There are no ratings yet.
 			</div>
@@ -72,18 +76,19 @@ import { defineComponent, reactive, ref } from 'vue';
 
 import { get } from '@/utils/api';
 import Review from '@/models/Review';
-import DatePicker from '../components/DatePicker.vue';
+// import DatePicker from '../components/DatePicker.vue';
 import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
 import LoadingIcon from '@/presentations/pizza/shared/components/LoadingIcon.vue';
 import navigationMenuItems from '@/assets/navigationMenuItems.json';
 
 type State = {
 	reviews: Array<Review>;
+	error: Boolean;
 };
 
 export default defineComponent({
 	components: {
-		DatePicker,
+		// DatePicker,
 		NavigationBar,
 		LoadingIcon,
 	},
@@ -91,6 +96,7 @@ export default defineComponent({
 	setup() {
 		const state: State = reactive({
 			reviews: [],
+			error: false,
 		});
 
 		const dataLoaded = ref(false);
@@ -98,8 +104,13 @@ export default defineComponent({
 		const getReviews = async () => {
 			const data = await get('reviews');
 
-			state.reviews = data;
-			dataLoaded.value = true;
+			if (data == null) {
+				state.error = true;
+			} else {
+				state.reviews = data;
+
+				dataLoaded.value = true;
+			}
 		};
 
 		getReviews();

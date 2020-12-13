@@ -61,6 +61,10 @@
 					</div>
 				</div>
 
+				<div v-else-if="state.error">
+					<p class="text-lg text-alpha-red">{{ $t('ERROR-LOADING-TOPPINGS') }}</p>
+				</div>
+
 				<div v-else-if="!state.toppingsLoaded">
 					<LoadingIcon />
 				</div>
@@ -96,6 +100,7 @@ type CustomTopping = {
 type State = {
 	toppings: Array<CustomTopping>;
 	toppingsLoaded: Boolean;
+	error: Boolean;
 };
 
 export default defineComponent({
@@ -122,16 +127,22 @@ export default defineComponent({
 		const state: State = reactive({
 			toppings: [],
 			toppingsLoaded: false,
+			error: false,
 		});
 
 		// let apiToppings: Array<Topping> = [];
 
 		const getToppings = async () => {
 			const data = await get('toppings');
-			state.toppings = data;
-			// apiToppings = data;
-			state.toppings.sort((a, b) => a.name.localeCompare(b.name)).sort((a, b) => a.price!.toString().localeCompare(b.price!.toString()));
-			state.toppingsLoaded = true;
+
+			if (data == null) {
+				state.error = true;
+			} else {
+				state.toppings = data;
+				// apiToppings = data;
+				state.toppings.sort((a, b) => a.name.localeCompare(b.name)).sort((a, b) => a.price!.toString().localeCompare(b.price!.toString()));
+				state.toppingsLoaded = true;
+			}
 		};
 
 		getToppings();
