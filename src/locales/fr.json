@@ -23,5 +23,14 @@
 
 	"INPUT-LABEL-CITY": "Ville",
 	"INPUT-LABEL-HOUSE-NUMBER": "No",
-	"INPUT-LABEL-STREET": "Rue"
+	"INPUT-LABEL-STREET": "Rue",
+
+	"ERROR-LOADING-PIZZAS": "Les pizzas n'ont pas pu être chargées.",
+	"ERROR-LOADING-PIZZA": "Le pizza n'ont pas pu être chargées.",
+	"ERROR-LOADING-RESTAURANTS": "Les restaurants n'ont pas pu être chargées.",
+	"ERROR-LOADING-RESTAURANT": "Le restaurant n'ont pas pu être chargées.",
+	"ERROR-LOADING-TOPPINGS": "Les garnitures n'ont pas pu être chargées.",
+	"ERROR-LOADING-TOPPING": "La garniture n'ont pas pu être chargées.",
+	"ERROR-LOADING-ORDERS": "Les commandes n'ont pas pu être chargées.",
+	"ERROR-LOADING-RATINGS": "Les évaluations n'ont pas pu être chargées."
 }

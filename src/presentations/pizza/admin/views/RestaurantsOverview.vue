@@ -34,6 +34,10 @@
 				</div>
 			</div>
 
+			<div v-else-if="state.error">
+				<p class="text-lg text-alpha-red">{{ $t('ERROR-LOADING-RESTAURANTS') }}</p>
+			</div>
+
 			<div v-else>
 				<LoadingIcon />
 			</div>
@@ -53,6 +57,7 @@ import navigationMenuItems from '@/assets/navigationMenuItems.json';
 
 type State = {
 	restaurants: Array<Restaurant>;
+	error: Boolean;
 };
 
 export default defineComponent({
@@ -64,11 +69,17 @@ export default defineComponent({
 	setup() {
 		const state: State = reactive({
 			restaurants: [],
+			error: false,
 		});
 
 		const getRestaurants = async () => {
 			const data = await get('restaurants');
-			state.restaurants = data;
+
+			if (data == null) {
+				state.error = true;
+			} else {
+				state.restaurants = data;
+			}
 		};
 
 		getRestaurants();

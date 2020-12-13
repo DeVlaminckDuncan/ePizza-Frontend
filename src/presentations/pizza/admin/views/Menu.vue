@@ -34,6 +34,14 @@
 				</div>
 			</div>
 
+			<div v-else-if="state.error">
+				<p class="text-lg text-alpha-red">{{ $t('ERROR-LOADING-PIZZAS') }}</p>
+			</div>
+
+			<div v-else-if="!state.dataLoaded" class="text-lg">
+				There are no orders yet.
+			</div>
+
 			<div v-else>
 				<LoadingIcon />
 			</div>
@@ -54,6 +62,8 @@ import navigationMenuItems from '@/assets/navigationMenuItems.json';
 
 type State = {
 	pizzas: Array<Pizza>;
+	dataLoaded: Boolean;
+	error: Boolean;
 };
 
 export default defineComponent({
@@ -65,12 +75,20 @@ export default defineComponent({
 	setup() {
 		const state: State = reactive({
 			pizzas: [],
+			dataLoaded: false,
+			error: false,
 		});
 
 		const getPizzas = async () => {
 			const data = await get('pizzas');
 
-			state.pizzas = data;
+			if (data == null) {
+				state.error = true;
+			} else {
+				state.pizzas = data;
+
+				state.dataLoaded = true;
+			}
 		};
 
 		getPizzas();

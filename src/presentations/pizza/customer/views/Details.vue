@@ -86,6 +86,9 @@
 					There are no ratings yet for this pizza.
 				</div>
 			</div>
+			<div v-else-if="state.error">
+				<p class="text-lg text-alpha-red">{{ $t('ERROR-LOADING-PIZZA') }}</p>
+			</div>
 			<div v-else>
 				<LoadingIcon />
 			</div>
@@ -108,6 +111,7 @@ import LoadingIcon from '@/presentations/pizza/shared/components/LoadingIcon.vue
 
 type PizzaState = {
 	pizza: Pizza;
+	error: Boolean;
 };
 
 export default defineComponent({
@@ -131,6 +135,7 @@ export default defineComponent({
 				pizzaUrl: ref(route.currentRoute.value.params.id).value as string,
 				size: 'Medium',
 			},
+			error: false,
 		});
 
 		const getPizza = async () => {
@@ -141,12 +146,16 @@ export default defineComponent({
 
 			const data = await get(`pizzas/${state.pizza.pizzaUrl}`);
 
-			state.pizza.id = state.pizza.id;
-			state.pizza.name = data.name;
-			state.pizza.price = data.price;
-			state.pizza.imgUrl = data.imgUrl;
-			state.pizza.toppings = data.toppings ? data.toppings.map((name: string) => ({ name })) : [];
-			state.pizza.reviews = data.orderReviews;
+			if (data == null) {
+				state.error = true;
+			} else {
+				state.pizza.id = state.pizza.id;
+				state.pizza.name = data.name;
+				state.pizza.price = data.price;
+				state.pizza.imgUrl = data.imgUrl;
+				state.pizza.toppings = data.toppings ? data.toppings.map((name: string) => ({ name })) : [];
+				state.pizza.reviews = data.orderReviews;
+			}
 		};
 
 		getPizza();

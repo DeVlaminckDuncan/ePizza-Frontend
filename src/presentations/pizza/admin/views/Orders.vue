@@ -5,7 +5,8 @@
 		<div class="main">
 			<h1 class="font-semibold text-2xl">Today's orders</h1>
 
-			<DatePicker @click="changePeriod" class="mt-4 mb-8" />
+			<!-- TODO: DatePicker -->
+			<!-- <DatePicker @click="changePeriod" class="mt-4 mb-8" /> -->
 
 			<div v-if="state.orders.length">
 				<div v-for="order of state.orders" :key="order.id" class="flex flex-wrap items-center border border-dark border-opacity-5 rounded-lg shadow-md p-3">
@@ -43,6 +44,9 @@
 					</div>
 				</div>
 			</div>
+			<div v-else-if="state.error">
+				<p class="text-lg text-alpha-red">{{ $t('ERROR-LOADING-ORDERS') }}</p>
+			</div>
 			<div v-else-if="!dataLoaded" class="text-lg">
 				There are no orders yet.
 			</div>
@@ -59,18 +63,19 @@ import { defineComponent, reactive, ref } from 'vue';
 import { get } from '@/utils/api';
 import { makePricePrettier } from '@/utils/dataFormattings';
 import Order from '@/models/Order';
-import DatePicker from '../components/DatePicker.vue';
+// import DatePicker from '../components/DatePicker.vue';
 import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
 import LoadingIcon from '@/presentations/pizza/shared/components/LoadingIcon.vue';
 import navigationMenuItems from '@/assets/navigationMenuItems.json';
 
 type State = {
 	orders: Array<Order>;
+	error: Boolean;
 };
 
 export default defineComponent({
 	components: {
-		DatePicker,
+		// DatePicker,
 		NavigationBar,
 		LoadingIcon,
 	},
@@ -78,6 +83,7 @@ export default defineComponent({
 	setup() {
 		const state: State = reactive({
 			orders: [],
+			error: false,
 		});
 
 		const dataLoaded = ref(false);
@@ -85,8 +91,12 @@ export default defineComponent({
 		const getOrders = async () => {
 			const data = await get('orders');
 
-			state.orders = data;
-			dataLoaded.value = true;
+			if (data == null) {
+				state.error = true;
+			} else {
+				state.orders = data;
+				dataLoaded.value = true;
+			}
 		};
 
 		getOrders();
