@@ -16,20 +16,20 @@
 
 						<span class="price text-right font-semibold my-6">{{ makePricePrettier(sizeMultiplier(state.totalPrice, state.pizza.size)) }}</span>
 
-						<ButtonMedium @click="saveChanges" class="bg-alpha-red" :text="isNaN(state.pizza.pizzaUrl) ? $t('BUTTON-ADD-TO-CART') : $t('BUTTON-SAVE-CHANGES')" color="red" />
+						<Button @click="saveChanges" class="bg-alpha-red" :text="isNaN(state.pizza.pizzaUrl) ? $t('BUTTON-ADD-TO-CART') : $t('BUTTON-SAVE-CHANGES')" color="red" :classes="['w-24', 'h-8', 'text-lg', 'rounded-lg']" />
 					</div>
 				</div>
 
 				<div v-for="topping of state.pizza.toppings" :key="topping.name" class="flex flex-wrap justify-between items-center w-full text-lg mb-2">
 					<div class="flex">
-						<ButtonExtraSmall @click="decreaseTopping(topping)" text="-" color="red" />
+						<Button @click="decreaseTopping(topping)" text="-" color="red" :classes="['w-4', 'h-4', 'flex', 'justify-center', 'items-center', 'text-sm', 'rounded']" />
 					</div>
 
 					{{ topping.name }}
 
 					<div class="flex -mr-1">
-						<ButtonExtraSmall v-for="i of topping.amount" :key="i" @click="increaseTopping(topping)" class="bg-alpha-green mr-1" text="+" color="green" />
-						<ButtonExtraSmall v-for="i of 3 - (topping.amount ? topping.amount : 0)" :key="i" @click="increaseTopping(topping)" class="opacity-50 mr-1" text="+" color="green" />
+						<Button v-for="i of topping.amount" :key="i" @click="increaseTopping(topping)" class="bg-alpha-green mr-1" text="+" color="green" :classes="['w-4', 'h-4', 'flex', 'justify-center', 'items-center', 'text-sm', 'rounded']" />
+						<Button v-for="i of 3 - (topping.amount ? topping.amount : 0)" :key="i" @click="increaseTopping(topping)" class="opacity-50 mr-1" text="+" color="green" :classes="['w-4', 'h-4', 'flex', 'justify-center', 'items-center', 'text-sm', 'rounded']" />
 					</div>
 				</div>
 			</div>
@@ -70,8 +70,7 @@ import { getItemById, saveItem, editItem } from '@/utils/idb';
 import { makePricePrettier, sizeMultiplier } from '@/utils/dataFormattings';
 import Pizza from '@/models/Pizza';
 import Topping from '@/models/Topping';
-import ButtonMedium from '@/presentations/pizza/shared/components/ButtonMedium.vue';
-import ButtonExtraSmall from '../components/ButtonExtraSmall.vue';
+import Button from '@/presentations/pizza/shared/components/Button.vue';
 import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
 import LoadingIcon from '@/presentations/pizza/shared/components/LoadingIcon.vue';
 
@@ -85,8 +84,7 @@ type State = {
 
 export default defineComponent({
 	components: {
-		ButtonMedium,
-		ButtonExtraSmall,
+		Button,
 		NavigationBar,
 		LoadingIcon,
 	},

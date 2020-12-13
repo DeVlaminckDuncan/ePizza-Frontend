@@ -5,7 +5,6 @@
 		<div class="main">
 			<h1 class="font-semibold text-2xl">Log in to your account</h1>
 
-			<!-- <LoginForm :usernameValue="loginData.username" :passwordValue="loginData.password" @submit="submit" /> -->
 			<form class="w-full mt-8">
 				<InputField v-model="loginData.username" label="Username" />
 
@@ -13,7 +12,7 @@
 
 				<InputField v-model="loginData.cardNumber" label="Card Number" />
 
-				<ButtonWide @click="submit" text="Log in" color="red" />
+				<Button @click="submit" text="Log in" color="red" :classes="['w-full', 'px-12', 'py-2', 'text-lg', 'rounded-lg']" />
 			</form>
 		</div>
 	</main>
@@ -26,16 +25,15 @@ import route from '@/router';
 import { post } from '@/utils/api';
 import cookie from '@/utils/cookie';
 import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
-// import LoginForm from '@/presentations/pizza/shared/components/LoginForm.vue';
 import InputField from '@/presentations/pizza/shared/components/InputField.vue';
-import ButtonWide from '@/presentations/pizza/shared/components/ButtonWide.vue';
+import Button from '@/presentations/pizza/shared/components/Button.vue';
 
 export default defineComponent({
 	components: {
 		NavigationBar,
 		// LoginForm,
 		InputField,
-		ButtonWide,
+		Button,
 	},
 
 	setup() {

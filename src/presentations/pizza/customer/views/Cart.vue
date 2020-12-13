@@ -13,15 +13,15 @@
 					</div>
 
 					<div class="flex justify-end items-center w-1/2 pl-3">
-						<ButtonExtraSmall @click="decreaseAmount(pizza)" text="-" color="red" />
+						<Button @click="decreaseAmount(pizza)" text="-" color="red" :classes="['w-4', 'h-4', 'flex', 'justify-center', 'items-center', 'text-sm', 'rounded']" />
 						<span class="font-semibold px-2">{{ pizza.amount }}</span>
-						<ButtonExtraSmall @click="increaseAmount(pizza)" text="+" color="red" />
+						<Button @click="increaseAmount(pizza)" text="+" color="red" :classes="['w-4', 'h-4', 'flex', 'justify-center', 'items-center', 'text-sm', 'rounded']" />
 					</div>
 
 					<div class="flex items-center w-full pt-3">
 						<div class="flex w-3/4">
 							<router-link :to="`/edit/${pizza.idbId}`" class="flex justify-center items-center bg-alpha-yellow text-white font-semibold text-lg w-24 h-8 rounded-lg shadow-md">Edit</router-link>
-							<ButtonSmall @click="removePizza(pizza)" class="ml-3" text="Remove" color="orange" />
+							<Button @click="removePizza(pizza)" class="ml-3" text="Remove" color="orange" :classes="['w-24', 'h-8', 'text-lg', 'rounded-lg']" />
 						</div>
 
 						<div class="w-1/4 font-semibold text-xl flex justify-end">{{ makePricePrettier(sizeMultiplier(pizza.totalPrice ? pizza.totalPrice : pizza.price, pizza.size) * (pizza.amount ? pizza.amount : 1)) }}</div>
@@ -38,7 +38,7 @@
 				<span class="price">{{ makePricePrettier(state.total) }}</span>
 			</div>
 
-			<ButtonBig @click="checkout" text="Checkout" color="red" />
+			<Button @click="checkout" text="Checkout" color="red" :classes="['w-full', 'h-16', 'text-2xl', 'rounded-lg']" />
 		</div>
 	</main>
 </template>
@@ -52,9 +52,7 @@ import { getItems, editItem, deleteItem } from '@/utils/idb';
 import { makePricePrettier, sizeMultiplier } from '@/utils/dataFormattings';
 import Pizza from '@/models/Pizza';
 import Topping from '@/models/Topping';
-import ButtonBig from '../components/ButtonBig.vue';
-import ButtonSmall from '../components/ButtonSmall.vue';
-import ButtonExtraSmall from '../components/ButtonExtraSmall.vue';
+import Button from '@/presentations/pizza/shared/components/Button.vue';
 import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
 import { post } from '@/utils/api';
 
@@ -65,9 +63,7 @@ type State = {
 
 export default defineComponent({
 	components: {
-		ButtonBig,
-		ButtonSmall,
-		ButtonExtraSmall,
+		Button,
 		NavigationBar,
 	},
 

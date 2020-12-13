@@ -21,7 +21,7 @@
 					<LoadingIcon />
 				</div>
 
-				<ButtonWide v-if="!state.error" @click="continueToMenu" :text="$t('BUTTON-CONTINUE')" color="red" class="mt-4" />
+				<Button v-if="!state.error" @click="continueToMenu" :text="$t('BUTTON-CONTINUE')" color="red" class="mt-4" :classes="['w-full', 'px-12', 'py-2', 'text-lg', 'rounded-lg']" />
 			</form>
 		</div>
 	</main>
@@ -34,7 +34,7 @@ import store, { MutationTypes } from '@/store';
 
 import { get } from '@/utils/api';
 import Restaurant from '@/models/Restaurant';
-import ButtonWide from '@/presentations/pizza/shared/components/ButtonWide.vue';
+import Button from '@/presentations/pizza/shared/components/Button.vue';
 import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
 import LoadingIcon from '@/presentations/pizza/shared/components/LoadingIcon.vue';
 
@@ -46,7 +46,7 @@ type State = {
 
 export default defineComponent({
 	components: {
-		ButtonWide,
+		Button,
 		NavigationBar,
 		LoadingIcon,
 	},

@@ -29,7 +29,7 @@
 							]"
 						/>
 						<router-link :to="`/edit/${state.pizza.pizzaUrl}`" class="button-md flex justify-center items-center bg-alpha-yellow text-white font-semibold text-lg h-8 my-6 rounded-lg shadow-md">{{ $t('BUTTON-EDIT-TOPPINGS') }}</router-link>
-						<ButtonMedium @click="addToCart" :text="$t('BUTTON-ADD-TO-CART')" color="red" />
+						<Button @click="addToCart" :text="$t('BUTTON-ADD-TO-CART')" color="red" :classes="['w-24', 'h-8', 'text-lg', 'rounded-lg']" />
 					</div>
 
 					<div class="w-full flex justify-between pt-5">
@@ -105,7 +105,7 @@ import { getItemById, saveItem } from '@/utils/idb';
 import { makePricePrettier, sizeMultiplier } from '@/utils/dataFormattings';
 import Pizza from '@/models/Pizza';
 import DropdownList from '@/presentations/pizza/shared/components/DropdownList.vue';
-import ButtonMedium from '@/presentations/pizza/shared/components/ButtonMedium.vue';
+import Button from '@/presentations/pizza/shared/components/Button.vue';
 import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
 import LoadingIcon from '@/presentations/pizza/shared/components/LoadingIcon.vue';
 
@@ -117,7 +117,7 @@ type PizzaState = {
 export default defineComponent({
 	components: {
 		DropdownList,
-		ButtonMedium,
+		Button,
 		NavigationBar,
 		LoadingIcon,
 	},

@@ -12,7 +12,7 @@
 
 				<InputField v-model="loginData.cardNumber" label="Card Number" />
 
-				<ButtonWide @click="submit" text="Log in" color="red" />
+				<Button @click="submit" text="Log in" color="red" :classes="['w-full', 'px-12', 'py-2', 'text-lg', 'rounded-lg']" />
 			</form>
 		</div>
 	</main>
@@ -26,13 +26,13 @@ import { post } from '@/utils/api';
 import cookie from '@/utils/cookie';
 import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
 import InputField from '@/presentations/pizza/shared/components/InputField.vue';
-import ButtonWide from '@/presentations/pizza/shared/components/ButtonWide.vue';
+import Button from '@/presentations/pizza/shared/components/Button.vue';
 
 export default defineComponent({
 	components: {
 		NavigationBar,
 		InputField,
-		ButtonWide,
+		Button,
 	},
 
 	setup() {

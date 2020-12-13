@@ -13,7 +13,7 @@
 
 				<InputField v-model="location.city" :label="$t('INPUT-LABEL-CITY')" />
 
-				<ButtonWide @click="continueToMenu" :text="$t('BUTTON-CONTINUE')" color="red" />
+				<Button @click="continueToMenu" :text="$t('BUTTON-CONTINUE')" color="red" :classes="['w-full', 'px-12', 'py-2', 'text-lg', 'rounded-lg']" />
 			</form>
 		</div>
 	</main>
@@ -25,13 +25,13 @@ import route from '@/router';
 import store, { MutationTypes } from '@/store';
 
 import InputField from '@/presentations/pizza/shared/components/InputField.vue';
-import ButtonWide from '@/presentations/pizza/shared/components/ButtonWide.vue';
+import Button from '@/presentations/pizza/shared/components/Button.vue';
 import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
 
 export default defineComponent({
 	components: {
 		InputField,
-		ButtonWide,
+		Button,
 		NavigationBar,
 	},
 

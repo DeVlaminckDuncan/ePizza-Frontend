@@ -19,7 +19,7 @@
 
 			<InputField v-model="restaurant.phoneNumber" label="Phone number" type="tel" class="my-12" />
 
-			<ButtonWide @click="addRestaurant" text="Add restaurant" color="red" />
+			<Button @click="addRestaurant" text="Add restaurant" color="red" :classes="['w-full', 'px-12', 'py-2', 'text-lg', 'rounded-lg']" />
 		</div>
 	</main>
 </template>
@@ -32,13 +32,13 @@ import { post } from '@/utils/api';
 import cookie from '@/utils/cookie';
 import Restaurant from '@/models/Restaurant';
 import InputField from '@/presentations/pizza/shared/components/InputField.vue';
-import ButtonWide from '@/presentations/pizza/shared/components/ButtonWide.vue';
+import Button from '@/presentations/pizza/shared/components/Button.vue';
 import NavigationBar from '@/presentations/pizza/shared/components/NavigationBar.vue';
 
 export default defineComponent({
 	components: {
 		InputField,
-		ButtonWide,
+		Button,
 		NavigationBar,
 	},
 
