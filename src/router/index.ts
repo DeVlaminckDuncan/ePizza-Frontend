@@ -172,6 +172,8 @@ router.afterEach((to) => {
 	nextTick(() => {
 		if (to.name) {
 			// TODO: use translations of the page titles
+
+			// Set page title by using the component name eg 'OrderType' -> 'Order Type - ePizza'
 			document.title = `${capitalize(
 				to.name
 					.toString()
