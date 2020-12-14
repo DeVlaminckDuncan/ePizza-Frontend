@@ -7,11 +7,11 @@
 
 			<form class="w-full mt-8">
 				<div class="flex">
-					<InputField v-model="location.street" :label="$t('INPUT-LABEL-STREET')" class="w-3/4 mr-3" />
-					<InputField v-model="location.streetNo" :label="$t('INPUT-LABEL-HOUSE-NUMBER')" class="w-1/4" />
+					<InputField v-model="location.street" :label="$t('INPUT-LABEL-STREET')" name="street-address" class="w-3/4 mr-3" />
+					<InputField v-model="location.streetNo" :label="$t('INPUT-LABEL-HOUSE-NUMBER')" name="number-address" class="w-1/4" />
 				</div>
 
-				<InputField v-model="location.city" :label="$t('INPUT-LABEL-CITY')" />
+				<InputField v-model="location.city" :label="$t('INPUT-LABEL-CITY')" :id="$t('INPUT-LABEL-CITY')" name="city-address" />
 
 				<Button @click="continueToMenu" :text="$t('BUTTON-CONTINUE')" color="red" :classes="['w-full', 'px-12', 'py-2', 'text-lg', 'rounded-lg']" />
 			</form>
