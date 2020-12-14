@@ -1,0 +1,19 @@
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+@layer utilities {
+	.border-opacity-5 {
+		--border-opacity: 0.05;
+	}
+
+	.border-opacity-10 {
+		--border-opacity: 0.1;
+	}
+
+	.opacity-80 {
+		opacity: 0.8;
+	}
+}
