@@ -38,7 +38,8 @@
 				<span class="price">{{ makePricePrettier(state.total) }}</span>
 			</div>
 
-			<Button @click="checkout" text="Checkout" color="red" :classes="['w-full', 'h-16', 'text-2xl', 'rounded-lg']" />
+			<Button v-if="state.pizzas && state.pizzas.length" @click="checkout" text="Checkout" color="red" :classes="['w-full', 'h-16', 'text-2xl', 'rounded-lg']" />
+			<router-link to="/menu" v-else class="button-lg flex justify-center items-center text-white font-semibold text-lg bg-alpha-red px-12 py-2 rounded-lg shadow-md">Menu</router-link>
 		</div>
 	</main>
 </template>
