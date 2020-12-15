@@ -14,7 +14,7 @@
 
 			<div class="flex">
 				<InputField v-model="restaurant.city" label="City" class="w-3/4 mr-3" />
-				<InputField v-model="restaurant.zipCode" label="Zip code" class="w-1/4" />
+				<InputField v-model="restaurant.postalCode" label="Zip code" class="w-1/4" />
 			</div>
 
 			<InputField v-model="restaurant.phoneNumber" label="Phone number" type="tel" class="my-12" />
@@ -48,7 +48,7 @@ export default defineComponent({
 			streetName: '',
 			houseNumber: 0,
 			phoneNumber: '',
-			zipCode: 0,
+			postalCode: 0,
 			city: '',
 		};
 

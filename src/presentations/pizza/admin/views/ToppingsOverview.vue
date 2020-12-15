@@ -75,6 +75,7 @@ export default defineComponent({
 
 		const getToppings = async () => {
 			const data = await get('toppings');
+			console.log(data);
 
 			if (data == null) {
 				state.error = true;

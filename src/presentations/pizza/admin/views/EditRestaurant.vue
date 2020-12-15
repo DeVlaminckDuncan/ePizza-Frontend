@@ -9,16 +9,16 @@
 				<InputField v-model="state.restaurant.name" label="Restaurant name" :value="state.restaurant.name" class="my-12" />
 
 				<div class="flex">
-					<InputField v-model="state.restaurant.streetName" label="Street" :value="state.restaurant.streetName" class="w-3/4 mr-3" />
+					<InputField v-model="state.restaurant.street" label="Street" :value="state.restaurant.street" class="w-3/4 mr-3" />
 					<InputField v-model="state.restaurant.houseNumber" label="No" :value="state.restaurant.houseNumber.toString()" class="w-1/4" />
 				</div>
 
 				<div class="flex">
-					<InputField v-model="state.restaurant.city" label="City" :value="state.restaurant.city" class="w-3/4 mr-3" />
-					<InputField v-model="state.restaurant.zipCode" label="Zip code" :value="state.restaurant.zipCode.toString()" class="w-1/4" />
+					<InputField v-model="state.restaurant['main_city_name']" label="City" :value="state.restaurant['main_city_name']" class="w-3/4 mr-3" />
+					<InputField v-model="state.restaurant.postalCode" label="Zip code" :value="state.restaurant.postalCode.toString()" class="w-1/4" />
 				</div>
 
-				<InputField v-model="state.restaurant.phoneNumber" label="Phone number" type="tel" :value="state.restaurant.phoneNumber" class="my-12" />
+				<InputField v-model="state.restaurant.phone" label="Phone number" type="tel" :value="state.restaurant.phone" class="my-12" />
 
 				<Button @click="saveChanges" text="Save changes" color="red" :classes="['w-full', 'px-12', 'py-2', 'text-lg', 'rounded-lg']" />
 			</div>
@@ -71,7 +71,9 @@ export default defineComponent({
 		});
 
 		const getRestaurant = async () => {
-			const data = await get(`restaurants/${state.restaurant.id}`);
+			const token = cookie.get('token');
+
+			const data = await get(`restaurants/${state.restaurant.id}`, token);
 
 			if (data == null) {
 				state.error = true;
@@ -85,7 +87,7 @@ export default defineComponent({
 		const saveChanges = async () => {
 			const token = cookie.get('token');
 
-			await put('restaurants', state.restaurant.id, state.restaurant, token);
+			await put('restaurants', state.restaurant.restaurantId, state.restaurant, token);
 
 			route.push('/admin/restaurants');
 		};

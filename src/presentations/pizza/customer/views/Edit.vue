@@ -16,7 +16,7 @@
 
 						<span class="price text-right font-semibold my-6">{{ makePricePrettier(sizeMultiplier(state.totalPrice, state.pizza.size)) }}</span>
 
-						<Button @click="saveChanges" class="bg-alpha-red" :text="isNaN(state.pizza.pizzaUrl) ? $t('BUTTON-ADD-TO-CART') : $t('BUTTON-SAVE-CHANGES')" color="red" :classes="['w-24', 'h-8', 'text-lg', 'rounded-lg']" />
+						<Button @click="saveChanges" class="bg-alpha-red" :text="isNaN(state.pizza.pizzaUrl) ? $t('BUTTON-ADD-TO-CART') : $t('BUTTON-SAVE-CHANGES')" color="red" :classes="['button-md', 'h-8', 'text-lg', 'rounded-lg']" />
 					</div>
 				</div>
 

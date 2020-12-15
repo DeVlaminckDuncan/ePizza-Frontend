@@ -48,7 +48,7 @@
 							]"
 						/>
 						<router-link :to="`/edit/${pizza.pizzaUrl}`" class="button-md flex justify-center items-center bg-alpha-yellow text-white font-semibold text-lg h-8 my-6 rounded-lg shadow-md">{{ $t('BUTTON-EDIT-TOPPINGS') }}</router-link>
-						<Button @click="addToCart(pizza)" :text="$t('BUTTON-ADD-TO-CART')" color="red" :classes="['w-24', 'h-8', 'text-lg', 'rounded-lg']" />
+						<Button @click="addToCart(pizza)" :text="$t('BUTTON-ADD-TO-CART')" color="red" :classes="['button-md', 'h-8', 'text-lg', 'rounded-lg']" />
 					</div>
 
 					<div class="w-full flex justify-between pt-5">

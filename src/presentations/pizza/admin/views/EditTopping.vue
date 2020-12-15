@@ -58,6 +58,8 @@ export default defineComponent({
 		});
 
 		const getTopping = async () => {
+			const token = cookie.get('token');
+
 			const data = await get(`toppings/${state.topping.id}`);
 
 			if (data == null) {

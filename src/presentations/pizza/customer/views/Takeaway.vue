@@ -10,8 +10,8 @@
 					<div v-for="restaurant of state.restaurants" :key="restaurant.id" class="mb-4">
 						<input @click="state.selectedRestaurant = restaurant" :id="restaurant.id" :value="restaurant.name" type="radio" name="restaurant" class="mr-2" />
 						<label :for="restaurant.id" class="text-lg">{{ restaurant.name }}</label>
-						<p>{{ `${restaurant.streetName} ${restaurant.houseNumber}, ${restaurant.city}` }}</p>
-						<a :href="`tel:${restaurant.phoneNumber.toString().replaceAll(' ', '')}`">{{ restaurant.phoneNumber }}</a>
+						<p>{{ `${restaurant.street} ${restaurant.houseNumber}, ${restaurant['main_city_name']}` }}</p>
+						<a :href="`tel:${restaurant.phone.toString().replaceAll(' ', '')}`">{{ restaurant.phoneNumber }}</a>
 					</div>
 				</div>
 				<div v-else-if="state.error" class="mb-4">
@@ -60,7 +60,7 @@ export default defineComponent({
 				streetName: '',
 				houseNumber: 0,
 				phoneNumber: '',
-				zipCode: 0,
+				postalCode: 0,
 				city: '',
 			},
 			error: false,

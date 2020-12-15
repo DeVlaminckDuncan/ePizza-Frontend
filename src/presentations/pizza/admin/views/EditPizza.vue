@@ -48,7 +48,7 @@
 
 							<div class="w-5/6 flex flex-col justify-between">
 								<InputField v-model="topping.name" label="Topping name" :value="topping.name ? topping.name : ''" />
-								<InputField v-model="topping.price" label="Price in €" :value="(topping.price ? topping.price : 0).toString()" type="number" :step="0.01" :marginBottom="false" />
+								<!-- <InputField v-model="topping.price" label="Price in €" :value="(topping.price ? topping.price : 0).toString()" type="number" :step="0.01" :marginBottom="false" /> -->
 							</div>
 						</div>
 
@@ -161,15 +161,15 @@ export default defineComponent({
 			const pizzaData: Pizza = JSON.parse(JSON.stringify(state.pizza));
 			pizzaData.price = +pizzaData.price;
 
-			pizzaData.toppings.forEach((t) => {
-				if (t.price) {
-					t.price = +t.price;
-				}
-			});
+			// pizzaData.toppings.forEach((t) => {
+			// 	if (t.price) {
+			// 		t.price = +t.price;
+			// 	}
+			// });
 
 			const data = {
 				name: pizzaData.name,
-				price: pizzaData.price,
+				price: pizzaData.price.toString(),
 				imgUrl: pizzaData.imgUrl,
 				toppings: pizzaData.toppings,
 			};
