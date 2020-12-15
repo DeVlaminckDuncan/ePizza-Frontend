@@ -16,7 +16,7 @@ export default defineComponent({
 			} else {
 				const path = ref(route.currentRoute.value.path).value as string;
 
-				route.replace(path != '/admin/' ? path : '/admin/menu');
+				route.replace(path != '/admin' ? path : '/admin/menu');
 			}
 		};
 

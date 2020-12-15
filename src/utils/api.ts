@@ -3,7 +3,7 @@ const BACKEND_URL_AZURE: string = process.env.VUE_APP_BACKEND_URL_AZURE;
 
 export const get = (endpoint: string, token?: string): any => {
 	try {
-		return fetch(`${BACKEND_URL_AZURE}${endpoint}`, {
+		return fetch(`${BACKEND_URL_LOCAL}${endpoint}`, {
 			headers: {
 				Authorization: token ? `Bearer ${token}` : '',
 			},
@@ -20,7 +20,7 @@ export const get = (endpoint: string, token?: string): any => {
 
 export const post = (endpoint: string, payload: object, token?: string): any => {
 	try {
-		return fetch(`${BACKEND_URL_AZURE}${endpoint}`, {
+		return fetch(`${BACKEND_URL_LOCAL}${endpoint}`, {
 			method: 'POST',
 			body: JSON.stringify(payload),
 			headers: {
@@ -35,7 +35,7 @@ export const post = (endpoint: string, payload: object, token?: string): any => 
 
 export const put = (endpoint: string, id: string, payload: object, token?: string): any => {
 	try {
-		return fetch(`${BACKEND_URL_AZURE}${endpoint}/${id}`, {
+		return fetch(`${BACKEND_URL_LOCAL}${endpoint}/${id}`, {
 			method: 'PUT',
 			body: JSON.stringify(payload),
 			headers: {
@@ -50,7 +50,7 @@ export const put = (endpoint: string, id: string, payload: object, token?: strin
 
 export const deleteById = (endpoint: string, id: string, token?: string): any => {
 	try {
-		return fetch(`${BACKEND_URL_AZURE}${endpoint}/${id}`, {
+		return fetch(`${BACKEND_URL_LOCAL}${endpoint}/${id}`, {
 			method: 'DELETE',
 			headers: {
 				Authorization: token ? `Bearer ${token}` : '',

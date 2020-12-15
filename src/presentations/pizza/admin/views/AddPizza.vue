@@ -25,11 +25,11 @@
 				</div>
 			</div> -->
 
-			<InputField v-model="pizza.imageUrl" label="URL to image" class="my-12" />
+			<InputField v-model="pizza.imageUrl" :value="pizza.imageUrl" label="URL to image" class="my-12" />
 
-			<InputField v-model="pizza.name" label="Pizza name" />
+			<InputField v-model="pizza.name" :value="pizza.name" label="Pizza name" />
 
-			<InputField v-model="pizza.price" label="Price in €" type="number" :step="0.01" />
+			<InputField v-model="pizza.price" :value="pizza.price" label="Price in €" type="number" :step="0.01" />
 
 			<div class="flex justify-between items-center mt-12 mb-8">
 				<span class="text-2xl font-semibold">Toppings</span>
@@ -52,8 +52,8 @@
 							</div>
 
 							<div class="w-5/6 flex flex-col justify-between">
-								<InputField v-model="topping.name" label="Topping name" />
-								<InputField v-model="topping.price" label="Price in €" type="number" :step="0.01" :marginBottom="false" />
+								<InputField v-model="topping.name" :value="topping.name" label="Topping name" />
+								<InputField v-model="topping.price" :value="topping.price" label="Price in €" type="number" :step="0.01" :marginBottom="false" />
 							</div>
 						</div>
 
@@ -116,11 +116,11 @@ export default defineComponent({
 
 		const imageUploaded = ref(false);
 
-		const pizza = {
+		const pizza = reactive({
 			name: '',
 			price: 0,
 			imageUrl: '',
-		};
+		});
 
 		const state: State = reactive({
 			toppings: [],

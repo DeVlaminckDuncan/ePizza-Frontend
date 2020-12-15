@@ -74,6 +74,7 @@
 <script lang="ts">
 import { defineComponent, reactive, ref } from 'vue';
 
+import cookie from '@/utils/cookie';
 import { get } from '@/utils/api';
 import Review from '@/models/Review';
 // import DatePicker from '../components/DatePicker.vue';
@@ -102,7 +103,9 @@ export default defineComponent({
 		const dataLoaded = ref(false);
 
 		const getReviews = async () => {
-			const data = await get('reviews');
+			const token = cookie.get('token');
+
+			const data = await get('pizzareviews', token);
 
 			if (data == null) {
 				state.error = true;
